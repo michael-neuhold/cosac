@@ -1,0 +1,30 @@
+#btn-2 {
+    -fx-background-color: blue;
+    -fx-padding: 20px;
+    -fx-alignment: center;
+    -fx-text-fill: white;
+}
+
+#login {
+    -fx-background-color: antiquewhite;
+    -fx-alignment: center;
+}
+
+#loginPane {
+    -fx-alignment: center;
+}
+
+#loginBtn {
+    -fx-padding: 10px;
+}
+
+/*==================*/
+
+#adminPage {
+    -fx-background-color: antiquewhite;
+    -fx-alignment: center;
+}
+
+#loginPane {
+    -fx-alignment: center;
+}
