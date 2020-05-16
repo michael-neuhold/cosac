@@ -1,3 +1,13 @@
+/*==================*/
+
+.header {
+    -fx-background-color: lightgray;
+    -fx-font-size: 20px;
+    -fx-padding: 10px;
+    -fx-alignment: center;
+}
+
+/*==================*/
 #btn-2 {
     -fx-background-color: blue;
     -fx-padding: 20px;
@@ -6,8 +16,8 @@
 }
 
 #login {
-    -fx-background-color: antiquewhite;
     -fx-alignment: center;
+    -fx-background-color: white;
 }
 
 #loginPane {
@@ -20,11 +30,110 @@
 
 /*==================*/
 
-#adminPage {
-    -fx-background-color: antiquewhite;
+/* Login */
+
+#loginPage {
+    -fx-background-color: white;
+}
+
+.inputWrapper {
+    -fx-padding: 10px;
+}
+
+.inputFieldLabel {
+    -fx-font-size: 20px;
+}
+
+.inputField {
+    -fx-border-color: black;
+    -fx-spacing: 10px;
+    -fx-padding: 10px;
+    -fx-min-width: 300px;
+}
+
+.inputField:focused {
+    -fx-focus-color: #31C3BB;
+}
+
+#loginHeaderWrapper {
+    -fx-padding: 10px;
     -fx-alignment: center;
 }
 
-#loginPane {
+#loginHeader {
+    -fx-font-size: 40px;
+}
+
+#loginButtonWrapper {
     -fx-alignment: center;
+    -fx-padding: 10px;
+}
+
+#loginButton {
+    -fx-background-color: lightseagreen;
+    -fx-text-fill: white;
+    -fx-padding: 10px 30px 10px 30px;
+    -fx-font-size: 20px;
+}
+
+#loginButton:hover {
+    -fx-background-color: #31C3BB;
+}
+
+/*==================*/
+
+/* AdminOverview */
+
+.adminButtonWrapper {
+    -fx-alignment: center;
+}
+
+.adminMenuButton {
+    -fx-background-color: lightseagreen;
+    -fx-text-fill: white;
+    -fx-padding: 10px 30px 10px 30px;
+    -fx-font-size: 20px;
+    -fx-min-width: 200px;
+}
+
+.adminMenuButton:hover {
+    -fx-background-color: #31C3BB;
+}
+
+/*==================*/
+
+/* UserSettings */
+
+#userList {
+    -fx-background-color: red;
+    -fx-min-width: 100%;
+}
+
+#UserListHeaderWrapper {
+    -fx-font-size: 40px;
+    -fx-padding: 10px;
+}
+
+#userTable {
+    -fx-tab-min-width: 50px;
+}
+
+.userMenuButton {
+    -fx-background-color: lightseagreen;
+    -fx-text-fill: white;
+    -fx-padding: 10px 30px 10px 30px;
+    -fx-font-size: 20px;
+    -fx-min-width: 200px;
+}
+
+.userMenuButton:hover {
+    -fx-background-color: #31C3BB;
+}
+
+#right {
+    -fx-padding: 20px;
+}
+
+#createUserBottom {
+    -fx-padding: 20px;
 }
