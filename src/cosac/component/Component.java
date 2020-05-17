@@ -23,4 +23,13 @@ public class Component {
         return headerWrapper;
     }
 
+    public static HBox createPopUpControls(Button cancle, Button submit) {
+        HBox buttons = new HBox(20);
+        buttons.getStyleClass().add("popupControls");
+        cancle.getStyleClass().add("popupButton");
+        submit.getStyleClass().add("popupButton");
+        buttons.getChildren().addAll(cancle, submit);
+        return buttons;
+    }
+
 }

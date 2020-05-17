@@ -1,6 +1,6 @@
-package cosac.views;
+package cosac.views.login;
 
-import cosac.controller.LoginController;
+import cosac.controller.login.LoginController;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,7 +18,7 @@ public class LoginView extends BorderPane {
     private final PasswordField passwordField = createPasswordField();
 
     public LoginView(LoginController controller) {
-        this.setId("loginPage");
+        this.getStyleClass().add("window");
         HBox inputForm = new HBox();
         inputForm.setAlignment(Pos.CENTER);
         inputForm.getChildren().add(createInputPanel());

@@ -1,30 +1,30 @@
-package cosac.controller;
+package cosac.controller.admin;
 
-import cosac.views.AMenuView;
+import cosac.views.admin.ARestrictionView;
 import cosac.SceneController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
 
-public class AMenuController implements EventHandler<ActionEvent> {
+public class ARestrictionController implements EventHandler<ActionEvent> {
 
     private Stage primaryStage = null;
-    private AMenuView adminMenuView = new AMenuView(this);
+    private ARestrictionView adminRestictionView = new ARestrictionView(this);
     private SceneController sceneController = null;
 
-    public AMenuController(Stage primaryStage) {
+    public ARestrictionController(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.sceneController = new SceneController(primaryStage);
     }
 
-    public AMenuView getView() {
-        return adminMenuView;
+    public ARestrictionView getView() {
+        return adminRestictionView;
     }
 
     @Override
     public void handle(ActionEvent actionEvent) {
         Object source = actionEvent.getSource();
-        if(source.equals(adminMenuView.getBackButton())) sceneController.mountPreviousScene();
+        if(source.equals(adminRestictionView.getBackButton())) sceneController.mountPreviousScene();
     }
 
 }

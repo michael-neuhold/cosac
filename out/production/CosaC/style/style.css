@@ -22,15 +22,11 @@
     -fx-padding: 10px;
 }
 
-
+.window {
+    -fx-background-color: white;
+}
 
 /*==================*/
-#btn-2 {
-    -fx-background-color: blue;
-    -fx-padding: 20px;
-    -fx-alignment: center;
-    -fx-text-fill: white;
-}
 
 #login {
     -fx-alignment: center;
@@ -48,10 +44,6 @@
 /*==================*/
 
 /* Login */
-
-#loginPage {
-    -fx-background-color: white;
-}
 
 .inputWrapper {
     -fx-padding: 10px;
@@ -153,4 +145,21 @@
 
 #createUserBottom {
     -fx-padding: 20px;
+}
+
+.popupControls {
+    -fx-padding: 20px;
+    -fx-alignment: center;
+}
+
+.popupButton {
+    -fx-background-color: lightseagreen;
+    -fx-text-fill: white;
+    -fx-padding: 10px 30px 10px 30px;
+    -fx-font-size: 20px;
+    -fx-min-width: 200px;
+}
+
+.popupButton:hover {
+    -fx-background-color: #31C3BB;
 }

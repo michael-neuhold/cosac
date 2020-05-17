@@ -1,7 +1,7 @@
-package cosac.views;
+package cosac.views.admin;
 
 import cosac.component.Component;
-import cosac.controller.ARestrictionController;
+import cosac.controller.admin.ARestrictionController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
@@ -18,6 +18,7 @@ public class ARestrictionView extends BorderPane {
     );
 
     public ARestrictionView(ARestrictionController controller) {
+        this.getStyleClass().add("window");
         this.setTop(Component.createHeader("restrictions"));
         this.setCenter(new ListView(items));
         this.setBottom(Component.createBackButton(backButton));

@@ -1,6 +1,6 @@
-package cosac.views;
+package cosac.views.admin;
 
-import cosac.controller.AdminController;
+import cosac.controller.admin.AdminController;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
@@ -10,6 +10,7 @@ public class AdminView extends BorderPane {
     private Button menuButton, userButton, restrictionButton, orderButton;
 
     public AdminView(AdminController controller) {
+        this.getStyleClass().add("window");
         initButtons(controller);
         this.setTop(createHeaderTitle());
         this.setCenter(createButtonWrapper());

@@ -1,6 +1,6 @@
-package cosac.controller;
+package cosac.controller.admin;
 
-import cosac.views.AdminView;
+import cosac.views.admin.AdminView;
 import cosac.SceneController;
 import cosac.SceneType;
 import javafx.event.ActionEvent;

@@ -1,15 +1,15 @@
-package cosac.views;
+package cosac.views.admin;
 
 import cosac.component.Component;
-import cosac.controller.AMenuController;
+import cosac.controller.admin.AOrderController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
 
 
-public class AMenuView extends BorderPane {
+public class AOrderView extends BorderPane {
 
     private Button backButton = new Button("back");
 
@@ -17,8 +17,9 @@ public class AMenuView extends BorderPane {
             "order 1", "order 2", "order 3", "order 4"
     );
 
-    public AMenuView(AMenuController controller) {
-        this.setTop(Component.createHeader("menu"));
+    public AOrderView(AOrderController controller) {
+        this.getStyleClass().add("window");
+        this.setTop(Component.createHeader("orders"));
         this.setCenter(new ListView(items));
         this.setBottom(Component.createBackButton(backButton));
         backButton.setOnAction(controller);

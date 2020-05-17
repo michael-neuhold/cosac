@@ -1,6 +1,6 @@
-package cosac.controller;
+package cosac.controller.login;
 
-import cosac.views.LoginView;
+import cosac.views.login.LoginView;
 import cosac.SceneController;
 import cosac.SceneType;
 import javafx.event.ActionEvent;

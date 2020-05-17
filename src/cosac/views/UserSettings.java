@@ -1,5 +1,6 @@
 package cosac.views;
 
+import cosac.component.Component;
 import cosac.model.UserData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,15 +16,15 @@ import javafx.scene.text.Text;
 public class UserSettings extends BorderPane {
 
     private ObservableList<UserData> data = FXCollections.observableArrayList(
-        new UserData("Michael", "Neuhold", "michi.neuhold@gmail.com", 21),
-        new UserData("Julian", "Jany", "julian.jany@gmail.com", 21),
-        new UserData("Maxi", "Ranger", "maxi.ranger@gmail.com", 24),
-        new UserData("Claudia", "Wimmeder", "claudia.wimmeder@gmail.com", 20),
-        new UserData("Pia", "Schaenzle", "pia.schaenzle@gmail.com", 20)
+        new UserData("s1","Michael", "Neuhold", "michi.neuhold@gmail.com", 21),
+        new UserData("s2","Julian", "Jany", "julian.jany@gmail.com", 21),
+        new UserData("s3","Maxi", "Ranger", "maxi.ranger@gmail.com", 24),
+        new UserData("s4","Claudia", "Wimmeder", "claudia.wimmeder@gmail.com", 20),
+        new UserData("s5","Pia", "Schaenzle", "pia.schaenzle@gmail.com", 20)
     );
 
     public UserSettings() {
-        this.setTop(createHeader());
+       // this.setTop(Component.createHeader();
         this.setCenter(createTableView());
         this.setRight(createUserControls());
         this.getRight().setId("right");
@@ -40,11 +41,13 @@ public class UserSettings extends BorderPane {
 
         TableView<UserData> table = new TableView<>();
         table.setId("userTable");
+        TableColumn studentIDCol = new TableColumn("ID");
         TableColumn firstnameCol = new TableColumn("Vorname");
         TableColumn lastnameCol = new TableColumn("Nachname");
         TableColumn emailCol = new TableColumn("Email");
         TableColumn ageCol = new TableColumn("Alter");
 
+        studentIDCol.setCellValueFactory(new PropertyValueFactory<UserData, String>("studentID"));
         firstnameCol.setCellValueFactory(new PropertyValueFactory<UserData, String>("firstname"));
         lastnameCol.setCellValueFactory(new PropertyValueFactory<UserData, String>("lastname"));
         emailCol.setCellValueFactory(new PropertyValueFactory<UserData, String>("email"));
