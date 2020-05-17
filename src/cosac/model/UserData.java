@@ -1,4 +1,4 @@
-package cosac.data;
+package cosac.model;
 
 public class UserData {
 

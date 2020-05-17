@@ -7,6 +7,23 @@
     -fx-alignment: center;
 }
 
+.backButton {
+    -fx-background-color: lightseagreen;
+    -fx-text-fill: white;
+    -fx-padding: 10px 30px 10px 30px;
+    -fx-font-size: 20px;
+}
+
+.backButton:hover {
+    -fx-background-color: #31C3BB;
+}
+
+.backButtonWrapper {
+    -fx-padding: 10px;
+}
+
+
+
 /*==================*/
 #btn-2 {
     -fx-background-color: blue;

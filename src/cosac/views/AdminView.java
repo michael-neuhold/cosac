@@ -1,5 +1,6 @@
 package cosac.views;
 
+import cosac.controller.AdminController;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;

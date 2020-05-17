@@ -1,18 +1,21 @@
-package cosac.views;
+package cosac.controller;
 
+import cosac.views.LoginView;
+import cosac.SceneController;
+import cosac.SceneType;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class LoginController implements EventHandler<ActionEvent> {
 
     private Stage primaryStage = null;
     private LoginView loginView = new LoginView(this);
+    private SceneController sceneController = null;
 
     public LoginController(Stage primaryStage) {
         this.primaryStage = primaryStage;
+        this.sceneController = new SceneController(primaryStage);
     }
 
     public LoginView getView() {
@@ -29,12 +32,7 @@ public class LoginController implements EventHandler<ActionEvent> {
             System.out.println("username: " + username);
             System.out.println("password: " + password);
 
-            if(username.equals("admin")) {
-                Scene scene = new Scene(new AdminController(primaryStage).getView(), 800,800);
-                scene.getStylesheets().add(getClass().getResource("../style/test.css").toExternalForm());
-                primaryStage.setScene(scene);
-                primaryStage.show();
-            }
+            if(username.equals("admin")) sceneController.mountNewScene(SceneType.ADMIN_VIEW);
         }
     }
 
