@@ -3,14 +3,14 @@ package cosac.views.admin;
 import cosac.component.Component;
 import cosac.controller.admin.AUserController;
 import cosac.model.UserData;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.util.converter.BooleanStringConverter;
 
 
 public class AUserView extends BorderPane {
@@ -18,6 +18,12 @@ public class AUserView extends BorderPane {
     private Button backButton = new Button("back");
     private Button addUserButton = new Button("add");
     private Button lockUserButton = new Button("lock");
+
+    private TableColumn studentIDCol = new TableColumn("ID");
+    private TableColumn firstnameCol = new TableColumn("Vorname");
+    private TableColumn lastnameCol = new TableColumn("Nachname");
+    private TableColumn emailCol = new TableColumn("Email");
+    private TableColumn lockCol = new TableColumn("Locked");
 
     private TableView<UserData> userTable = new TableView<>();
 
@@ -28,9 +34,7 @@ public class AUserView extends BorderPane {
         this.setRight(createUserControls());
         this.getRight().setId("right");
         this.setBottom(Component.createBackButton(backButton));
-        backButton.setOnAction(controller);
-        addUserButton.setOnAction(controller);
-        lockUserButton.setOnAction(controller);
+        this.setEventForwarding(controller);
     }
 
     private VBox createUserControls() {
@@ -42,24 +46,38 @@ public class AUserView extends BorderPane {
     }
 
     private TableView createTableView() {
-
         userTable.setId("userTable");
         userTable.setEditable(true);
-        TableColumn studentIDCol = new TableColumn("ID");
-        TableColumn firstnameCol = new TableColumn("Vorname");
-        TableColumn lastnameCol = new TableColumn("Nachname");
-        TableColumn emailCol = new TableColumn("Email");
-        TableColumn ageCol = new TableColumn("Alter");
 
         studentIDCol.setCellValueFactory(new PropertyValueFactory<UserData, String>("studentID"));
         firstnameCol.setCellValueFactory(new PropertyValueFactory<UserData, String>("firstname"));
         lastnameCol.setCellValueFactory(new PropertyValueFactory<UserData, String>("lastname"));
         emailCol.setCellValueFactory(new PropertyValueFactory<UserData, String>("email"));
-        ageCol.setCellValueFactory(new PropertyValueFactory<UserData, String>("lock"));
+        lockCol.setCellValueFactory(new PropertyValueFactory<UserData, String>("lock"));
 
-        userTable.getColumns().addAll(studentIDCol, firstnameCol, lastnameCol, emailCol, ageCol);
+        setColumnsEditable();
+        userTable.getColumns().addAll(studentIDCol, firstnameCol, lastnameCol, emailCol, lockCol);
 
         return userTable;
+    }
+
+    private void setColumnsEditable() {
+        studentIDCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        firstnameCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        lastnameCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        emailCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        lockCol.setCellFactory(TextFieldTableCell.forTableColumn(new BooleanStringConverter()));
+    }
+
+    private void setEventForwarding(AUserController controller) {
+        backButton.setOnAction(controller);
+        addUserButton.setOnAction(controller);
+        lockUserButton.setOnAction(controller);
+        studentIDCol.setOnEditCommit(controller);
+        firstnameCol.setOnEditCommit(controller);
+        lastnameCol.setOnEditCommit(controller);
+        emailCol.setOnEditCommit(controller);
+        lockCol.setOnEditCommit(controller);
     }
 
     public Button getBackButton() { return backButton; };

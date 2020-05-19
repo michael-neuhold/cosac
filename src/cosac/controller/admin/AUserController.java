@@ -1,19 +1,19 @@
 package cosac.controller.admin;
 
-import cosac.SceneType;
+import cosac.model.DataContainer;
 import cosac.model.UserData;
 import cosac.views.admin.AUserView;
 import cosac.SceneController;
 import cosac.views.admin.popup.AddUserView;
 import cosac.views.admin.popup.LockUserView;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.control.TableColumn;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class AUserController implements EventHandler<ActionEvent> {
+public class AUserController implements EventHandler {
 
     private Stage popupStage = null;
 
@@ -23,18 +23,9 @@ public class AUserController implements EventHandler<ActionEvent> {
     private AddUserView popupViewAddUser = null;
     private LockUserView popupLockUser = null;
 
-    // data
-    private ObservableList<UserData> data = FXCollections.observableArrayList(
-            new UserData("s1","Michael", "Neuhold", "michi.neuhold@gmail.com", false),
-            new UserData("s2","Julian", "Jany", "julian.jany@gmail.com", false),
-            new UserData("s3","Maxi", "Ranger", "maxi.ranger@gmail.com", false),
-            new UserData("s4","Claudia", "Wimmeder", "claudia.wimmeder@gmail.com", false),
-            new UserData("s5","Pia", "Schaenzle", "pia.schaenzle@gmail.com", false)
-    );
-
     public AUserController(Stage primaryStage) {
         this.sceneController = new SceneController(primaryStage);
-        this.adminUserView.getUserTable().setItems(data);
+        this.adminUserView.getUserTable().setItems(DataContainer.userDataSets);
     }
 
     public AUserView getView() {
@@ -50,58 +41,82 @@ public class AUserController implements EventHandler<ActionEvent> {
     }
 
     @Override
-    public void handle(ActionEvent actionEvent) {
-        Object source = actionEvent.getSource();
-        if(source.equals(adminUserView.getBackButton())) sceneController.mountPreviousScene();
-        else if(source.equals(adminUserView.getAddUserButton())) {
-            System.out.println("add user");
-            //sceneController.openPopUp(SceneType.ADMIN_ADD_USER_VIEW);
+    public void handle(Event event) {
+
+        if(event instanceof TableColumn.CellEditEvent)
+            handleEditUserEvents(event);
+        else if(event instanceof ActionEvent)
+            handleButtonEvents(event);
+
+    }
+
+    private void handleButtonEvents(Event event) {
+        Object source = event.getSource();
+
+        if (source.equals(adminUserView.getBackButton())) sceneController.mountPreviousScene();
+        else if (source.equals(adminUserView.getAddUserButton())) {
             popupViewAddUser = new AddUserView(this);
             showPopUp(popupViewAddUser);
-        }
-        else if(source.equals(adminUserView.getLockUserButton())) {
-            System.out.println("lock user");
-            //sceneController.openPopUp(SceneType.ADMIN_LOCK_USER_VIEW);
+        } else if (source.equals(adminUserView.getLockUserButton())) {
             popupLockUser = new LockUserView(this);
             showPopUp(popupLockUser);
         }
 
-        if(popupViewAddUser != null) handleAddUserPopup(source);
+        if (popupViewAddUser != null) handleAddUserPopup(source);
 
-        if(popupLockUser != null) handleLockUserPopup(source);
+        if (popupLockUser != null) handleLockUserPopup(source);
+    }
+
+    private void handleEditUserEvents(Event event) {
+        TableColumn.CellEditEvent source = ((TableColumn.CellEditEvent) event);
+        int posCol = source.getTablePosition().getColumn();
+
+        // get edited row from table
+        UserData dataRow = (
+                (UserData)
+                        source.getTableView().getItems().get(
+                                source.getTablePosition().getRow())
+        );
+
+        // update edited cell
+        switch(posCol) {
+            case 0: dataRow.setStudentID((String)source.getNewValue()); break;
+            case 1: dataRow.setFirstname((String)source.getNewValue()); break;
+            case 2: dataRow.setLastname((String) source.getNewValue()); break;
+            case 3: dataRow.setEmail((String) source.getNewValue()); break;
+            case 4: dataRow.setLock((Boolean) source.getNewValue()); break;
+        }
     }
 
     private void handleLockUserPopup(Object source) {
         if (source.equals(popupLockUser.getLockButton())) {
 
             String id = popupLockUser.getStudentIdToLock().getText();
-            for(UserData user : data) {
-                if(user.getStudentID().equals(id)) {
-                    user.setLock(true);
-                }
+            UserData user = DataContainer.getUserSetById(id);
+            if(user != null) {
+                user.setLock(true);
+                adminUserView.getUserTable().refresh();
             }
-            adminUserView.getUserTable().refresh();
+
             closePopup();
-        }
-        if (source.equals(popupLockUser.getCancelButton())) {
+        } else if (source.equals(popupLockUser.getCancelButton())) {
             closePopup();
         }
     }
 
     private void handleAddUserPopup(Object source) {
         if (source.equals(popupViewAddUser.getAddButton())) {
-            data.add(
-                    new UserData(
-                            popupViewAddUser.getStudentsIdField().getText(),
-                            popupViewAddUser.getFirstnameField().getText(),
-                            popupViewAddUser.getLastnameField().getText(),
-                            popupViewAddUser.getEmailField().getText(),
-                            true
-                    )
+            DataContainer.userDataSets.add(
+                new UserData(
+                    popupViewAddUser.getStudentsIdField().getText(),
+                    popupViewAddUser.getFirstnameField().getText(),
+                    popupViewAddUser.getLastnameField().getText(),
+                    popupViewAddUser.getEmailField().getText(),
+                    false
+                )
             );
             closePopup();
-        }
-        if (source.equals(popupViewAddUser.getCancelButton())) {
+        } else if (source.equals(popupViewAddUser.getCancelButton())) {
             closePopup();
         }
     }

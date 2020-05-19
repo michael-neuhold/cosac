@@ -36,11 +36,12 @@ public class RestrictionData {
         this.visitorLimit = visitorLimit;
     }
 
+    @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("start time:" + startTime + ", ");
-        sb.append("end time: " + endTime + ", ");
-        sb.append("visitor limit: " + visitorLimit);
-        return sb.toString();
+        return "RestrictionData{" +
+                "startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", visitorLimit=" + visitorLimit +
+                '}';
     }
 }

@@ -59,4 +59,14 @@ public class UserData {
             System.out.println("no valid studentID");
     }
 
+    @Override
+    public String toString() {
+        return "UserData{" +
+                "studentID='" + studentID + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", email='" + email + '\'' +
+                ", locked=" + locked +
+                '}';
+    }
 }

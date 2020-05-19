@@ -136,6 +136,11 @@
     -fx-tab-min-width: 50px;
 }
 
+#restrictionTable {
+    -fx-tab-min-width: 50px;
+}
+
+
 .userMenuButton {
     -fx-background-color: lightseagreen;
     -fx-text-fill: white;
