@@ -8,6 +8,7 @@ public enum SceneType {
     ADMIN_MENU_VIEW,
     ADMIN_ADD_USER_VIEW,
     ADMIN_LOCK_USER_VIEW,
+    ADMIN_ADD_RESTRICTION_VIEW,
     LOGIN,
 
 }

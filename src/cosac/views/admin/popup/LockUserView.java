@@ -1,7 +1,8 @@
 package cosac.views.admin.popup;
 
 import cosac.component.Component;
-import cosac.controller.admin.popup.LockUserController;
+import cosac.controller.admin.AUserController;
+//import cosac.controller.admin.popup.LockUserController;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,7 +18,7 @@ public class LockUserView extends BorderPane {
 
     private TextField studentIdToLock = new TextField();
 
-    public LockUserView(LockUserController controller) {
+    public LockUserView(AUserController controller) {
         this.getStyleClass().add("window");
         this.setTop(Component.createHeader("lock user"));
         this.setCenter(createInput());

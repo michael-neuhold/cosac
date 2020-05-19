@@ -6,14 +6,14 @@ public class UserData {
     private String firstname;
     private String lastname;
     private String email;
-    private int age;
+    private boolean locked;
 
-    public UserData(String studentID, String firstname, String lastname, String email, int age) {
+    public UserData(String studentID, String firstname, String lastname, String email, boolean locked) {
         this.studentID = studentID;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
-        this.age = age;
+        this.locked = locked;
     }
 
     public String getFirstname() {
@@ -40,12 +40,12 @@ public class UserData {
         this.email = email;
     }
 
-    public int getAge() {
-        return age;
+    public boolean getLock() {
+        return locked;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setLock(boolean locked) {
+        this.locked = locked;
     }
 
     public String getStudentID() {

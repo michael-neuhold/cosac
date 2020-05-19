@@ -1,11 +1,14 @@
 package cosac;
 
 import cosac.controller.admin.*;
-import cosac.controller.admin.popup.AddUserController;
-import cosac.controller.admin.popup.LockUserController;
+//import cosac.controller.admin.popup.AddRestrictionController;
+//import cosac.controller.admin.popup.AddRestrictionController;
+//import cosac.controller.admin.popup.AddUserController;
+//import cosac.controller.admin.popup.LockUserController;
 import cosac.controller.login.LoginController;
 import cosac.views.admin.popup.LockUserView;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -47,13 +50,22 @@ public class SceneController {
             case ADMIN_RESTRICTION_VIEW: pane = new ARestrictionController(stage).getView(); break;
             case ADMIN_MENU_VIEW: pane = new AMenuController(stage).getView(); break;
             case LOGIN: pane = new LoginController(stage).getView(); break;
-            case ADMIN_ADD_USER_VIEW: pane = new AddUserController(stage).getView(); break;
-            case ADMIN_LOCK_USER_VIEW: pane = new LockUserController(stage).getView(); break;
+            //case ADMIN_ADD_USER_VIEW: pane = new AddUserController(stage).getView(); break;
+            //case ADMIN_LOCK_USER_VIEW: pane = new LockUserController(stage).getView(); break;
         }
 
         Scene scene = new Scene(pane, width,height);
         scene.getStylesheets().add(getClass().getResource("../style/style.css").toExternalForm());
         return scene;
+    }
+
+    public Stage showPopUpStage(Pane pane) {
+        Stage stage = new Stage();
+        Scene scene = new Scene(pane, 600,600);
+        scene.getStylesheets().add(getClass().getResource("../style/style.css").toExternalForm());
+        stage.setScene(scene);
+        stage.show();
+        return stage;
     }
 
 }

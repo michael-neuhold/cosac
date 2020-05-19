@@ -19,13 +19,7 @@ public class AUserView extends BorderPane {
     private Button addUserButton = new Button("add");
     private Button lockUserButton = new Button("lock");
 
-    private ObservableList<UserData> data = FXCollections.observableArrayList(
-            new UserData("s1","Michael", "Neuhold", "michi.neuhold@gmail.com", 21),
-            new UserData("s2","Julian", "Jany", "julian.jany@gmail.com", 21),
-            new UserData("s3","Maxi", "Ranger", "maxi.ranger@gmail.com", 24),
-            new UserData("s4","Claudia", "Wimmeder", "claudia.wimmeder@gmail.com", 20),
-            new UserData("s5","Pia", "Schaenzle", "pia.schaenzle@gmail.com", 20)
-    );
+    private TableView<UserData> userTable = new TableView<>();
 
     public AUserView(AUserController controller) {
         this.getStyleClass().add("window");
@@ -48,9 +42,9 @@ public class AUserView extends BorderPane {
     }
 
     private TableView createTableView() {
-        TableView<UserData> table = new TableView<>();
-        table.setId("userTable");
-        table.setEditable(true);
+
+        userTable.setId("userTable");
+        userTable.setEditable(true);
         TableColumn studentIDCol = new TableColumn("ID");
         TableColumn firstnameCol = new TableColumn("Vorname");
         TableColumn lastnameCol = new TableColumn("Nachname");
@@ -61,16 +55,17 @@ public class AUserView extends BorderPane {
         firstnameCol.setCellValueFactory(new PropertyValueFactory<UserData, String>("firstname"));
         lastnameCol.setCellValueFactory(new PropertyValueFactory<UserData, String>("lastname"));
         emailCol.setCellValueFactory(new PropertyValueFactory<UserData, String>("email"));
-        ageCol.setCellValueFactory(new PropertyValueFactory<UserData, String>("age"));
+        ageCol.setCellValueFactory(new PropertyValueFactory<UserData, String>("lock"));
 
-        table.getColumns().addAll(studentIDCol, firstnameCol, lastnameCol, emailCol, ageCol);
-        table.setItems(data);
+        userTable.getColumns().addAll(studentIDCol, firstnameCol, lastnameCol, emailCol, ageCol);
 
-        return table;
+        return userTable;
     }
 
     public Button getBackButton() { return backButton; };
     public Button getAddUserButton() { return addUserButton; };
     public Button getLockUserButton() { return lockUserButton; };
+
+    public TableView getUserTable() { return userTable; }
 
 }

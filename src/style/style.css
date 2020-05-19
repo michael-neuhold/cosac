@@ -1,10 +1,11 @@
 /*==================*/
 
 .header {
-    -fx-background-color: lightgray;
+    -fx-background-color: lightseagreen;
     -fx-font-size: 20px;
     -fx-padding: 10px;
     -fx-alignment: center;
+    -fx-text-fill: white;
 }
 
 .backButton {
@@ -25,6 +26,14 @@
 .window {
     -fx-background-color: white;
 }
+
+.button {
+    -fx-background-color: lightseagreen;
+    -fx-text-fill: white;
+    -fx-padding: 10px 30px 10px 30px;
+    -fx-font-size: 20px;
+}
+
 
 /*==================*/
 
@@ -162,4 +171,23 @@
 
 .popupButton:hover {
     -fx-background-color: #31C3BB;
+}
+
+.timeslot {
+    -fx-font-size: 20px;
+}
+
+.ordertable {
+    -fx-padding: 10px;
+}
+
+#orderTableWrapper {
+    -fx-padding: 10px;
+}
+
+/* add restriction */
+
+#addRestrictionButtonWrapper {
+    -fx-alignment: center;
+    -fx-padding: 20px;
 }

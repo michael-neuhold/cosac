@@ -1,7 +1,8 @@
 package cosac.views.admin.popup;
 
 import cosac.component.Component;
-import cosac.controller.admin.AUserController;
+import cosac.controller.admin.ARestrictionController;
+//import cosac.controller.admin.popup.AddRestrictionController;
 //import cosac.controller.admin.popup.AddUserController;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -11,19 +12,18 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class AddUserView extends BorderPane {
+public class AddRestrictionView extends BorderPane {
 
     private Button addButton = new Button("add");
     private Button cancelButton = new Button("cancel");
 
-    private TextField studentsIdField = new TextField();
-    private TextField firstnameField = new TextField();
-    private TextField lastnameField = new TextField();
-    private TextField emailField = new TextField();
+    private TextField startTimeField = new TextField();
+    private TextField endTimeField = new TextField();
+    private TextField visitorLimitField = new TextField();
 
-    public AddUserView(AUserController controller) {
+    public AddRestrictionView(ARestrictionController controller) {
         this.getStyleClass().add("window");
-        this.setTop(Component.createHeader("add user"));
+        this.setTop(Component.createHeader("add restriction"));
         this.setCenter(createInputFiles());
         this.setBottom(Component.createPopUpControls(cancelButton,addButton));
         cancelButton.setOnAction(controller);
@@ -34,10 +34,9 @@ public class AddUserView extends BorderPane {
         VBox inputFieldWrapper = new VBox();
         inputFieldWrapper.setAlignment(Pos.CENTER);
         inputFieldWrapper.getChildren().addAll(
-                createInputPair("id", studentsIdField),
-                createInputPair("firstname", firstnameField),
-                createInputPair("lastname", lastnameField),
-                createInputPair("email", emailField)
+                createInputPair("start time", startTimeField),
+                createInputPair("end time", endTimeField),
+                createInputPair("visitor limit", visitorLimitField)
         );
         return inputFieldWrapper;
     }
@@ -57,8 +56,7 @@ public class AddUserView extends BorderPane {
     public Button getAddButton() { return addButton; }
     public Button getCancelButton() { return cancelButton; }
 
-    public TextField getStudentsIdField() { return studentsIdField; }
-    public TextField getFirstnameField() { return firstnameField; }
-    public TextField getLastnameField() { return lastnameField; }
-    public TextField getEmailField() { return emailField; }
+    public TextField getStartTimeField() { return startTimeField; }
+    public TextField getEndTimeField() { return endTimeField; }
+    public TextField getVisitorLimitField() { return visitorLimitField; }
 }

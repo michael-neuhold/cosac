@@ -16,11 +16,11 @@ import javafx.scene.text.Text;
 public class UserSettings extends BorderPane {
 
     private ObservableList<UserData> data = FXCollections.observableArrayList(
-        new UserData("s1","Michael", "Neuhold", "michi.neuhold@gmail.com", 21),
-        new UserData("s2","Julian", "Jany", "julian.jany@gmail.com", 21),
-        new UserData("s3","Maxi", "Ranger", "maxi.ranger@gmail.com", 24),
-        new UserData("s4","Claudia", "Wimmeder", "claudia.wimmeder@gmail.com", 20),
-        new UserData("s5","Pia", "Schaenzle", "pia.schaenzle@gmail.com", 20)
+        new UserData("s1","Michael", "Neuhold", "michi.neuhold@gmail.com", true),
+        new UserData("s2","Julian", "Jany", "julian.jany@gmail.com", true),
+        new UserData("s3","Maxi", "Ranger", "maxi.ranger@gmail.com", true),
+        new UserData("s4","Claudia", "Wimmeder", "claudia.wimmeder@gmail.com", true),
+        new UserData("s5","Pia", "Schaenzle", "pia.schaenzle@gmail.com", true)
     );
 
     public UserSettings() {

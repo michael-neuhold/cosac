@@ -3,6 +3,7 @@ package cosac.component;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 public class Component {
@@ -19,7 +20,9 @@ public class Component {
     public static HBox createHeader(String title) {
         HBox headerWrapper = new HBox();
         headerWrapper.getStyleClass().add("header");
-        headerWrapper.getChildren().add(new Text(title));
+        Text headerText = new Text(title);
+        headerText.setFill(Color.WHITE);
+        headerWrapper.getChildren().add(headerText);
         return headerWrapper;
     }
 
