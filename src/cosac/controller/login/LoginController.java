@@ -9,12 +9,10 @@ import javafx.stage.Stage;
 
 public class LoginController implements EventHandler<ActionEvent> {
 
-    private Stage primaryStage = null;
     private LoginView loginView = new LoginView(this);
     private SceneController sceneController = null;
 
     public LoginController(Stage primaryStage) {
-        this.primaryStage = primaryStage;
         this.sceneController = new SceneController(primaryStage);
     }
 
@@ -29,10 +27,10 @@ public class LoginController implements EventHandler<ActionEvent> {
         if(source.equals(loginView.getLoginButton())) {
             String username = loginView.getUsernameField().getText();
             String password = loginView.getPasswordField().getText();
-            System.out.println("username: " + username);
-            System.out.println("password: " + password);
+            System.out.println("username: " + username + ", password: " + password);
 
             if(username.equals("admin")) sceneController.mountNewScene(SceneType.ADMIN_VIEW);
+            else System.out.println("you can only login with username: admin password: ...");
         }
     }
 

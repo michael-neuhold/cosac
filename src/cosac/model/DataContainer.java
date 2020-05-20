@@ -64,6 +64,8 @@ public class DataContainer {
     /* ==  RESTRICTIONS  == */
 
     static public void addRestriction(String startTime, String endTime, int limit) {
+        if(!startTime.matches("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$")) return;
+        if(!endTime.matches("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$")) return;
         RestrictionData newRestriction = new RestrictionData(startTime,endTime,limit);
         if(!restrictionDataSets.contains(newRestriction)) {
             restrictionDataSets.add(newRestriction);

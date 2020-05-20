@@ -62,6 +62,8 @@ public class LoginView extends BorderPane {
         inputWrapper.getChildren().add(createHeader());
         inputWrapper.getChildren().addAll(Component.createLabeledInput("username", usernameField));
         inputWrapper.getChildren().addAll(Component.createLabeledInput("password", passwordField));
+        usernameField.setPromptText("username 'admin'");
+        passwordField.setPromptText("password '[A-z,1-9]*'");
         inputWrapper.getChildren().add(getButtonPanel());
         return inputWrapper;
     }
