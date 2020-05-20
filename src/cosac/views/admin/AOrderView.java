@@ -2,44 +2,44 @@ package cosac.views.admin;
 
 import cosac.component.Component;
 import cosac.controller.admin.AOrderController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+import java.util.ArrayList;
+
 
 public class AOrderView extends BorderPane {
 
     private Button backButton = new Button("back");
 
-    ObservableList items = FXCollections.observableArrayList (
-            "order 1", "order 2", "order 3", "order 4"
-    );
+    private ArrayList<ListView> listViews = new ArrayList<>();
 
-    public AOrderView(AOrderController controller) {
+    public AOrderView(AOrderController controller, int timeSlots) {
         this.getStyleClass().add("window");
         this.setTop(Component.createHeader("orders"));
-        this.setCenter(createOrderTables());
+        this.setCenter(createOrderTables(timeSlots));
         this.setBottom(Component.createBackButton(backButton));
         backButton.setOnAction(controller);
     }
 
-    private VBox createOrderTables() {
+    private VBox createOrderTables(int timeSlots) {
         VBox tableWrapper = new VBox(10);
         tableWrapper.setId("orderTableWrapper");
-        for(int i = 0; i < 4; i++) {
-            Text subheader = new Text("Zeitslot " + (i + 1));
-            subheader.getStyleClass().add("timeslot");
-            ListView list = new ListView(items);
+        for(int i = 0; i < timeSlots; i++) {
+            ListView list = new ListView();
             list.getStyleClass().add("ordertable");
-            tableWrapper.getChildren().addAll(subheader, list);
+            listViews.add(list);
+            Text listHeader = new Text("time slot");
+            listHeader.getStyleClass().add("timeslot");
+            tableWrapper.getChildren().addAll(listHeader, list);
         }
         return tableWrapper;
     }
 
     public Button getBackButton() { return backButton; }
+    public ArrayList<ListView> getListViews() { return listViews; }
 
 }

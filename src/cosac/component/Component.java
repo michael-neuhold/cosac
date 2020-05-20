@@ -2,7 +2,10 @@ package cosac.component;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
@@ -33,6 +36,25 @@ public class Component {
         submit.getStyleClass().add("popupButton");
         buttons.getChildren().addAll(cancle, submit);
         return buttons;
+    }
+
+    public static HBox createLabeledInput(String labelName, TextField field) {
+        HBox outerWrapper = new HBox();
+        outerWrapper.setAlignment(Pos.CENTER);
+        VBox wrapper = new VBox();
+        wrapper.setAlignment(Pos.CENTER);
+        Label label = new Label(labelName);
+        label.getStyleClass().add("inputFieldLabel");
+        field.getStyleClass().add("inputField");
+        wrapper.getChildren().addAll(label,field);
+        outerWrapper.getChildren().add(wrapper);
+        return outerWrapper;
+    }
+
+    public static Label createSubHeader(String text) {
+        Label label = new Label(text);
+        label.getStyleClass().add("subHeader");
+        return label;
     }
 
 }

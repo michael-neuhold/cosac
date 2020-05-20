@@ -1,17 +1,13 @@
 package cosac.controller.admin;
 
-import cosac.SceneType;
 import cosac.model.DataContainer;
 import cosac.model.RestrictionData;
 import cosac.views.admin.ARestrictionView;
 import cosac.SceneController;
 import cosac.views.admin.popup.AddRestrictionView;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.stage.Stage;
 
@@ -27,7 +23,7 @@ public class ARestrictionController implements EventHandler {
 
     public ARestrictionController(Stage primaryStage) {
         this.sceneController = new SceneController(primaryStage);
-        adminRestictionView.getRestrictionTable().setItems(DataContainer.restrictionDataSets);
+        adminRestictionView.getRestrictionTable().setItems(DataContainer.getRestrictionDataSets());
     }
 
     public ARestrictionView getView() {
@@ -45,37 +41,26 @@ public class ARestrictionController implements EventHandler {
     @Override
     public void handle(Event event) {
 
-        if(event instanceof TableColumn.CellEditEvent) handleEditRestriction(event);
-        else {
-            Object source = event.getSource();
-            if (source.equals(adminRestictionView.getBackButton()))
-                sceneController.mountPreviousScene();
-            if (source.equals(adminRestictionView.getAddRestrictionButton())) {
-                popupView = new AddRestrictionView(this);
-                showPopUp();
-            }
+        if(event instanceof TableColumn.CellEditEvent)
+            handleEditRestrictionEvents(event);
+        else if(event instanceof ActionEvent)
+            handleButtonEvent(event);
 
-            if (popupView != null) handleAddRestrictionPopup(source);
-        }
     }
 
-    private void handleAddRestrictionPopup(Object source) {
-        if(source.equals(popupView.getAddButton())) {
-            closePopup();
-            String startTime = popupView.getStartTimeField().getText();
-            String endTime = popupView.getEndTimeField().getText();
-            String visitorLimit = popupView.getVisitorLimitField().getText();
-
-            DataContainer.restrictionDataSets.add(
-                new RestrictionData(startTime, endTime, Integer.parseInt(visitorLimit))
-            );
+    private void handleButtonEvent(Event event) {
+        Object source = event.getSource();
+        if (source.equals(adminRestictionView.getBackButton()))
+            sceneController.mountPreviousScene();
+        if (source.equals(adminRestictionView.getAddRestrictionButton())) {
+            popupView = new AddRestrictionView(this);
+            showPopUp();
         }
 
-        if(source.equals(popupView.getCancelButton()))
-            closePopup();
+        if (popupView != null) handleAddRestrictionPopup(source);
     }
 
-    private void handleEditRestriction(Object event) {
+    private void handleEditRestrictionEvents(Object event) {
         TableColumn.CellEditEvent source = ((TableColumn.CellEditEvent) event);
         int posCol = source.getTablePosition().getColumn();
 
@@ -89,6 +74,20 @@ public class ARestrictionController implements EventHandler {
             case 1: dataRow.setEndTime((String)source.getNewValue()); break;
             case 2: dataRow.setVisitorLimit((Integer)source.getNewValue()); break;
         }
+    }
+
+    private void handleAddRestrictionPopup(Object source) {
+        if(source.equals(popupView.getAddButton())) {
+            closePopup();
+            String startTime = popupView.getStartTimeField().getText();
+            String endTime = popupView.getEndTimeField().getText();
+            String visitorLimit = popupView.getVisitorLimitField().getText();
+
+            DataContainer.addRestriction(startTime, endTime, Integer.parseInt(visitorLimit));
+        }
+
+        if(source.equals(popupView.getCancelButton()))
+            closePopup();
     }
 
 }

@@ -1,5 +1,7 @@
 package cosac.model;
 
+import java.util.Objects;
+
 public class RestrictionData {
 
     private String startTime;
@@ -44,4 +46,15 @@ public class RestrictionData {
                 ", visitorLimit=" + visitorLimit +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RestrictionData that = (RestrictionData) o;
+        return visitorLimit == that.visitorLimit &&
+                Objects.equals(startTime, that.startTime) &&
+                Objects.equals(endTime, that.endTime);
+    }
+
 }

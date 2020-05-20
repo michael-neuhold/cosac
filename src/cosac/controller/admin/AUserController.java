@@ -1,6 +1,7 @@
 package cosac.controller.admin;
 
 import cosac.model.DataContainer;
+import cosac.model.Role;
 import cosac.model.UserData;
 import cosac.views.admin.AUserView;
 import cosac.SceneController;
@@ -25,7 +26,7 @@ public class AUserController implements EventHandler {
 
     public AUserController(Stage primaryStage) {
         this.sceneController = new SceneController(primaryStage);
-        this.adminUserView.getUserTable().setItems(DataContainer.userDataSets);
+        this.adminUserView.getUserTable().setItems(DataContainer.getUserDataSets());
     }
 
     public AUserView getView() {
@@ -84,7 +85,7 @@ public class AUserController implements EventHandler {
             case 1: dataRow.setFirstname((String)source.getNewValue()); break;
             case 2: dataRow.setLastname((String) source.getNewValue()); break;
             case 3: dataRow.setEmail((String) source.getNewValue()); break;
-            case 4: dataRow.setLock((Boolean) source.getNewValue()); break;
+            case 4: dataRow.setLocked((Boolean) source.getNewValue()); break;
         }
     }
 
@@ -94,7 +95,7 @@ public class AUserController implements EventHandler {
             String id = popupLockUser.getStudentIdToLock().getText();
             UserData user = DataContainer.getUserSetById(id);
             if(user != null) {
-                user.setLock(true);
+                user.setLocked(true);
                 adminUserView.getUserTable().refresh();
             }
 
@@ -106,15 +107,14 @@ public class AUserController implements EventHandler {
 
     private void handleAddUserPopup(Object source) {
         if (source.equals(popupViewAddUser.getAddButton())) {
-            DataContainer.userDataSets.add(
-                new UserData(
-                    popupViewAddUser.getStudentsIdField().getText(),
-                    popupViewAddUser.getFirstnameField().getText(),
-                    popupViewAddUser.getLastnameField().getText(),
-                    popupViewAddUser.getEmailField().getText(),
-                    false
-                )
+            DataContainer.addUser(
+                popupViewAddUser.getStudentsIdField().getText(),
+                popupViewAddUser.getFirstnameField().getText(),
+                popupViewAddUser.getLastnameField().getText(),
+                popupViewAddUser.getEmailField().getText(),
+                Role.STUDENT
             );
+
             closePopup();
         } else if (source.equals(popupViewAddUser.getCancelButton())) {
             closePopup();

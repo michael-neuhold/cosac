@@ -26,32 +26,24 @@ public class AddUserView extends BorderPane {
         this.setTop(Component.createHeader("add user"));
         this.setCenter(createInputFiles());
         this.setBottom(Component.createPopUpControls(cancelButton,addButton));
-        cancelButton.setOnAction(controller);
-        addButton.setOnAction(controller);
+        setEventForwarding(controller);
     }
 
     private VBox createInputFiles() {
         VBox inputFieldWrapper = new VBox();
         inputFieldWrapper.setAlignment(Pos.CENTER);
         inputFieldWrapper.getChildren().addAll(
-                createInputPair("id", studentsIdField),
-                createInputPair("firstname", firstnameField),
-                createInputPair("lastname", lastnameField),
-                createInputPair("email", emailField)
+            Component.createLabeledInput("id", studentsIdField),
+            Component.createLabeledInput("firstname", firstnameField),
+            Component.createLabeledInput("lastname", lastnameField),
+            Component.createLabeledInput("email", emailField)
         );
         return inputFieldWrapper;
     }
 
-    private HBox createInputPair(String labelName, TextField field) {
-        HBox outerWrapper = new HBox();
-        outerWrapper.setAlignment(Pos.CENTER);
-        VBox wrapper = new VBox();
-        Label label = new Label(labelName);
-        label.getStyleClass().add("inputFieldLabel");
-        field.getStyleClass().add("inputField");
-        wrapper.getChildren().addAll(label,field);
-        outerWrapper.getChildren().add(wrapper);
-        return outerWrapper;
+    private void setEventForwarding(AUserController controller) {
+        cancelButton.setOnAction(controller);
+        addButton.setOnAction(controller);
     }
 
     public Button getAddButton() { return addButton; }

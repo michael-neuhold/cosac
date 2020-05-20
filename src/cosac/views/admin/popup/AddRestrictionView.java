@@ -27,6 +27,10 @@ public class AddRestrictionView extends BorderPane {
         this.setTop(Component.createHeader("add restriction"));
         this.setCenter(createInputFiles());
         this.setBottom(Component.createPopUpControls(cancelButton,addButton));
+        setEventForwarding(controller);
+    }
+
+    private void setEventForwarding(ARestrictionController controller) {
         cancelButton.setOnAction(controller);
         addButton.setOnAction(controller);
     }
@@ -35,9 +39,9 @@ public class AddRestrictionView extends BorderPane {
         VBox inputFieldWrapper = new VBox();
         inputFieldWrapper.setAlignment(Pos.CENTER);
         inputFieldWrapper.getChildren().addAll(
-                createInputPair("start time", startTimeField),
-                createInputPair("end time", endTimeField),
-                createInputPair("visitor limit", visitorLimitField)
+            createInputPair("start time", startTimeField),
+            createInputPair("end time", endTimeField),
+            createInputPair("visitor limit", visitorLimitField)
         );
         return inputFieldWrapper;
     }

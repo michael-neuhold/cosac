@@ -2,7 +2,6 @@ package cosac.views.admin.popup;
 
 import cosac.component.Component;
 import cosac.controller.admin.AUserController;
-//import cosac.controller.admin.popup.LockUserController;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,21 +22,18 @@ public class LockUserView extends BorderPane {
         this.setTop(Component.createHeader("lock user"));
         this.setCenter(createInput());
         this.setBottom(Component.createPopUpControls(cancelButton, lockButton));
+        setEventForwarding(controller);
+    }
+
+    private void setEventForwarding(AUserController controller) {
         lockButton.setOnAction(controller);
         cancelButton.setOnAction(controller);
     }
 
     private HBox createInput() {
-        HBox innerWrapper = new HBox(10);
-        innerWrapper.setAlignment(Pos.CENTER);
-        VBox wrapper = new VBox(10);
-        wrapper.setAlignment(Pos.CENTER);
-        Label inputLabel = new Label("Student ID");
-        inputLabel.getStyleClass().add("inputFieldLabel");
+        HBox wrapper = Component.createLabeledInput("Student ID", studentIdToLock);
         studentIdToLock.getStyleClass().add("inputField");
-        wrapper.getChildren().addAll(inputLabel,studentIdToLock);
-        innerWrapper.getChildren().add(wrapper);
-        return innerWrapper;
+        return wrapper;
     }
 
     public Button getLockButton() { return lockButton; }

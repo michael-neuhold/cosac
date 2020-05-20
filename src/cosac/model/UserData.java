@@ -1,18 +1,22 @@
 package cosac.model;
 
+import java.util.Objects;
+
 public class UserData {
 
     private String studentID;
     private String firstname;
     private String lastname;
     private String email;
+    private Role role;
     private boolean locked;
 
-    public UserData(String studentID, String firstname, String lastname, String email, boolean locked) {
+    public UserData(String studentID, String firstname, String lastname, String email, Role role, boolean locked) {
         this.studentID = studentID;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
+        this.role = role;
         this.locked = locked;
     }
 
@@ -40,14 +44,6 @@ public class UserData {
         this.email = email;
     }
 
-    public boolean getLock() {
-        return locked;
-    }
-
-    public void setLock(boolean locked) {
-        this.locked = locked;
-    }
-
     public String getStudentID() {
         return studentID;
     }
@@ -59,6 +55,22 @@ public class UserData {
             System.out.println("no valid studentID");
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
     @Override
     public String toString() {
         return "UserData{" +
@@ -66,7 +78,17 @@ public class UserData {
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", email='" + email + '\'' +
+                ", role=" + role +
                 ", locked=" + locked +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserData userData = (UserData) o;
+        return Objects.equals(studentID, userData.studentID);
+    }
+
 }

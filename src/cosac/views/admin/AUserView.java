@@ -37,14 +37,6 @@ public class AUserView extends BorderPane {
         this.setEventForwarding(controller);
     }
 
-    private VBox createUserControls() {
-        VBox buttonWrapper = new VBox(10);
-        addUserButton.getStyleClass().add("userMenuButton");
-        lockUserButton.getStyleClass().add("userMenuButton");
-        buttonWrapper.getChildren().addAll(addUserButton,lockUserButton);
-        return buttonWrapper;
-    }
-
     private TableView createTableView() {
         userTable.setId("userTable");
         userTable.setEditable(true);
@@ -53,7 +45,7 @@ public class AUserView extends BorderPane {
         firstnameCol.setCellValueFactory(new PropertyValueFactory<UserData, String>("firstname"));
         lastnameCol.setCellValueFactory(new PropertyValueFactory<UserData, String>("lastname"));
         emailCol.setCellValueFactory(new PropertyValueFactory<UserData, String>("email"));
-        lockCol.setCellValueFactory(new PropertyValueFactory<UserData, String>("lock"));
+        lockCol.setCellValueFactory(new PropertyValueFactory<UserData, String>("locked"));
 
         setColumnsEditable();
         userTable.getColumns().addAll(studentIDCol, firstnameCol, lastnameCol, emailCol, lockCol);
@@ -69,10 +61,23 @@ public class AUserView extends BorderPane {
         lockCol.setCellFactory(TextFieldTableCell.forTableColumn(new BooleanStringConverter()));
     }
 
+    private VBox createUserControls() {
+        VBox buttonWrapper = new VBox(10);
+        setStyleClassForButtons();
+        buttonWrapper.getChildren().addAll(addUserButton,lockUserButton);
+        return buttonWrapper;
+    }
+
+    private void setStyleClassForButtons() {
+        addUserButton.getStyleClass().add("userMenuButton");
+        lockUserButton.getStyleClass().add("userMenuButton");
+    }
+
     private void setEventForwarding(AUserController controller) {
         backButton.setOnAction(controller);
         addUserButton.setOnAction(controller);
         lockUserButton.setOnAction(controller);
+
         studentIDCol.setOnEditCommit(controller);
         firstnameCol.setOnEditCommit(controller);
         lastnameCol.setOnEditCommit(controller);
