@@ -2,15 +2,9 @@ package cosac.views.admin.popup;
 
 import cosac.component.Component;
 import cosac.controller.admin.ARestrictionController;
-//import cosac.controller.admin.popup.AddRestrictionController;
-//import cosac.controller.admin.popup.AddUserController;
-import cosac.model.RestrictionData;
-import cosac.model.UserData;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class AddRestrictionView extends BorderPane {
@@ -39,23 +33,11 @@ public class AddRestrictionView extends BorderPane {
         VBox inputFieldWrapper = new VBox();
         inputFieldWrapper.setAlignment(Pos.CENTER);
         inputFieldWrapper.getChildren().addAll(
-            createInputPair("start time", startTimeField),
-            createInputPair("end time", endTimeField),
-            createInputPair("visitor limit", visitorLimitField)
+            Component.createLabeledInput("start time", startTimeField),
+            Component.createLabeledInput("end time", endTimeField),
+            Component.createLabeledInput("visitor limit", visitorLimitField)
         );
         return inputFieldWrapper;
-    }
-
-    private HBox createInputPair(String labelName, TextField field) {
-        HBox outerWrapper = new HBox();
-        outerWrapper.setAlignment(Pos.CENTER);
-        VBox wrapper = new VBox();
-        Label label = new Label(labelName);
-        label.getStyleClass().add("inputFieldLabel");
-        field.getStyleClass().add("inputField");
-        wrapper.getChildren().addAll(label,field);
-        outerWrapper.getChildren().add(wrapper);
-        return outerWrapper;
     }
 
     public Button getAddButton() { return addButton; }

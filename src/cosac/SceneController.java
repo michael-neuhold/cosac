@@ -1,14 +1,8 @@
 package cosac;
 
 import cosac.controller.admin.*;
-//import cosac.controller.admin.popup.AddRestrictionController;
-//import cosac.controller.admin.popup.AddRestrictionController;
-//import cosac.controller.admin.popup.AddUserController;
-//import cosac.controller.admin.popup.LockUserController;
 import cosac.controller.login.LoginController;
-import cosac.views.admin.popup.LockUserView;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -24,6 +18,7 @@ public class SceneController {
     public void mountNewScene(SceneType type) {
         previousScene = primaryStage.getScene();
         primaryStage.setScene(getScene(type, primaryStage, 800,800));
+        primaryStage.setTitle("CosaC");
         primaryStage.show();
     }
 
@@ -32,12 +27,6 @@ public class SceneController {
         primaryStage.setScene(previousScene);
         primaryStage.show();
         previousScene = tmp;
-    }
-
-    public void openPopUp(SceneType type) {
-        Stage popupStage = new Stage();
-        popupStage.setScene(getScene(type, popupStage, 600, 600));
-        popupStage.show();
     }
 
     private Scene getScene(SceneType type, Stage stage,  int width, int height) {
@@ -50,8 +39,6 @@ public class SceneController {
             case ADMIN_RESTRICTION_VIEW: pane = new ARestrictionController(stage).getView(); break;
             case ADMIN_MENU_VIEW: pane = new AMenuController(stage).getView(); break;
             case LOGIN: pane = new LoginController(stage).getView(); break;
-            //case ADMIN_ADD_USER_VIEW: pane = new AddUserController(stage).getView(); break;
-            //case ADMIN_LOCK_USER_VIEW: pane = new LockUserController(stage).getView(); break;
         }
 
         Scene scene = new Scene(pane, width,height);

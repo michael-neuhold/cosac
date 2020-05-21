@@ -38,6 +38,14 @@ public class RestrictionData {
         this.visitorLimit = visitorLimit;
     }
 
+    public String getTimeSlot() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(startTime);
+        sb.append(" - ");
+        sb.append(endTime);
+        return sb.toString();
+    }
+
     @Override
     public String toString() {
         return "RestrictionData{" +

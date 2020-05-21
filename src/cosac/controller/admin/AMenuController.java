@@ -58,6 +58,4 @@ public class AMenuController implements EventHandler<ActionEvent> {
         DataContainer.removeSection(adminMenuView.getRemoveSectionIdField().getText());
     }
 
-
-
 }

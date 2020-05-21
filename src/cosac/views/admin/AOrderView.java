@@ -2,6 +2,7 @@ package cosac.views.admin;
 
 import cosac.component.Component;
 import cosac.controller.admin.AOrderController;
+import cosac.model.DataContainer;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
@@ -28,11 +29,12 @@ public class AOrderView extends BorderPane {
     private VBox createOrderTables(int timeSlots) {
         VBox tableWrapper = new VBox(10);
         tableWrapper.setId("orderTableWrapper");
-        for(int i = 0; i < timeSlots; i++) {
+        for(int i = 0; i < DataContainer.getRestrictionDataSets().size(); i++) {
             ListView list = new ListView();
+            String timeslot = DataContainer.getRestrictionDataSets().get(i).getTimeSlot();
             list.getStyleClass().add("ordertable");
             listViews.add(list);
-            Text listHeader = new Text("time slot");
+            Text listHeader = new Text(timeslot);
             listHeader.getStyleClass().add("timeslot");
             tableWrapper.getChildren().addAll(listHeader, list);
         }

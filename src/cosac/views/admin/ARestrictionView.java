@@ -4,6 +4,7 @@ import cosac.component.Component;
 import cosac.controller.admin.ARestrictionController;
 import cosac.model.RestrictionData;
 import cosac.model.UserData;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -48,7 +49,9 @@ public class ARestrictionView extends BorderPane {
         return wrapper;
     }
 
-    private TableView createTableView() {
+    private HBox createTableView() {
+        HBox tableWrapper = new HBox();
+        tableWrapper.setAlignment(Pos.CENTER);
         restrictionTable.setId("restrictionTable");
         restrictionTable.setEditable(true);
 
@@ -59,7 +62,8 @@ public class ARestrictionView extends BorderPane {
         setColumnsEditable();
         restrictionTable.getColumns().addAll(startTimeCol, endTimeCol, visitorLimitCol);
 
-        return restrictionTable;
+        tableWrapper.getChildren().add(restrictionTable);
+        return tableWrapper;
     }
 
     private void setColumnsEditable() {

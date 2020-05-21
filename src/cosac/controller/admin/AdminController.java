@@ -9,12 +9,10 @@ import javafx.stage.Stage;
 
 public class AdminController implements EventHandler<ActionEvent> {
 
-    private Stage primaryStage = null;
     private AdminView adminView = new AdminView(this);
     private SceneController sceneController = null;
 
     public AdminController(Stage primaryStage) {
-        this.primaryStage = primaryStage;
         this.sceneController = new SceneController(primaryStage);
     }
 

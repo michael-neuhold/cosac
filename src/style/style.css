@@ -34,7 +34,6 @@
     -fx-font-size: 20px;
 }
 
-
 /*==================*/
 
 #login {
@@ -51,8 +50,6 @@
 }
 
 /*==================*/
-
-/* Login */
 
 .inputWrapper {
     -fx-padding: 10px;

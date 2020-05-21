@@ -46,6 +46,7 @@ public class Component {
         Label label = new Label(labelName);
         label.getStyleClass().add("inputFieldLabel");
         field.getStyleClass().add("inputField");
+        field.setPromptText(labelName);
         wrapper.getChildren().addAll(label,field);
         outerWrapper.getChildren().add(wrapper);
         return outerWrapper;
