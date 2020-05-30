@@ -1,8 +1,9 @@
 package cosac.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class UserData {
+public class UserData implements Serializable {
 
     private String studentID;
     private String firstname;
