@@ -74,9 +74,9 @@ public class AUserController implements EventHandler {
 
         // get edited row from table
         UserData dataRow = (
-                (UserData)
-                        source.getTableView().getItems().get(
-                                source.getTablePosition().getRow())
+            (UserData)
+                source.getTableView().getItems().get(
+                source.getTablePosition().getRow())
         );
 
         // update edited cell

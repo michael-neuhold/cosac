@@ -11,7 +11,10 @@ public class UserData {
     private Role role;
     private boolean locked;
 
-    public UserData(String studentID, String firstname, String lastname, String email, Role role, boolean locked) {
+    public UserData(String studentID, String firstname,
+                    String lastname, String email,
+                    Role role, boolean locked)
+    {
         this.studentID = studentID;
         this.firstname = firstname;
         this.lastname = lastname;

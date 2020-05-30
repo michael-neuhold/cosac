@@ -6,32 +6,32 @@ import javafx.collections.ObservableList;
 public class DataContainer {
 
     private static ObservableList<RestrictionData> restrictionDataSets = FXCollections.observableArrayList (
-            new RestrictionData("08:00", "08:30", 20),
-            new RestrictionData("08:30", "09:00", 30),
-            new RestrictionData("09:00", "09:30", 10),
-            new RestrictionData("10:00", "10:30", 10)
+        new RestrictionData("08:00", "08:30", 20),
+        new RestrictionData("08:30", "09:00", 30),
+        new RestrictionData("09:00", "09:30", 10),
+        new RestrictionData("10:00", "10:30", 10)
     );
 
     private static ObservableList<UserData> userDataSets = FXCollections.observableArrayList(
-            new UserData("s1","Michael", "Neuhold", "michi.neuhold@gmail.com", Role.ADMIN, false),
-            new UserData("s2","Julian", "Jany", "julian.jany@gmail.com", Role.STUDENT,false),
-            new UserData("s3","Maxi", "Ranger", "maxi.ranger@gmail.com", Role.STUDENT,false),
-            new UserData("s4","Claudia", "Wimmeder", "claudia.wimmeder@gmail.com", Role.STUDENT,false),
-            new UserData("s5","Pia", "Schaenzle", "pia.schaenzle@gmail.com", Role.STUDENT,false)
+        new UserData("s1","Michael", "Neuhold", "michi.neuhold@gmail.com", Role.ADMIN, false),
+        new UserData("s2","Julian", "Jany", "julian.jany@gmail.com", Role.STUDENT,false),
+        new UserData("s3","Maxi", "Ranger", "maxi.ranger@gmail.com", Role.STUDENT,false),
+        new UserData("s4","Claudia", "Wimmeder", "claudia.wimmeder@gmail.com", Role.STUDENT,false),
+        new UserData("s5","Pia", "Schaenzle", "pia.schaenzle@gmail.com", Role.STUDENT,false)
     );
 
     private static ObservableList orderDataSets = FXCollections.observableArrayList (
-            "Wiener Schnitzel vom Milchkalb",
-            "Wiener Tafelspitz",
-            "Duett vom Labonca Sonnenschwein",
-            "Fisch des Tages"
+        "Wiener Schnitzel vom Milchkalb",
+        "Wiener Tafelspitz",
+        "Duett vom Labonca Sonnenschwein",
+        "Fisch des Tages"
     );
 
     private static ObservableList<FoodData> foodDataSets = FXCollections.observableArrayList(
-            new FoodData(1,1,"Nudelsuppe"),
-            new FoodData(2,2,"Schnitzl"),
-            new FoodData(3,2,"Berner Würstel"),
-            new FoodData(4,4,"Eis-Kaffee")
+        new FoodData(1,1,"Nudelsuppe"),
+        new FoodData(2,2,"Schnitzl"),
+        new FoodData(3,2,"Berner Würstel"),
+        new FoodData(4,4,"Eis-Kaffee")
     );
 
     private static ObservableList<SectionData> sectionDataSet = FXCollections.observableArrayList(
