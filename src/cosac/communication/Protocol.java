@@ -1,14 +1,32 @@
 package cosac.communication;
 
-import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
-public enum Protocol implements Serializable {
-    GET_USER_DATA_SETS,
-    GET_FOOD_DATA_SETS,
-    GET_RESTRICTION_DATA_SETS,
-    GET_SECTION_DATA_SETS,
-    SET_USER_DATA_SETS,
-    SET_FOOD_DATA_SETS,
-    SET_RESTRICTION_DATA_SETS,
-    SET_SECTION_DATA_SETS
+public enum Protocol {
+    GET_USER_DATA_SETS(100),
+    GET_FOOD_DATA_SETS(101),
+    GET_RESTRICTION_DATA_SETS(102),
+    GET_SECTION_DATA_SETS(103),
+    SET_USER_DATA_SETS(200),
+    SET_FOOD_DATA_SETS(201),
+    SET_RESTRICTION_DATA_SETS(202),
+    SET_SECTION_DATA_SETS(203);
+
+    private final int code;
+    private static Map map = new HashMap<>();
+
+    static {
+        for (Protocol protocol : Protocol.values()) {
+            map.put(protocol.code, protocol);
+        }
+    }
+
+    Protocol(int code) { this.code = code; }
+
+    public int getValue() {return code;}
+
+    public static Protocol valueOf(int code) {
+        return (Protocol) map.get(code);
+    }
 }

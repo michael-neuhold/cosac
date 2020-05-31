@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import cosac.communication.Protocol;
 import cosac.model.Role;
@@ -20,12 +21,13 @@ public class ClientHandler extends Thread {
     @Override
     public void run() {
         try {
+
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
 
-            String request = (String)ois.readObject();
-            System.out.println(request);
-            oos.writeObject("data");
+            int requestCode = (Integer)ois.readObject();
+            Protocol requestType = Protocol.valueOf(requestCode);
+            handleRequest(ois, oos,requestType);
 
             ois.close();
             oos.close();
@@ -34,16 +36,19 @@ public class ClientHandler extends Thread {
             e.printStackTrace();
         }
     }
-/*
-    private void handleRequest(Protocol request) throws IOException {
-        ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-        System.out.println("handleRequestServer");
+
+    private void handleRequest(ObjectInputStream ois, ObjectOutputStream oos, Protocol request)
+            throws IOException, ClassNotFoundException
+    {
         switch (request) {
             case GET_FOOD_DATA_SETS: break;
             case GET_USER_DATA_SETS:
-                System.out.println(request);
-                UserData user = new UserData("S1", "Michael", "Neuhold","michi.neuhold@gmail.com", Role.STUDENT, false);
-                oos.writeObject(user);
+                UserData user1 = new UserData("S1", "Michael", "Neuhold","michi.neuhold@gmail.com", Role.STUDENT, false);
+                UserData user2 = new UserData("S2", "Julian", "Jany","julian.jany@gmail.com", Role.STUDENT, false);
+                ArrayList<UserData> userSets = new ArrayList<>();
+                userSets.add(user1);
+                userSets.add(user2);
+                oos.writeObject(userSets);
                 break;
             case GET_SECTION_DATA_SETS: break;
             case GET_RESTRICTION_DATA_SETS: break;
@@ -53,8 +58,6 @@ public class ClientHandler extends Thread {
             case SET_RESTRICTION_DATA_SETS: break;
             default: System.out.println("...");
         }
-
-        oos.close();
     }
-*/
+
 }
