@@ -1,6 +1,8 @@
 package cosac.model;
 
-public class SectionData {
+import java.io.Serializable;
+
+public class SectionData implements Serializable {
 
     private int id;
     private String name;
@@ -24,6 +26,14 @@ public class SectionData {
         if (o == null || getClass() != o.getClass()) return false;
         SectionData that = (SectionData) o;
         return id == that.id;
+    }
+
+    @Override
+    public String toString() {
+        return "SectionData{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 
 }

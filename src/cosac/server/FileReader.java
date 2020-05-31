@@ -1,29 +1,40 @@
 package cosac.server;
 
+import cosac.model.FoodData;
+import cosac.model.RestrictionData;
+import cosac.model.SectionData;
 import cosac.model.UserData;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import static java.lang.System.out;
 
-public class FileReader {
+public class FileReader<T> {
 
-    public UserData getUserData() {
-        UserData userDataSet = null;
-        try(ObjectInput is = new ObjectInputStream(new FileInputStream("userDataSet.ser"))) {
-            userDataSet = (UserData)is.readObject();
+    public ArrayList<T> readFrom(String filename) {
+        ArrayList<T> dataSet = null;
+        try(ObjectInput is = new ObjectInputStream(new FileInputStream("./src/persist/" + filename))) {
+            dataSet = (ArrayList<T>)is.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return userDataSet;
+        return dataSet;
     }
 
-
     public static void main(String[] args) {
-        FileReader fileReader = new FileReader();
-        UserData userData = fileReader.getUserData();
-        System.out.println("data: " + userData);
+        FileReader<UserData> fileReader1 = new FileReader();
+        System.out.println("data: " + fileReader1.readFrom("userDataSet.ser"));
+
+        FileReader<FoodData> fileReader2 = new FileReader();
+        System.out.println("data: " + fileReader2.readFrom("foodDataSet.ser"));
+
+        FileReader<RestrictionData> fileReader3 = new FileReader();
+        System.out.println("data: " + fileReader3.readFrom("restrictionDataSet.ser"));
+
+        FileReader<SectionData> fileReader4 = new FileReader();
+        System.out.println("data: " + fileReader4.readFrom("sectionDataSet.ser"));
     }
 
 

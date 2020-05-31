@@ -1,8 +1,9 @@
 package cosac.model;
 
+import java.io.*;
 import java.util.Objects;
 
-public class FoodData {
+public class FoodData implements Serializable {
 
     private int id;
     private int sectionId;
@@ -34,4 +35,12 @@ public class FoodData {
         return id == foodData.id;
     }
 
+    @Override
+    public String toString() {
+        return "FoodData{" +
+                "id=" + id +
+                ", sectionId=" + sectionId +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

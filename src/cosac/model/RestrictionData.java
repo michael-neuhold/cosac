@@ -1,8 +1,9 @@
 package cosac.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class RestrictionData {
+public class RestrictionData implements Serializable {
 
     private String startTime;
     private String endTime;

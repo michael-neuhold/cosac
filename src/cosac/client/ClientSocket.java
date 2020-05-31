@@ -1,6 +1,9 @@
 package cosac.client;
 
 import cosac.communication.Protocol;
+import cosac.model.FoodData;
+import cosac.model.RestrictionData;
+import cosac.model.SectionData;
 import cosac.model.UserData;
 
 import java.io.IOException;
@@ -35,13 +38,16 @@ public class ClientSocket {
     {
         switch (requestType) {
             case GET_FOOD_DATA_SETS:
+                System.out.println("server: " + (ArrayList<FoodData>)ois.readObject());
                 break;
             case GET_USER_DATA_SETS:
                 System.out.println("server: " + (ArrayList<UserData>)ois.readObject());
                 break;
             case GET_SECTION_DATA_SETS:
+                System.out.println("server: " + (ArrayList<SectionData>)ois.readObject());
                 break;
             case GET_RESTRICTION_DATA_SETS:
+                System.out.println("server: " + (ArrayList<RestrictionData>)ois.readObject());
                 break;
             case SET_FOOD_DATA_SETS:
                 break;
@@ -55,6 +61,9 @@ public class ClientSocket {
     }
 
     public static void main(String[] args) {
+        ClientSocket.connect(Protocol.GET_FOOD_DATA_SETS);
         ClientSocket.connect(Protocol.GET_USER_DATA_SETS);
+        ClientSocket.connect(Protocol.GET_SECTION_DATA_SETS);
+        ClientSocket.connect(Protocol.GET_RESTRICTION_DATA_SETS);
     }
 }
