@@ -1,6 +1,6 @@
 package cosac.controller.admin;
 
-import cosac.model.DataContainer;
+import cosac.client.DataContainer;
 import cosac.model.Role;
 import cosac.model.UserData;
 import cosac.views.admin.AUserView;

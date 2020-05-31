@@ -1,6 +1,6 @@
 package cosac.controller.admin;
 
-import cosac.model.DataContainer;
+import cosac.client.DataContainer;
 import cosac.model.RestrictionData;
 import cosac.views.admin.ARestrictionView;
 import cosac.SceneController;

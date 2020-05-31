@@ -1,47 +1,65 @@
-package cosac.model;
+package cosac.client;
 
+import cosac.communication.Protocol;
+import cosac.model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.awt.*;
+import java.security.Signature;
+import java.util.ArrayList;
+
 public class DataContainer {
 
+    private static DataContainer instance;
 
-
-    private static ObservableList<RestrictionData> restrictionDataSets = FXCollections.observableArrayList (
-        new RestrictionData("08:00", "08:30", 20),
-        new RestrictionData("08:30", "09:00", 30),
-        new RestrictionData("09:00", "09:30", 10),
-        new RestrictionData("10:00", "10:30", 10)
-    );
-
-    private static ObservableList<UserData> userDataSets = FXCollections.observableArrayList(
-        new UserData("s1","Michael", "Neuhold", "michi.neuhold@gmail.com", Role.ADMIN, false),
-        new UserData("s2","Julian", "Jany", "julian.jany@gmail.com", Role.STUDENT,false),
-        new UserData("s3","Maxi", "Ranger", "maxi.ranger@gmail.com", Role.STUDENT,false),
-        new UserData("s4","Claudia", "Wimmeder", "claudia.wimmeder@gmail.com", Role.STUDENT,false),
-        new UserData("s5","Pia", "Schaenzle", "pia.schaenzle@gmail.com", Role.STUDENT,false)
-    );
+    private static ObservableList<RestrictionData> restrictionDataSets;
+    private static ObservableList<UserData> userDataSets;
+    //private static ObservableList orderDataSets;
+    private static ObservableList<FoodData> foodDataSets;
+    private static ObservableList<SectionData> sectionDataSet;
 
     private static ObservableList orderDataSets = FXCollections.observableArrayList (
-        "Wiener Schnitzel vom Milchkalb",
-        "Wiener Tafelspitz",
-        "Duett vom Labonca Sonnenschwein",
-        "Fisch des Tages"
+            "Wiener Schnitzel vom Milchkalb",
+            "Wiener Tafelspitz",
+            "Duett vom Labonca Sonnenschwein",
+            "Fisch des Tages"
     );
 
-    private static ObservableList<FoodData> foodDataSets = FXCollections.observableArrayList(
-        new FoodData(1,1,"Nudelsuppe"),
-        new FoodData(2,2,"Schnitzl"),
-        new FoodData(3,2,"Berner Würstel"),
-        new FoodData(4,4,"Eis-Kaffee")
-    );
 
-    private static ObservableList<SectionData> sectionDataSet = FXCollections.observableArrayList(
-        new SectionData(1,"Vorspeisen"),
-        new SectionData(2,"Fleischgerichte"),
-        new SectionData(3,"Nudelgerichte"),
-        new SectionData(4,"Nachspeisen")
-    );
+    public DataContainer() {
+        System.out.println("init DataContainer");
+    }
+
+    public static DataContainer getInstance() {
+        if(DataContainer.instance == null) {
+            DataContainer.instance = new DataContainer();
+        }
+        return DataContainer.instance;
+    }
+
+    public void initialize() {
+        ClientSocket.connect(Protocol.GET_USER_DATA_SETS);
+        ClientSocket.connect(Protocol.GET_FOOD_DATA_SETS);
+        ClientSocket.connect(Protocol.GET_RESTRICTION_DATA_SETS);
+        ClientSocket.connect(Protocol.GET_SECTION_DATA_SETS);
+    }
+
+    public static void setUserDataSet(ObservableList<UserData> userDataSets) {
+        DataContainer.userDataSets = userDataSets;
+    }
+
+    public static void setRestrictionDataSet(ObservableList<RestrictionData> restrictionDataSets) {
+        DataContainer.restrictionDataSets = restrictionDataSets;
+    }
+
+    public static void setSectionDataSet(ObservableList<SectionData> sectionDataSet) {
+        DataContainer.sectionDataSet = sectionDataSet;
+    }
+
+    public static void setFoodDataSet(ObservableList<FoodData> foodDataSets) {
+        DataContainer.foodDataSets = foodDataSets;
+    }
 
     public static ObservableList<RestrictionData> getRestrictionDataSets() {
         return restrictionDataSets;
@@ -51,16 +69,16 @@ public class DataContainer {
         return userDataSets;
     }
 
-    public static ObservableList getOrderDataSets() {
-        return orderDataSets;
-    }
-
     public static ObservableList<FoodData> getFoodDataSets() {
         return foodDataSets;
     }
 
     public static ObservableList<SectionData> getSectionDataSet() {
         return sectionDataSet;
+    }
+
+    public static ObservableList getOrderDataSets() {
+        return orderDataSets;
     }
 
     /* ==  RESTRICTIONS  == */

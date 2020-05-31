@@ -1,6 +1,6 @@
 package cosac.controller.admin;
 
-import cosac.model.DataContainer;
+import cosac.client.DataContainer;
 import cosac.views.admin.AOrderView;
 import cosac.SceneController;
 import javafx.event.ActionEvent;

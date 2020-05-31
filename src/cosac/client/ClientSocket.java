@@ -1,16 +1,15 @@
 package cosac.client;
 
 import cosac.communication.Protocol;
-import cosac.model.FoodData;
-import cosac.model.RestrictionData;
-import cosac.model.SectionData;
-import cosac.model.UserData;
+import cosac.model.*;
+import javafx.collections.FXCollections;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class ClientSocket {
 
@@ -38,20 +37,32 @@ public class ClientSocket {
     {
         switch (requestType) {
             case GET_FOOD_DATA_SETS:
-                System.out.println("server: " + (ArrayList<FoodData>)ois.readObject());
+                DataContainer.getInstance().setFoodDataSet(
+                    FXCollections.observableArrayList((ArrayList<FoodData>)ois.readObject())
+                );
                 break;
             case GET_USER_DATA_SETS:
-                System.out.println("server: " + (ArrayList<UserData>)ois.readObject());
+                DataContainer.getInstance().setUserDataSet(
+                    FXCollections.observableArrayList((ArrayList<UserData>)ois.readObject())
+                );
                 break;
             case GET_SECTION_DATA_SETS:
-                System.out.println("server: " + (ArrayList<SectionData>)ois.readObject());
+                DataContainer.getInstance().setSectionDataSet(
+                    FXCollections.observableArrayList((ArrayList<SectionData>)ois.readObject())
+                );
                 break;
             case GET_RESTRICTION_DATA_SETS:
-                System.out.println("server: " + (ArrayList<RestrictionData>)ois.readObject());
+                DataContainer.getInstance().setRestrictionDataSet(
+                    FXCollections.observableArrayList((ArrayList<RestrictionData>)ois.readObject())
+                );
                 break;
             case SET_FOOD_DATA_SETS:
                 break;
             case SET_USER_DATA_SETS:
+                UserData user = new UserData("S3", "Michael", "Neuhold","michi.neuhold@gmail.com", Role.STUDENT, false);
+                ArrayList<UserData> userDataSet = new ArrayList<>();
+                userDataSet.add(user);
+                oos.writeObject(userDataSet);
                 break;
             case SET_SECTION_DATA_SETS:
                 break;
@@ -61,9 +72,13 @@ public class ClientSocket {
     }
 
     public static void main(String[] args) {
+
         ClientSocket.connect(Protocol.GET_FOOD_DATA_SETS);
         ClientSocket.connect(Protocol.GET_USER_DATA_SETS);
         ClientSocket.connect(Protocol.GET_SECTION_DATA_SETS);
         ClientSocket.connect(Protocol.GET_RESTRICTION_DATA_SETS);
+
+        ClientSocket.connect(Protocol.SET_USER_DATA_SETS);
+
     }
 }

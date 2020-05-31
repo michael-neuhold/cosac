@@ -2,7 +2,7 @@ package cosac.views.admin;
 
 import cosac.component.Component;
 import cosac.controller.admin.AOrderController;
-import cosac.model.DataContainer;
+import cosac.client.DataContainer;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
