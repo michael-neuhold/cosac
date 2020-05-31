@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class ClientSocket {
 
-    public static void connect (Protocol requestType) {
+    public static void connect(Protocol requestType) {
         try (Socket socket = new Socket("localhost", 50000)){
 
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());

@@ -96,8 +96,9 @@ public class DataContainer {
 
     /* ==  USER  == */
 
-    public void addUser(String id, String firstname, String lastname, String email, Role role) {
-        UserData newUser = new UserData(id, firstname, lastname, email, Role.STUDENT,false);
+    public void addUser(String id, String firstname, String lastname, String email, String password, Role role) {
+        if(!id.matches("S[0-9]{10}")) return;
+        UserData newUser = new UserData(id, firstname, lastname, email, password, Role.STUDENT,false);
         if(!userDataSets.contains(newUser)) {
             userDataSets.add(newUser);
         } else {

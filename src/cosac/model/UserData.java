@@ -9,17 +9,20 @@ public class UserData implements Serializable {
     private String firstname;
     private String lastname;
     private String email;
+    private String password;
     private Role role;
     private boolean locked;
 
     public UserData(String studentID, String firstname,
                     String lastname, String email,
+                    String password,
                     Role role, boolean locked)
     {
         this.studentID = studentID;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
+        this.password = password;
         this.role = role;
         this.locked = locked;
     }
@@ -75,6 +78,14 @@ public class UserData implements Serializable {
         this.locked = locked;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "UserData{" +
@@ -82,6 +93,7 @@ public class UserData implements Serializable {
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", email='" + email + '\'' +
+                ", password#='" + password +'\'' +
                 ", role=" + role +
                 ", locked=" + locked +
                 '}';

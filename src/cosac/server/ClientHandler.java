@@ -38,7 +38,7 @@ public class ClientHandler extends Thread {
         }
     }
 
-    private void handleRequest(ObjectInputStream ois, ObjectOutputStream oos, Protocol request)
+    private synchronized void handleRequest(ObjectInputStream ois, ObjectOutputStream oos, Protocol request)
             throws IOException, ClassNotFoundException
     {
         switch (request) {

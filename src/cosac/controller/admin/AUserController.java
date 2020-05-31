@@ -117,6 +117,7 @@ public class AUserController implements EventHandler {
                 popupViewAddUser.getFirstnameField().getText(),
                 popupViewAddUser.getLastnameField().getText(),
                 popupViewAddUser.getEmailField().getText(),
+                popupViewAddUser.getPasswordField().getText(),
                 Role.STUDENT
             );
 

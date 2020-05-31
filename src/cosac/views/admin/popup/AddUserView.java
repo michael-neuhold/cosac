@@ -16,6 +16,7 @@ public class AddUserView extends BorderPane {
     private TextField studentsIdField = new TextField();
     private TextField firstnameField = new TextField();
     private TextField lastnameField = new TextField();
+    private TextField passwordField = new TextField();
     private TextField emailField = new TextField();
 
     public AddUserView(AUserController controller) {
@@ -33,6 +34,7 @@ public class AddUserView extends BorderPane {
             Component.createLabeledInput("id", studentsIdField),
             Component.createLabeledInput("firstname", firstnameField),
             Component.createLabeledInput("lastname", lastnameField),
+            Component.createLabeledInput("password", passwordField),
             Component.createLabeledInput("email", emailField)
         );
         return inputFieldWrapper;
@@ -50,4 +52,5 @@ public class AddUserView extends BorderPane {
     public TextField getFirstnameField() { return firstnameField; }
     public TextField getLastnameField() { return lastnameField; }
     public TextField getEmailField() { return emailField; }
+    public TextField getPasswordField() { return passwordField; }
 }
