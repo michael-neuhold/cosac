@@ -55,47 +55,47 @@ public class ClientSocket {
     }
 
     private static void handleGetUserDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
-        DataContainer.setUserDataSet(
+        DataContainer.getInstance().setUserDataSet(
             FXCollections.observableArrayList((ArrayList<UserData>)ois.readObject())
         );
     }
 
     private static void handleGetRestrictionDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
-        DataContainer.setRestrictionDataSet(
+        DataContainer.getInstance().setRestrictionDataSet(
             FXCollections.observableArrayList((ArrayList<RestrictionData>)ois.readObject())
         );
     }
 
     private static void handleGetSectionDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
-        DataContainer.setSectionDataSet(
+        DataContainer.getInstance().setSectionDataSet(
             FXCollections.observableArrayList((ArrayList<SectionData>)ois.readObject())
         );
     }
 
     private static void handleGetOrderDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
-        DataContainer.setOrderDataSets(
+        DataContainer.getInstance().setOrderDataSets(
             FXCollections.observableArrayList((ArrayList<OrderData>)ois.readObject())
         );
     }
 
     private static void handleSetFoodDataSets(ObjectOutputStream oos) throws IOException {
-        oos.writeObject(DataContainer.getFoodDataSets());
+        oos.writeObject(DataContainer.getInstance().getFoodDataSets());
     }
 
     private static void handleSetUserDataSets(ObjectOutputStream oos) throws IOException {
-        oos.writeObject(DataContainer.getUserDataSets());
+        oos.writeObject(DataContainer.getInstance().getUserDataSets());
     }
 
     private static void handleSetRestrictionDataSets(ObjectOutputStream oos) throws IOException {
-        oos.writeObject(DataContainer.getRestrictionDataSets());
+        oos.writeObject(DataContainer.getInstance().getRestrictionDataSets());
     }
 
     private static void handleSetSectionDataSets(ObjectOutputStream oos) throws IOException {
-        oos.writeObject(DataContainer.getSectionDataSets());
+        oos.writeObject(DataContainer.getInstance().getSectionDataSets());
     }
 
     private static void handleSetOrderDataSets(ObjectOutputStream oos) throws IOException {
-        oos.writeObject(DataContainer.getOrderDataSets());
+        oos.writeObject(DataContainer.getInstance().getOrderDataSets());
     }
 
 }

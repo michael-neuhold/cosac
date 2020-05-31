@@ -31,56 +31,59 @@ public class DataContainer {
     }
 
     public void initialize() {
-        ClientSocket.connect(Protocol.GET_USER_DATA_SETS);
-        ClientSocket.connect(Protocol.GET_FOOD_DATA_SETS);
-        ClientSocket.connect(Protocol.GET_RESTRICTION_DATA_SETS);
-        ClientSocket.connect(Protocol.GET_SECTION_DATA_SETS);
-        ClientSocket.connect(Protocol.GET_ORDER_DATA_SETS);
+        Thread thread = new Thread( () -> {
+            ClientSocket.connect(Protocol.GET_USER_DATA_SETS);
+            ClientSocket.connect(Protocol.GET_FOOD_DATA_SETS);
+            ClientSocket.connect(Protocol.GET_RESTRICTION_DATA_SETS);
+            ClientSocket.connect(Protocol.GET_SECTION_DATA_SETS);
+            ClientSocket.connect(Protocol.GET_ORDER_DATA_SETS);
+        });
+        thread.start();
     }
 
-    public static void setUserDataSet(ObservableList<UserData> userDataSets) {
+    public void setUserDataSet(ObservableList<UserData> userDataSets) {
         DataContainer.userDataSets = userDataSets;
     }
 
-    public static void setRestrictionDataSet(ObservableList<RestrictionData> restrictionDataSets) {
+    public void setRestrictionDataSet(ObservableList<RestrictionData> restrictionDataSets) {
         DataContainer.restrictionDataSets = restrictionDataSets;
     }
 
-    public static void setSectionDataSet(ObservableList<SectionData> sectionDataSet) {
+    public void setSectionDataSet(ObservableList<SectionData> sectionDataSet) {
         DataContainer.sectionDataSet = sectionDataSet;
     }
 
-    public static void setFoodDataSet(ObservableList<FoodData> foodDataSets) {
+    public void setFoodDataSet(ObservableList<FoodData> foodDataSets) {
         DataContainer.foodDataSets = foodDataSets;
     }
 
-    public static ObservableList<RestrictionData> getRestrictionDataSets() {
+    public ObservableList<RestrictionData> getRestrictionDataSets() {
         return restrictionDataSets;
     }
 
-    public static ObservableList<UserData> getUserDataSets() {
+    public ObservableList<UserData> getUserDataSets() {
         return userDataSets;
     }
 
-    public static ObservableList<FoodData> getFoodDataSets() {
+    public ObservableList<FoodData> getFoodDataSets() {
         return foodDataSets;
     }
 
-    public static ObservableList<SectionData> getSectionDataSets() {
+    public ObservableList<SectionData> getSectionDataSets() {
         return sectionDataSet;
     }
 
-    public static ObservableList<OrderData> getOrderDataSets() {
+    public ObservableList<OrderData> getOrderDataSets() {
         return orderDataSets;
     }
 
-    public static void setOrderDataSets(ObservableList<OrderData> orderDataSets) {
+    public void setOrderDataSets(ObservableList<OrderData> orderDataSets) {
         DataContainer.orderDataSets = orderDataSets;
     }
 
     /* ==  RESTRICTIONS  == */
 
-    public static void addRestriction(String startTime, String endTime, int limit) {
+    public void addRestriction(String startTime, String endTime, int limit) {
         if(!startTime.matches("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$")) return;
         if(!endTime.matches("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$")) return;
         RestrictionData newRestriction = new RestrictionData(1,startTime,endTime,limit);
@@ -93,7 +96,7 @@ public class DataContainer {
 
     /* ==  USER  == */
 
-    static public void addUser(String id, String firstname, String lastname, String email, Role role) {
+    public void addUser(String id, String firstname, String lastname, String email, Role role) {
         UserData newUser = new UserData(id, firstname, lastname, email, Role.STUDENT,false);
         if(!userDataSets.contains(newUser)) {
             userDataSets.add(newUser);
@@ -102,7 +105,7 @@ public class DataContainer {
         }
     }
 
-    static public UserData getUserSetById(String id) {
+    public UserData getUserSetById(String id) {
         for(UserData user : userDataSets) {
             if(user.getStudentID().equals(id)) return user;
         }
@@ -113,7 +116,7 @@ public class DataContainer {
 
     /* ==  FOOD  == */
 
-    static public void addFood(String id, String sectionId, String name) {
+    public void addFood(String id, String sectionId, String name) {
         FoodData newFood = new FoodData(Integer.parseInt(id),Integer.parseInt(sectionId),name);
         if(!foodDataSets.contains(newFood)) {
             foodDataSets.add(newFood);
@@ -122,7 +125,7 @@ public class DataContainer {
         }
     }
 
-    static public void removeFood(String id) {
+    public void removeFood(String id) {
         FoodData toDelete = getFoodById(Integer.parseInt(id));
         if(toDelete != null) {
             foodDataSets.remove(toDelete);
@@ -131,7 +134,7 @@ public class DataContainer {
         }
     }
 
-    static private FoodData getFoodById(int id) {
+    private FoodData getFoodById(int id) {
         for(FoodData food : foodDataSets)
             if(food.getId() == id) return food;
         return null;
@@ -139,7 +142,7 @@ public class DataContainer {
 
     /* == SECTION == */
 
-    static public void addSection(String sectionId, String name) {
+    public void addSection(String sectionId, String name) {
         SectionData newSection = new SectionData(Integer.parseInt(sectionId), name);
         if(!sectionDataSet.contains(newSection)) {
             sectionDataSet.add(newSection);
@@ -148,7 +151,7 @@ public class DataContainer {
         }
     }
 
-    static public void removeSection(String id) {
+    public void removeSection(String id) {
         SectionData toDelete = getSectionBy(Integer.parseInt(id));
         if(toDelete != null) {
             sectionDataSet.remove(toDelete);
@@ -157,7 +160,7 @@ public class DataContainer {
         }
     }
 
-    static private SectionData getSectionBy(int id) {
+    private SectionData getSectionBy(int id) {
         for(SectionData section : sectionDataSet)
             if(section.getId() == id) return section;
         return null;

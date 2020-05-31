@@ -20,6 +20,25 @@ public class Component {
         return buttonWrapper;
     }
 
+    public static HBox createBackSaveButton(Button backButton, Button saveButton) {
+        HBox buttonWrapper = new HBox(10);
+        buttonWrapper.getStyleClass().add("backButtonWrapper");
+        backButton.getStyleClass().add("backButton");
+        saveButton.getStyleClass().add("backButton");
+        buttonWrapper.getChildren().addAll(saveButton, backButton);
+        buttonWrapper.setAlignment(Pos.CENTER_RIGHT);
+        return buttonWrapper;
+    }
+
+    public static HBox createUpdateButton(Button updateButton) {
+        HBox buttonWrapper = new HBox();
+        buttonWrapper.getStyleClass().add("backButtonWrapper");
+        updateButton.getStyleClass().add("backButton");
+        buttonWrapper.getChildren().add(updateButton);
+        buttonWrapper.setAlignment(Pos.CENTER_RIGHT);
+        return buttonWrapper;
+    }
+
     public static HBox createHeader(String title) {
         HBox headerWrapper = new HBox();
         headerWrapper.getStyleClass().add("header");

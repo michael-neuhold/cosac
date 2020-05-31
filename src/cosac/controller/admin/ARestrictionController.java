@@ -23,7 +23,7 @@ public class ARestrictionController implements EventHandler {
 
     public ARestrictionController(Stage primaryStage) {
         this.sceneController = new SceneController(primaryStage);
-        adminRestictionView.getRestrictionTable().setItems(DataContainer.getRestrictionDataSets());
+        adminRestictionView.getRestrictionTable().setItems(DataContainer.getInstance().getRestrictionDataSets());
     }
 
     public ARestrictionView getView() {
@@ -52,9 +52,11 @@ public class ARestrictionController implements EventHandler {
         Object source = event.getSource();
         if (source.equals(adminRestictionView.getBackButton()))
             sceneController.mountPreviousScene();
-        if (source.equals(adminRestictionView.getAddRestrictionButton())) {
+        else if (source.equals(adminRestictionView.getAddRestrictionButton())) {
             popupView = new AddRestrictionView(this);
             showPopUp();
+        } else if (source.equals(adminRestictionView.getSaveButton())) {
+            System.out.println("save restriction");
         }
 
         if (popupView != null) handleAddRestrictionPopup(source);
@@ -83,7 +85,7 @@ public class ARestrictionController implements EventHandler {
             String endTime = popupView.getEndTimeField().getText();
             String visitorLimit = popupView.getVisitorLimitField().getText();
 
-            DataContainer.addRestriction(startTime, endTime, Integer.parseInt(visitorLimit));
+            DataContainer.getInstance().addRestriction(startTime, endTime, Integer.parseInt(visitorLimit));
         }
 
         if(source.equals(popupView.getCancelButton()))

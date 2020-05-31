@@ -1,5 +1,6 @@
 package cosac.controller.admin;
 
+import cosac.client.DataContainer;
 import cosac.views.admin.AdminView;
 import cosac.SceneController;
 import cosac.SceneType;
@@ -30,6 +31,9 @@ public class AdminController implements EventHandler<ActionEvent> {
         else if(source.equals(adminView.getOrderButton())) type = SceneType.ADMIN_ORDER_VIEW;
         else if(source.equals(adminView.getRestrictionButton())) type = SceneType.ADMIN_RESTRICTION_VIEW;
         else if(source.equals(adminView.getUserButton())) type = SceneType.ADMIN_USER_VIEW;
+        else if(source.equals(adminView.getUpdateButton())) {
+            DataContainer.getInstance().initialize();
+        }
 
         if(type != null) sceneController.mountNewScene(type);
 

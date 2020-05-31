@@ -9,13 +9,13 @@ import javafx.stage.Stage;
 
 public class AOrderController implements EventHandler<ActionEvent> {
 
-    private AOrderView adminOrderView = new AOrderView(this, DataContainer.getRestrictionDataSets().size());
+    private AOrderView adminOrderView = new AOrderView(this, DataContainer.getInstance().getRestrictionDataSets().size());
     private SceneController sceneController = null;
 
     public AOrderController(Stage primaryStage) {
         this.sceneController = new SceneController(primaryStage);
         var tables = this.adminOrderView.gettabelViews();
-        for(var tabel : tables) tabel.setItems(DataContainer.getOrderDataSets());
+        for(var tabel : tables) tabel.setItems(DataContainer.getInstance().getOrderDataSets());
     }
 
     public AOrderView getView() {

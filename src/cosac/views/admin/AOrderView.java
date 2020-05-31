@@ -38,7 +38,7 @@ public class AOrderView extends BorderPane {
     private VBox createOrderTables(int timeSlots) {
         VBox tableWrapper = new VBox(10);
         tableWrapper.setId("orderTableWrapper");
-        for(int i = 0; i < DataContainer.getRestrictionDataSets().size(); i++) {
+        for(int i = 0; i < DataContainer.getInstance().getRestrictionDataSets().size(); i++) {
             TableView table = new TableView();
 
             userIdCol.setCellValueFactory(new PropertyValueFactory<OrderData, String>("userId"));
@@ -47,7 +47,7 @@ public class AOrderView extends BorderPane {
 
             table.getColumns().addAll(userIdCol, foodCol, timeslotCol);
 
-            String timeslot = DataContainer.getRestrictionDataSets().get(i).getTimeSlot();
+            String timeslot = DataContainer.getInstance().getRestrictionDataSets().get(i).getTimeSlot();
             table.getStyleClass().add("ordertable");
             tabelViews.add(table);
             Text listHeader = new Text(timeslot);

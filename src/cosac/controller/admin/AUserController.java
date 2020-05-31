@@ -26,7 +26,7 @@ public class AUserController implements EventHandler {
 
     public AUserController(Stage primaryStage) {
         this.sceneController = new SceneController(primaryStage);
-        this.adminUserView.getUserTable().setItems(DataContainer.getUserDataSets());
+        this.adminUserView.getUserTable().setItems(DataContainer.getInstance().getUserDataSets());
     }
 
     public AUserView getView() {
@@ -61,6 +61,8 @@ public class AUserController implements EventHandler {
         } else if (source.equals(adminUserView.getLockUserButton())) {
             popupLockUser = new LockUserView(this);
             showPopUp(popupLockUser);
+        } else if (source.equals(adminUserView.getSaveButton())) {
+            System.out.println("save user data");
         }
 
         if (popupViewAddUser != null) handleAddUserPopup(source);
@@ -93,7 +95,7 @@ public class AUserController implements EventHandler {
         if (source.equals(popupLockUser.getLockButton())) {
 
             String id = popupLockUser.getStudentIdToLock().getText();
-            UserData user = DataContainer.getUserSetById(id);
+            UserData user = DataContainer.getInstance().getUserSetById(id);
             if(user != null) {
                 user.setLocked(true);
                 adminUserView.getUserTable().refresh();
@@ -107,7 +109,7 @@ public class AUserController implements EventHandler {
 
     private void handleAddUserPopup(Object source) {
         if (source.equals(popupViewAddUser.getAddButton())) {
-            DataContainer.addUser(
+            DataContainer.getInstance().addUser(
                 popupViewAddUser.getStudentsIdField().getText(),
                 popupViewAddUser.getFirstnameField().getText(),
                 popupViewAddUser.getLastnameField().getText(),

@@ -5,15 +5,18 @@ import cosac.controller.admin.AdminController;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 
+import java.io.BufferedReader;
+
 public class AdminView extends BorderPane {
 
-    private Button menuButton, userButton, restrictionButton, orderButton;
+    private Button menuButton, userButton, restrictionButton, orderButton, updateButton;
 
     public AdminView(AdminController controller) {
         this.getStyleClass().add("window");
         initButtons(controller);
         this.setTop(Component.createHeader("admin overview"));
         this.setCenter(createButtonWrapper());
+        this.setBottom(Component.createUpdateButton(updateButton));
     }
 
     private void initButtons(AdminController controller) {
@@ -21,6 +24,7 @@ public class AdminView extends BorderPane {
         userButton = new Button("Benutzer");
         restrictionButton = new Button("Beschränkungen");
         orderButton = new Button("Bestellungen");
+        updateButton = new Button("Aktualisieren");
 
         menuButton.getStyleClass().add("adminMenuButton");
         userButton.getStyleClass().add("adminMenuButton");
@@ -31,6 +35,7 @@ public class AdminView extends BorderPane {
         userButton.setOnAction(controller);
         restrictionButton.setOnAction(controller);
         orderButton.setOnAction(controller);
+        updateButton.setOnAction(controller);
     }
 
     private VBox createButtonWrapper() {
@@ -44,5 +49,6 @@ public class AdminView extends BorderPane {
     public Button getUserButton() { return userButton; }
     public Button getOrderButton() { return orderButton; }
     public Button getRestrictionButton() { return restrictionButton; }
+    public Button getUpdateButton() { return updateButton; }
 
 }

@@ -16,8 +16,8 @@ public class AMenuController implements EventHandler<ActionEvent> {
 
     public AMenuController(Stage primaryStage) {
         this.sceneController = new SceneController(primaryStage);
-        adminMenuView.getSectionTable().setItems(DataContainer.getSectionDataSets());
-        adminMenuView.getFoodTable().setItems(DataContainer.getFoodDataSets());
+        adminMenuView.getSectionTable().setItems(DataContainer.getInstance().getSectionDataSets());
+        adminMenuView.getFoodTable().setItems(DataContainer.getInstance().getFoodDataSets());
     }
 
     public AMenuView getView() {
@@ -32,11 +32,14 @@ public class AMenuController implements EventHandler<ActionEvent> {
         else if(source.equals(adminMenuView.getRemoveFoodButton())) handleRemoveFood();
         else if(source.equals(adminMenuView.getAddSectionButton())) handleAddSection();
         else if(source.equals(adminMenuView.getRemoveSectionButton())) handleRemoveSection();
+        else if(source.equals(adminMenuView.getSaveButton())) {
+            System.out.println("save menu");
+        }
         adminMenuView.resetTextFields();
     }
 
     private void handleAddFood() {
-        DataContainer.addFood(
+        DataContainer.getInstance().addFood(
             adminMenuView.getAddFoodIdField().getText(),
             adminMenuView.getAddFoodSectionField().getText(),
             adminMenuView.getAddFoodNameField().getText()
@@ -44,18 +47,18 @@ public class AMenuController implements EventHandler<ActionEvent> {
     }
 
     private void handleRemoveFood() {
-        DataContainer.removeFood(adminMenuView.getRemoveFoodIdField().getText());
+        DataContainer.getInstance().removeFood(adminMenuView.getRemoveFoodIdField().getText());
     }
 
     private void handleAddSection() {
-        DataContainer.addSection(
+        DataContainer.getInstance().addSection(
             adminMenuView.getAddSectionIdField().getText(),
             adminMenuView.getAddSectionNameField().getText()
         );
     }
 
     private void handleRemoveSection() {
-        DataContainer.removeSection(adminMenuView.getRemoveSectionIdField().getText());
+        DataContainer.getInstance().removeSection(adminMenuView.getRemoveSectionIdField().getText());
     }
 
 }
