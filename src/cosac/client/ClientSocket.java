@@ -9,7 +9,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class ClientSocket {
 
@@ -36,53 +35,67 @@ public class ClientSocket {
             throws IOException, ClassNotFoundException
     {
         switch (requestType) {
-            case GET_FOOD_DATA_SETS:
-                DataContainer.getInstance().setFoodDataSet(
-                    FXCollections.observableArrayList((ArrayList<FoodData>)ois.readObject())
-                );
-                break;
-            case GET_USER_DATA_SETS:
-                DataContainer.setUserDataSet(
-                    FXCollections.observableArrayList((ArrayList<UserData>)ois.readObject())
-                );
-                break;
-            case GET_SECTION_DATA_SETS:
-                DataContainer.setSectionDataSet(
-                    FXCollections.observableArrayList((ArrayList<SectionData>)ois.readObject())
-                );
-                break;
-            case GET_RESTRICTION_DATA_SETS:
-                DataContainer.setRestrictionDataSet(
-                    FXCollections.observableArrayList((ArrayList<RestrictionData>)ois.readObject())
-                );
-                break;
-            case GET_ORDER_DATA_SETS:
-                DataContainer.setOrderDataSets(
-                        FXCollections.observableArrayList((ArrayList<OrderData>)ois.readObject())
-                );
-            case SET_FOOD_DATA_SETS:
-                break;
-            case SET_USER_DATA_SETS:
-                UserData user = new UserData("S3", "Michael", "Neuhold","michi.neuhold@gmail.com", Role.STUDENT, false);
-                ArrayList<UserData> userDataSet = new ArrayList<>();
-                userDataSet.add(user);
-                oos.writeObject(userDataSet);
-                break;
-            case SET_SECTION_DATA_SETS:
-                break;
-            case SET_RESTRICTION_DATA_SETS:
-                break;
+            case GET_FOOD_DATA_SETS: handleGetFoodDataSets(ois); break;
+            case GET_USER_DATA_SETS: handleGetUserDataSets(ois); break;
+            case GET_SECTION_DATA_SETS: handleGetSectionDataSets(ois); break;
+            case GET_RESTRICTION_DATA_SETS: handleGetRestrictionDataSets(ois); break;
+            case GET_ORDER_DATA_SETS: handleGetOrderDataSets(ois); break;
+            case SET_FOOD_DATA_SETS: handleSetFoodDataSets(oos); break;
+            case SET_USER_DATA_SETS: handleSetUserDataSets(oos); break;
+            case SET_SECTION_DATA_SETS: handleSetSectionDataSets(oos); break;
+            case SET_RESTRICTION_DATA_SETS: handleSetRestrictionDataSets(oos); break;
+            case SET_ORDER_DATA_SETS: handleSetOrderDataSets(oos); break;
         }
     }
 
-    public static void main(String[] args) {
-
-        ClientSocket.connect(Protocol.GET_FOOD_DATA_SETS);
-        ClientSocket.connect(Protocol.GET_USER_DATA_SETS);
-        ClientSocket.connect(Protocol.GET_SECTION_DATA_SETS);
-        ClientSocket.connect(Protocol.GET_RESTRICTION_DATA_SETS);
-
-        ClientSocket.connect(Protocol.SET_USER_DATA_SETS);
-
+    private static void handleGetFoodDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        DataContainer.getInstance().setFoodDataSet(
+            FXCollections.observableArrayList((ArrayList<FoodData>)ois.readObject())
+        );
     }
+
+    private static void handleGetUserDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        DataContainer.setUserDataSet(
+            FXCollections.observableArrayList((ArrayList<UserData>)ois.readObject())
+        );
+    }
+
+    private static void handleGetRestrictionDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        DataContainer.setRestrictionDataSet(
+            FXCollections.observableArrayList((ArrayList<RestrictionData>)ois.readObject())
+        );
+    }
+
+    private static void handleGetSectionDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        DataContainer.setSectionDataSet(
+            FXCollections.observableArrayList((ArrayList<SectionData>)ois.readObject())
+        );
+    }
+
+    private static void handleGetOrderDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        DataContainer.setOrderDataSets(
+            FXCollections.observableArrayList((ArrayList<OrderData>)ois.readObject())
+        );
+    }
+
+    private static void handleSetFoodDataSets(ObjectOutputStream oos) throws IOException {
+        oos.writeObject(DataContainer.getFoodDataSets());
+    }
+
+    private static void handleSetUserDataSets(ObjectOutputStream oos) throws IOException {
+        oos.writeObject(DataContainer.getUserDataSets());
+    }
+
+    private static void handleSetRestrictionDataSets(ObjectOutputStream oos) throws IOException {
+        oos.writeObject(DataContainer.getRestrictionDataSets());
+    }
+
+    private static void handleSetSectionDataSets(ObjectOutputStream oos) throws IOException {
+        oos.writeObject(DataContainer.getSectionDataSets());
+    }
+
+    private static void handleSetOrderDataSets(ObjectOutputStream oos) throws IOException {
+        oos.writeObject(DataContainer.getOrderDataSets());
+    }
+
 }

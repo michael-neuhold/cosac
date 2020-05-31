@@ -8,7 +8,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        DataContainer.getInstance().initialize();
+        Thread initializeDataContainer = new Thread( () ->
+                DataContainer.getInstance().initialize()
+        );
+        initializeDataContainer.start();
         SceneController sceneController = new SceneController(primaryStage);
         sceneController.mountNewScene(SceneType.LOGIN);
     }

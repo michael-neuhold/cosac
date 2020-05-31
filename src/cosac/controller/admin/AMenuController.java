@@ -16,7 +16,7 @@ public class AMenuController implements EventHandler<ActionEvent> {
 
     public AMenuController(Stage primaryStage) {
         this.sceneController = new SceneController(primaryStage);
-        adminMenuView.getSectionTable().setItems(DataContainer.getSectionDataSet());
+        adminMenuView.getSectionTable().setItems(DataContainer.getSectionDataSets());
         adminMenuView.getFoodTable().setItems(DataContainer.getFoodDataSets());
     }
 

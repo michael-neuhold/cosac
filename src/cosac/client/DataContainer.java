@@ -66,7 +66,7 @@ public class DataContainer {
         return foodDataSets;
     }
 
-    public static ObservableList<SectionData> getSectionDataSet() {
+    public static ObservableList<SectionData> getSectionDataSets() {
         return sectionDataSet;
     }
 
