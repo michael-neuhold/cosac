@@ -15,17 +15,9 @@ public class DataContainer {
 
     private static ObservableList<RestrictionData> restrictionDataSets;
     private static ObservableList<UserData> userDataSets;
-    //private static ObservableList orderDataSets;
     private static ObservableList<FoodData> foodDataSets;
     private static ObservableList<SectionData> sectionDataSet;
-
-    private static ObservableList orderDataSets = FXCollections.observableArrayList (
-            "Wiener Schnitzel vom Milchkalb",
-            "Wiener Tafelspitz",
-            "Duett vom Labonca Sonnenschwein",
-            "Fisch des Tages"
-    );
-
+    private static ObservableList<OrderData> orderDataSets;
 
     public DataContainer() {
         System.out.println("init DataContainer");
@@ -43,6 +35,7 @@ public class DataContainer {
         ClientSocket.connect(Protocol.GET_FOOD_DATA_SETS);
         ClientSocket.connect(Protocol.GET_RESTRICTION_DATA_SETS);
         ClientSocket.connect(Protocol.GET_SECTION_DATA_SETS);
+        ClientSocket.connect(Protocol.GET_ORDER_DATA_SETS);
     }
 
     public static void setUserDataSet(ObservableList<UserData> userDataSets) {
@@ -77,8 +70,12 @@ public class DataContainer {
         return sectionDataSet;
     }
 
-    public static ObservableList getOrderDataSets() {
+    public static ObservableList<OrderData> getOrderDataSets() {
         return orderDataSets;
+    }
+
+    public static void setOrderDataSets(ObservableList<OrderData> orderDataSets) {
+        DataContainer.orderDataSets = orderDataSets;
     }
 
     /* ==  RESTRICTIONS  == */
@@ -86,7 +83,7 @@ public class DataContainer {
     public static void addRestriction(String startTime, String endTime, int limit) {
         if(!startTime.matches("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$")) return;
         if(!endTime.matches("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$")) return;
-        RestrictionData newRestriction = new RestrictionData(startTime,endTime,limit);
+        RestrictionData newRestriction = new RestrictionData(1,startTime,endTime,limit);
         if(!restrictionDataSets.contains(newRestriction)) {
             restrictionDataSets.add(newRestriction);
         } else {

@@ -44,10 +44,12 @@ public class ClientHandler extends Thread {
             case GET_USER_DATA_SETS: handleGetUserDataSets(oos); break;
             case GET_SECTION_DATA_SETS: handleGetSectionDataSets(oos); break;
             case GET_RESTRICTION_DATA_SETS: handleGetRestrictionDataSets(oos); break;
+            case GET_ORDER_DATA_SETS: handleGetOrderDataSets(oos); break;
             case SET_FOOD_DATA_SETS: handleSetFoodDataSets(ois); break;
             case SET_USER_DATA_SETS: handleSetUserDataSets(ois); break;
             case SET_SECTION_DATA_SETS: handleSetSectionDataSets(ois); break;
             case SET_RESTRICTION_DATA_SETS: handleSetRestrictionDataSets(ois); break;
+            case SET_ORDER_DATA_SETS: handleSetOrderDataSets(ois); break;
             default: System.out.println("...");
         }
     }
@@ -72,35 +74,48 @@ public class ClientHandler extends Thread {
         oos.writeObject(fileReader.readFrom("restrictionDataSet.ser"));
     }
 
+    private void handleGetOrderDataSets(ObjectOutputStream oos) throws IOException {
+        FileReader<OrderData> fileReader = new FileReader<>();
+        oos.writeObject(fileReader.readFrom("orderDataSet.ser"));
+    }
+
     private void handleSetFoodDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         FileWriter<FoodData> fileWriter = new FileWriter<>();
         fileWriter.writeIntoFile(
-                (ArrayList<FoodData>)ois.readObject(),
-                "foodDataSet.ser"
+            (ArrayList<FoodData>)ois.readObject(),
+            "foodDataSet.ser"
         );
     }
 
     private void handleSetUserDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         FileWriter<UserData> fileWriter = new FileWriter<>();
         fileWriter.writeIntoFile(
-                (ArrayList<UserData>)ois.readObject(),
-                "userDataSet.ser"
+            (ArrayList<UserData>)ois.readObject(),
+            "userDataSet.ser"
         );
     }
 
     private void handleSetSectionDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         FileWriter<SectionData> fileWriter = new FileWriter<>();
         fileWriter.writeIntoFile(
-                (ArrayList<SectionData>)ois.readObject(),
-                "sectionDataSet.ser"
+            (ArrayList<SectionData>)ois.readObject(),
+            "sectionDataSet.ser"
         );
     }
 
     private void handleSetRestrictionDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         FileWriter<RestrictionData> fileWriter = new FileWriter<>();
         fileWriter.writeIntoFile(
-                (ArrayList<RestrictionData>)ois.readObject(),
-                "restrictionDataSet.ser"
+            (ArrayList<RestrictionData>)ois.readObject(),
+            "restrictionDataSet.ser"
+        );
+    }
+
+    private void handleSetOrderDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        FileWriter<OrderData> fileWriter = new FileWriter<>();
+        fileWriter.writeIntoFile(
+                (ArrayList<OrderData>)ois.readObject(),
+                "orderDataSet.ser"
         );
     }
 

@@ -3,8 +3,13 @@ package cosac.views.admin;
 import cosac.component.Component;
 import cosac.controller.admin.AOrderController;
 import cosac.client.DataContainer;
+import cosac.model.OrderData;
+import cosac.model.UserData;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -16,7 +21,11 @@ public class AOrderView extends BorderPane {
 
     private Button backButton = new Button("back");
 
-    private ArrayList<ListView> listViews = new ArrayList<>();
+    private ArrayList<TableView> tabelViews = new ArrayList<>();
+
+    private TableColumn userIdCol = new TableColumn("User");
+    private TableColumn foodCol = new TableColumn("Bestellung");
+    private TableColumn timeslotCol = new TableColumn("Timeslot ID");
 
     public AOrderView(AOrderController controller, int timeSlots) {
         this.getStyleClass().add("window");
@@ -30,18 +39,25 @@ public class AOrderView extends BorderPane {
         VBox tableWrapper = new VBox(10);
         tableWrapper.setId("orderTableWrapper");
         for(int i = 0; i < DataContainer.getRestrictionDataSets().size(); i++) {
-            ListView list = new ListView();
+            TableView table = new TableView();
+
+            userIdCol.setCellValueFactory(new PropertyValueFactory<OrderData, String>("userId"));
+            foodCol.setCellValueFactory(new PropertyValueFactory<OrderData, String>("food"));
+            timeslotCol.setCellValueFactory(new PropertyValueFactory<OrderData, String>("timeSlotId"));
+
+            table.getColumns().addAll(userIdCol, foodCol, timeslotCol);
+
             String timeslot = DataContainer.getRestrictionDataSets().get(i).getTimeSlot();
-            list.getStyleClass().add("ordertable");
-            listViews.add(list);
+            table.getStyleClass().add("ordertable");
+            tabelViews.add(table);
             Text listHeader = new Text(timeslot);
             listHeader.getStyleClass().add("timeslot");
-            tableWrapper.getChildren().addAll(listHeader, list);
+            tableWrapper.getChildren().addAll(listHeader, table);
         }
         return tableWrapper;
     }
 
     public Button getBackButton() { return backButton; }
-    public ArrayList<ListView> getListViews() { return listViews; }
+    public ArrayList<TableView> gettabelViews() { return tabelViews; }
 
 }

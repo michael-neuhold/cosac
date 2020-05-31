@@ -42,20 +42,24 @@ public class ClientSocket {
                 );
                 break;
             case GET_USER_DATA_SETS:
-                DataContainer.getInstance().setUserDataSet(
+                DataContainer.setUserDataSet(
                     FXCollections.observableArrayList((ArrayList<UserData>)ois.readObject())
                 );
                 break;
             case GET_SECTION_DATA_SETS:
-                DataContainer.getInstance().setSectionDataSet(
+                DataContainer.setSectionDataSet(
                     FXCollections.observableArrayList((ArrayList<SectionData>)ois.readObject())
                 );
                 break;
             case GET_RESTRICTION_DATA_SETS:
-                DataContainer.getInstance().setRestrictionDataSet(
+                DataContainer.setRestrictionDataSet(
                     FXCollections.observableArrayList((ArrayList<RestrictionData>)ois.readObject())
                 );
                 break;
+            case GET_ORDER_DATA_SETS:
+                DataContainer.setOrderDataSets(
+                        FXCollections.observableArrayList((ArrayList<OrderData>)ois.readObject())
+                );
             case SET_FOOD_DATA_SETS:
                 break;
             case SET_USER_DATA_SETS:

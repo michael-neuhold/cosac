@@ -39,8 +39,8 @@ public class FileWriter<T> {
 
         // RESTRICTION DATA SETS
         FileWriter<RestrictionData> fileWriter3 = new FileWriter<>();
-        RestrictionData restriction1 = new RestrictionData("12:00","13:00",20);
-        RestrictionData restriction2 = new RestrictionData("13:00","14:00",50);
+        RestrictionData restriction1 = new RestrictionData(1,"12:00","13:00",20);
+        RestrictionData restriction2 = new RestrictionData(2,"13:00","14:00",50);
         ArrayList<RestrictionData> restrictionDataSet = new ArrayList<>();
         restrictionDataSet.add(restriction1);
         restrictionDataSet.add(restriction2);
@@ -54,6 +54,15 @@ public class FileWriter<T> {
         sectionDataSet.add(section1);
         sectionDataSet.add(section2);
         fileWriter4.writeIntoFile(sectionDataSet, "sectionDataSet.ser");
+
+        // ORDER DATA SETS
+        FileWriter<OrderData> fileWriter5 = new FileWriter<>();
+        OrderData order1 = new OrderData("1","food 1",1);
+        OrderData order2 = new OrderData("2","food 2",2);
+        ArrayList<OrderData> orderDataSet = new ArrayList<>();
+        orderDataSet.add(order1);
+        orderDataSet.add(order2);
+        fileWriter5.writeIntoFile(orderDataSet, "orderDataSet.ser");
 
     }
 }

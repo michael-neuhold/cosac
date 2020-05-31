@@ -1,7 +1,6 @@
 package cosac;
 
 import cosac.client.DataContainer;
-import cosac.server.Server;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

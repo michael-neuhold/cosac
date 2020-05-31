@@ -5,11 +5,13 @@ import java.util.Objects;
 
 public class RestrictionData implements Serializable {
 
+    private int timeslotId;
     private String startTime;
     private String endTime;
     private int visitorLimit;
 
-    public RestrictionData(String startTime, String endTime, int visitorLimit) {
+    public RestrictionData(int timeslotId, String startTime, String endTime, int visitorLimit) {
+        this.timeslotId = timeslotId;
         this.startTime = startTime;
         this.endTime = endTime;
         this.visitorLimit = visitorLimit;
@@ -47,10 +49,19 @@ public class RestrictionData implements Serializable {
         return sb.toString();
     }
 
+    public int getTimeslotId() {
+        return timeslotId;
+    }
+
+    public void setTimeslotId(int timeslotId) {
+        this.timeslotId = timeslotId;
+    }
+
     @Override
     public String toString() {
         return "RestrictionData{" +
-                "startTime='" + startTime + '\'' +
+                "timeslotId=" + timeslotId +
+                ", startTime='" + startTime + '\'' +
                 ", endTime='" + endTime + '\'' +
                 ", visitorLimit=" + visitorLimit +
                 '}';
@@ -62,6 +73,7 @@ public class RestrictionData implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         RestrictionData that = (RestrictionData) o;
         return visitorLimit == that.visitorLimit &&
+                timeslotId == that.timeslotId &&
                 Objects.equals(startTime, that.startTime) &&
                 Objects.equals(endTime, that.endTime);
     }

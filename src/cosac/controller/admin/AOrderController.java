@@ -14,8 +14,8 @@ public class AOrderController implements EventHandler<ActionEvent> {
 
     public AOrderController(Stage primaryStage) {
         this.sceneController = new SceneController(primaryStage);
-        var lists = this.adminOrderView.getListViews();
-        for(var list : lists) list.setItems(DataContainer.getOrderDataSets());
+        var tables = this.adminOrderView.gettabelViews();
+        for(var tabel : tables) tabel.setItems(DataContainer.getOrderDataSets());
     }
 
     public AOrderView getView() {
