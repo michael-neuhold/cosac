@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class FileWriter<T> {
 
-    public void writeIntoFile(ArrayList<T> dataSet, String filename) {
+    public synchronized void writeIntoFile(ArrayList<T> dataSet, String filename) {
         Logger.serverFileIO("\t |-> [writes into] " + filename);
         Logger.serverFileIO(dataSet);
         try(ObjectOutput os = new ObjectOutputStream(new FileOutputStream("./src/persist/" + filename))) {
@@ -23,10 +23,10 @@ public class FileWriter<T> {
         // USER DATA SETS
         FileWriter<UserData> fileWriter1 = new FileWriter();
         UserData user2 = new UserData("S2", "Michael", "Neuhold","michi.neuhold@gmail.com", Role.STUDENT, false);
-        //UserData user3 = new UserData("S3", "Michael", "Neuhold","michi.neuhold@gmail.com", Role.STUDENT, false);
+        UserData user3 = new UserData("S3", "Michael", "Neuhold","michi.neuhold@gmail.com", Role.STUDENT, false);
         ArrayList<UserData> userDataSet = new ArrayList<>();
         userDataSet.add(user2);
-        //userDataSet.add(user3);
+        userDataSet.add(user3);
         fileWriter1.writeIntoFile(userDataSet, "userDataSet.ser");
 
         // FOOD DATA SETS
