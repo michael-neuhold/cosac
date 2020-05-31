@@ -4,22 +4,23 @@ import cosac.model.FoodData;
 import cosac.model.RestrictionData;
 import cosac.model.SectionData;
 import cosac.model.UserData;
+import logger.Logger;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
-import static java.lang.System.out;
 
 public class FileReader<T> {
 
     public ArrayList<T> readFrom(String filename) {
+        Logger.serverFileIO("\t |<- [reads from] " + filename);
         ArrayList<T> dataSet = null;
         try(ObjectInput is = new ObjectInputStream(new FileInputStream("./src/persist/" + filename))) {
             dataSet = (ArrayList<T>)is.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+        Logger.serverFileIO(dataSet);
         return dataSet;
     }
 

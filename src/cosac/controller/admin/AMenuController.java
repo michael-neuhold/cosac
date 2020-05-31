@@ -1,6 +1,8 @@
 package cosac.controller.admin;
 
+import cosac.client.ClientSocket;
 import cosac.client.DataContainer;
+import cosac.communication.Protocol;
 import cosac.views.admin.AMenuView;
 import cosac.SceneController;
 import javafx.event.ActionEvent;
@@ -33,7 +35,11 @@ public class AMenuController implements EventHandler<ActionEvent> {
         else if(source.equals(adminMenuView.getAddSectionButton())) handleAddSection();
         else if(source.equals(adminMenuView.getRemoveSectionButton())) handleRemoveSection();
         else if(source.equals(adminMenuView.getSaveButton())) {
-            System.out.println("save menu");
+            Thread thread = new Thread(() -> {
+                ClientSocket.connect(Protocol.SET_FOOD_DATA_SETS);
+                ClientSocket.connect(Protocol.SET_SECTION_DATA_SETS);
+            });
+            thread.start();
         }
         adminMenuView.resetTextFields();
     }

@@ -6,8 +6,10 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
+
 import cosac.communication.Protocol;
 import cosac.model.*;
+import logger.Logger;
 
 public class ClientHandler extends Thread {
 
@@ -50,36 +52,42 @@ public class ClientHandler extends Thread {
             case SET_SECTION_DATA_SETS: handleSetSectionDataSets(ois); break;
             case SET_RESTRICTION_DATA_SETS: handleSetRestrictionDataSets(ois); break;
             case SET_ORDER_DATA_SETS: handleSetOrderDataSets(ois); break;
-            default: System.out.println("...");
+            default: Logger.error("protocol error");
         }
     }
 
     private void handleGetFoodDataSets(ObjectOutputStream oos) throws IOException {
+        Logger.serverSocket("server send FoodDataSets ");
         FileReader<FoodData> fileReader = new FileReader<>();
         oos.writeObject(fileReader.readFrom("foodDataSet.ser"));
     }
 
     private void handleGetUserDataSets(ObjectOutputStream oos) throws IOException {
+        Logger.serverSocket("server send UserDataSets ");
         FileReader<UserData> fileReader = new FileReader<>();
         oos.writeObject(fileReader.readFrom("userDataSet.ser"));
     }
 
     private void handleGetSectionDataSets(ObjectOutputStream oos) throws IOException {
+        Logger.serverSocket("server send SectionDataSets ");
         FileReader<SectionData> fileReader = new FileReader<>();
         oos.writeObject(fileReader.readFrom("sectionDataSet.ser"));
     }
 
     private void handleGetRestrictionDataSets(ObjectOutputStream oos) throws IOException {
+        Logger.serverSocket("server send RestrictionDataSets ");
         FileReader<RestrictionData> fileReader = new FileReader<>();
         oos.writeObject(fileReader.readFrom("restrictionDataSet.ser"));
     }
 
     private void handleGetOrderDataSets(ObjectOutputStream oos) throws IOException {
+        Logger.serverSocket("server send OrderDataSets ");
         FileReader<OrderData> fileReader = new FileReader<>();
         oos.writeObject(fileReader.readFrom("orderDataSet.ser"));
     }
 
     private void handleSetFoodDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        Logger.serverSocket("server receives FoodDataSets ");
         FileWriter<FoodData> fileWriter = new FileWriter<>();
         fileWriter.writeIntoFile(
             (ArrayList<FoodData>)ois.readObject(),
@@ -88,6 +96,7 @@ public class ClientHandler extends Thread {
     }
 
     private void handleSetUserDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        Logger.serverSocket("server receives UserDataSets ");
         FileWriter<UserData> fileWriter = new FileWriter<>();
         fileWriter.writeIntoFile(
             (ArrayList<UserData>)ois.readObject(),
@@ -96,6 +105,7 @@ public class ClientHandler extends Thread {
     }
 
     private void handleSetSectionDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        Logger.serverSocket("server receives SectionDataSets ");
         FileWriter<SectionData> fileWriter = new FileWriter<>();
         fileWriter.writeIntoFile(
             (ArrayList<SectionData>)ois.readObject(),
@@ -104,6 +114,7 @@ public class ClientHandler extends Thread {
     }
 
     private void handleSetRestrictionDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        Logger.serverSocket("server receives RestrictionDataSets ");
         FileWriter<RestrictionData> fileWriter = new FileWriter<>();
         fileWriter.writeIntoFile(
             (ArrayList<RestrictionData>)ois.readObject(),
@@ -112,10 +123,11 @@ public class ClientHandler extends Thread {
     }
 
     private void handleSetOrderDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        Logger.serverSocket("server receives OrderDataSets ");
         FileWriter<OrderData> fileWriter = new FileWriter<>();
         fileWriter.writeIntoFile(
-                (ArrayList<OrderData>)ois.readObject(),
-                "orderDataSet.ser"
+            (ArrayList<OrderData>)ois.readObject(),
+            "orderDataSet.ser"
         );
     }
 

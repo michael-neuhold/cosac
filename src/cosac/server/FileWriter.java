@@ -1,15 +1,16 @@
 package cosac.server;
 
 import cosac.model.*;
+import logger.Logger;
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class FileWriter<T> {
 
     public void writeIntoFile(ArrayList<T> dataSet, String filename) {
+        Logger.serverFileIO("\t |-> [writes into] " + filename);
+        Logger.serverFileIO(dataSet);
         try(ObjectOutput os = new ObjectOutputStream(new FileOutputStream("./src/persist/" + filename))) {
             os.writeObject(dataSet);
         } catch (IOException e) {

@@ -1,6 +1,8 @@
 package cosac.controller.admin;
 
+import cosac.client.ClientSocket;
 import cosac.client.DataContainer;
+import cosac.communication.Protocol;
 import cosac.model.RestrictionData;
 import cosac.views.admin.ARestrictionView;
 import cosac.SceneController;
@@ -56,7 +58,8 @@ public class ARestrictionController implements EventHandler {
             popupView = new AddRestrictionView(this);
             showPopUp();
         } else if (source.equals(adminRestictionView.getSaveButton())) {
-            System.out.println("save restriction");
+            Thread thread = new Thread(() -> ClientSocket.connect(Protocol.SET_RESTRICTION_DATA_SETS));
+            thread.start();
         }
 
         if (popupView != null) handleAddRestrictionPopup(source);

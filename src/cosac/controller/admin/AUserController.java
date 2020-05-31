@@ -1,6 +1,8 @@
 package cosac.controller.admin;
 
+import cosac.client.ClientSocket;
 import cosac.client.DataContainer;
+import cosac.communication.Protocol;
 import cosac.model.Role;
 import cosac.model.UserData;
 import cosac.views.admin.AUserView;
@@ -62,7 +64,8 @@ public class AUserController implements EventHandler {
             popupLockUser = new LockUserView(this);
             showPopUp(popupLockUser);
         } else if (source.equals(adminUserView.getSaveButton())) {
-            System.out.println("save user data");
+            Thread thread = new Thread( () -> ClientSocket.connect(Protocol.SET_USER_DATA_SETS));
+            thread.start();
         }
 
         if (popupViewAddUser != null) handleAddUserPopup(source);

@@ -79,23 +79,23 @@ public class ClientSocket {
     }
 
     private static void handleSetFoodDataSets(ObjectOutputStream oos) throws IOException {
-        oos.writeObject(DataContainer.getInstance().getFoodDataSets());
+        oos.writeObject(new ArrayList<>(DataContainer.getInstance().getFoodDataSets()));
     }
 
     private static void handleSetUserDataSets(ObjectOutputStream oos) throws IOException {
-        oos.writeObject(DataContainer.getInstance().getUserDataSets());
+        oos.writeObject(new ArrayList<>(DataContainer.getInstance().getUserDataSets()));
     }
 
     private static void handleSetRestrictionDataSets(ObjectOutputStream oos) throws IOException {
-        oos.writeObject(DataContainer.getInstance().getRestrictionDataSets());
+        oos.writeObject(new ArrayList<>(DataContainer.getInstance().getRestrictionDataSets()));
     }
 
     private static void handleSetSectionDataSets(ObjectOutputStream oos) throws IOException {
-        oos.writeObject(DataContainer.getInstance().getSectionDataSets());
+        oos.writeObject(new ArrayList<>(DataContainer.getInstance().getSectionDataSets()));
     }
 
     private static void handleSetOrderDataSets(ObjectOutputStream oos) throws IOException {
-        oos.writeObject(DataContainer.getInstance().getOrderDataSets());
+        oos.writeObject(new ArrayList<>(DataContainer.getInstance().getOrderDataSets()));
     }
 
 }
