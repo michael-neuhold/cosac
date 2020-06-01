@@ -13,12 +13,17 @@ public class Crypt {
 
     public String getHash(String password) {
         messageDigest.update(password.getBytes());
+        String hash = getHexString().toString();
+        Logger.clientStatus("generated hash: ## " + hash + " ##");
+        return hash;
+    }
+
+    private StringBuilder getHexString() {
         byte[] digest = messageDigest.digest();
-        StringBuffer hexString = new StringBuffer();
-        for (int i = 0;i<digest.length;i++) {
+        StringBuilder hexString = new StringBuilder();
+        for (int i = 0;i<digest.length;i++)
             hexString.append(Integer.toHexString(0xFF & digest[i]));
-        }
-        return hexString.toString();
+        return hexString;
     }
 
 }

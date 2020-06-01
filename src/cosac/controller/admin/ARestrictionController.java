@@ -84,14 +84,13 @@ public class ARestrictionController implements EventHandler {
 
     private void handleAddRestrictionPopup(Object source) {
         if(source.equals(popupView.getAddButton())) {
-
             RestrictionData newRestriction = new RestrictionData(
                 1,
                 popupView.getStartTimeField().getText(),
                 popupView.getEndTimeField().getText(),
                 Integer.parseInt(popupView.getVisitorLimitField().getText())
             );
-            if(isValidUserInput(newRestriction.getStartTime(), newRestriction.getEndTime())) {
+            if(isValidUserInput(newRestriction.getStartTime(), newRestriction.getEndTime()) && fieldsAreFilled()) {
                 DataContainer.getInstance().addRestriction(newRestriction);
                 closePopup();
             } else {
@@ -101,6 +100,13 @@ public class ARestrictionController implements EventHandler {
 
         if(source.equals(popupView.getCancelButton()))
             closePopup();
+    }
+
+    private boolean fieldsAreFilled() {
+        return
+            !popupView.getStartTimeField().getText().isEmpty() &&
+            !popupView.getEndTimeField().getText().isEmpty() &&
+            !popupView.getVisitorLimitField().getText().isEmpty();
     }
 
     private boolean isValidUserInput(String startTime, String endTime) {

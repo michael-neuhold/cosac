@@ -125,7 +125,7 @@ public class AUserController implements EventHandler {
                 Role.STUDENT,
                 false
             );
-            if(isValidUserInput(newUser.getStudentID(),newUser.getEmail())) {
+            if(fieldsAreFilled() && isValidUserInput(newUser.getStudentID(),newUser.getEmail())) {
                 DataContainer.getInstance().addUser(newUser);
                 closePopup();
             } else {
@@ -134,6 +134,15 @@ public class AUserController implements EventHandler {
         } else if (source.equals(popupViewAddUser.getCancelButton())) {
             closePopup();
         }
+    }
+
+    private boolean fieldsAreFilled() {
+        return
+            !popupViewAddUser.getStudentsIdField().getText().isEmpty() &&
+            !popupViewAddUser.getFirstnameField().getText().isEmpty() &&
+            !popupViewAddUser.getLastnameField().getText().isEmpty() &&
+            !popupViewAddUser.getEmailField().getText().isEmpty() &&
+            !popupViewAddUser.getPasswordField().getText().isEmpty();
     }
 
     private boolean isValidUserInput(String userId, String email) {
