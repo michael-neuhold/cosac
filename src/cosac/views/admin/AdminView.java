@@ -5,7 +5,6 @@ import cosac.controller.admin.AdminController;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 
-import java.io.BufferedReader;
 
 public class AdminView extends BorderPane {
 

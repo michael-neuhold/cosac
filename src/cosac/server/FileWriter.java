@@ -19,10 +19,12 @@ public class FileWriter<T> {
     }
 
     /*
-     *  ONLY FOR TESTING
+     *  ONLY FOR TESTING (run to fill application with test data sets)
      */
     public static void main(String[] args) {
 
+        // user1 pw: admin
+        // user2 pw: init123
         UserData user1 = new UserData("P0000", "Michael", "Neuhold","michi.neuhold@gmail.com", "8c6976e5b541415bde98bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", Role.STUDENT, false);
         UserData user2 = new UserData("S1810307094", "Julian", "Jany","julian.jany@gmail.com", "e08edb748f1289934cb8a223048aa09a5197b9ebcbe84fbebed833070b0a", Role.STUDENT, false);
 
@@ -76,6 +78,5 @@ public class FileWriter<T> {
         fileWriter3.writeIntoFile(restrictionDataSet, "restrictionDataSet.ser");
         fileWriter4.writeIntoFile(sectionDataSet, "sectionDataSet.ser");
         fileWriter5.writeIntoFile(orderDataSet, "orderDataSet.ser");
-
     }
 }

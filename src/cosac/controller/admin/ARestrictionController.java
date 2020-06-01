@@ -43,12 +43,11 @@ public class ARestrictionController implements EventHandler {
 
     @Override
     public void handle(Event event) {
-
-        if(event instanceof TableColumn.CellEditEvent)
+        if(event instanceof TableColumn.CellEditEvent){
             handleEditRestrictionEvents(event);
-        else if(event instanceof ActionEvent)
+        } else if(event instanceof ActionEvent) {
             handleButtonEvent(event);
-
+        }
     }
 
     private void handleButtonEvent(Event event) {

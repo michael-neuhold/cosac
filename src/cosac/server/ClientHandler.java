@@ -6,7 +6,6 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
-
 import cosac.communication.Protocol;
 import cosac.model.*;
 import util.Logger;
@@ -15,14 +14,13 @@ public class ClientHandler extends Thread {
 
     private Socket socket;
 
-    public ClientHandler(Socket socket) throws IOException {
+    public ClientHandler(Socket socket) {
         this.socket = socket;
     }
 
     @Override
     public void run() {
         try {
-
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
 

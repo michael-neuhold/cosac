@@ -1,7 +1,6 @@
 package cosac.model;
 
 import java.io.*;
-import java.util.Objects;
 
 public class FoodData implements Serializable {
 

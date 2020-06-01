@@ -47,9 +47,7 @@ public class DataContainer {
         DataContainer.restrictionDataSets = restrictionDataSets;
     }
 
-    public void setSectionDataSet(ObservableList<SectionData> sectionDataSet) {
-        DataContainer.sectionDataSet = sectionDataSet;
-    }
+    public void setSectionDataSet(ObservableList<SectionData> sectionDataSet) { DataContainer.sectionDataSet = sectionDataSet; }
 
     public void setFoodDataSet(ObservableList<FoodData> foodDataSets) {
         DataContainer.foodDataSets = foodDataSets;
@@ -105,8 +103,6 @@ public class DataContainer {
         }
         return null;
     }
-
-    /* ==  ORDER  == */
 
     /* ==  FOOD  == */
 

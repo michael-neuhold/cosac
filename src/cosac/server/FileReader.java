@@ -9,7 +9,6 @@ import util.Logger;
 import java.io.*;
 import java.util.ArrayList;
 
-
 public class FileReader<T> {
 
     public ArrayList<T> readFrom(String filename) {
@@ -24,6 +23,9 @@ public class FileReader<T> {
         return dataSet;
     }
 
+    /*
+     *  ONLY FOR TESTING
+     */
     public static void main(String[] args) {
         FileReader<UserData> fileReader1 = new FileReader();
         System.out.println("data: " + fileReader1.readFrom("userDataSet.ser"));
@@ -37,6 +39,5 @@ public class FileReader<T> {
         FileReader<SectionData> fileReader4 = new FileReader();
         System.out.println("data: " + fileReader4.readFrom("sectionDataSet.ser"));
     }
-
 
 }
