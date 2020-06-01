@@ -23,6 +23,15 @@ public class Logger {
         System.out.println(ANSI_GREEN + msg + ANSI_RESET);
     }
 
+    public static void clientSocket(String msg) {
+        System.out.println(ANSI_YELLOW + msg + ANSI_RESET);
+    }
+
+    public static void clientStatus(String msg) {
+        System.out.println(ANSI_GREEN + msg + ANSI_RESET);
+    }
+
+
     public static void error(String msg) {
         System.out.println(ANSI_RED + msg + ANSI_RESET);
     }

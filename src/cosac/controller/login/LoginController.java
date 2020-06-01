@@ -30,7 +30,9 @@ public class LoginController implements EventHandler<ActionEvent> {
             System.out.println("username: " + username + ", password: " + password);
 
             if(username.equals("admin")) sceneController.mountNewScene(SceneType.ADMIN_VIEW);
-            else System.out.println("you can only login with username: admin password: ...");
+            else {
+                loginView.showError("you can only login with username: admin password: ...");
+            }
         }
     }
 

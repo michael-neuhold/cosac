@@ -22,7 +22,7 @@ public class RestrictionData implements Serializable {
     }
 
     public void setStartTime(String startTime) {
-        this.startTime = startTime;
+        if(isValidTime(startTime)) this.startTime = startTime;
     }
 
     public String getEndTime() {
@@ -30,7 +30,7 @@ public class RestrictionData implements Serializable {
     }
 
     public void setEndTime(String endTime) {
-        this.endTime = endTime;
+        if(isValidTime(endTime)) this.endTime = endTime;
     }
 
     public int getVisitorLimit() {
@@ -41,6 +41,14 @@ public class RestrictionData implements Serializable {
         this.visitorLimit = visitorLimit;
     }
 
+    public int getTimeslotId() {
+        return timeslotId;
+    }
+
+    public void setTimeslotId(int timeslotId) {
+        this.timeslotId = timeslotId;
+    }
+
     public String getTimeSlot() {
         StringBuilder sb = new StringBuilder();
         sb.append(startTime);
@@ -49,12 +57,8 @@ public class RestrictionData implements Serializable {
         return sb.toString();
     }
 
-    public int getTimeslotId() {
-        return timeslotId;
-    }
-
-    public void setTimeslotId(int timeslotId) {
-        this.timeslotId = timeslotId;
+    public static boolean isValidTime(String time) {
+        return time.matches("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$");
     }
 
     @Override

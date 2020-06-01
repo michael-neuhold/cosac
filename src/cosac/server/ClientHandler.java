@@ -57,31 +57,31 @@ public class ClientHandler extends Thread {
     }
 
     private void handleGetFoodDataSets(ObjectOutputStream oos) throws IOException {
-        Logger.serverSocket("server send FoodDataSets ");
+        Logger.serverSocket("server sends FoodDataSets ");
         FileReader<FoodData> fileReader = new FileReader<>();
         oos.writeObject(fileReader.readFrom("foodDataSet.ser"));
     }
 
     private void handleGetUserDataSets(ObjectOutputStream oos) throws IOException {
-        Logger.serverSocket("server send UserDataSets ");
+        Logger.serverSocket("server sends UserDataSets ");
         FileReader<UserData> fileReader = new FileReader<>();
         oos.writeObject(fileReader.readFrom("userDataSet.ser"));
     }
 
     private void handleGetSectionDataSets(ObjectOutputStream oos) throws IOException {
-        Logger.serverSocket("server send SectionDataSets ");
+        Logger.serverSocket("server sends SectionDataSets ");
         FileReader<SectionData> fileReader = new FileReader<>();
         oos.writeObject(fileReader.readFrom("sectionDataSet.ser"));
     }
 
     private void handleGetRestrictionDataSets(ObjectOutputStream oos) throws IOException {
-        Logger.serverSocket("server send RestrictionDataSets ");
+        Logger.serverSocket("server sends RestrictionDataSets ");
         FileReader<RestrictionData> fileReader = new FileReader<>();
         oos.writeObject(fileReader.readFrom("restrictionDataSet.ser"));
     }
 
     private void handleGetOrderDataSets(ObjectOutputStream oos) throws IOException {
-        Logger.serverSocket("server send OrderDataSets ");
+        Logger.serverSocket("server sends OrderDataSets ");
         FileReader<OrderData> fileReader = new FileReader<>();
         oos.writeObject(fileReader.readFrom("orderDataSet.ser"));
     }

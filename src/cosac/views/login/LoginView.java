@@ -1,5 +1,6 @@
 package cosac.views.login;
 
+import cosac.component.Component;
 import cosac.controller.login.LoginController;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -59,9 +60,9 @@ public class LoginView extends BorderPane {
         inputWrapper.setAlignment(Pos.CENTER);
         inputWrapper.getChildren().add(new ImageView("./style/images/campina.png"));
         inputWrapper.getChildren().add(createHeader());
-        inputWrapper.getChildren().addAll(new Label("username"), usernameField);
+        inputWrapper.getChildren().addAll(new Label("user id"), usernameField);
         inputWrapper.getChildren().addAll(new Label("password"), passwordField);
-        usernameField.setPromptText("username 'admin'");
+        usernameField.setPromptText("user id 'admin'");
         passwordField.setPromptText("password '[A-z,1-9]*'");
         inputWrapper.getChildren().add(getButtonPanel());
         return inputWrapper;
@@ -72,6 +73,10 @@ public class LoginView extends BorderPane {
         buttonWrapper.setId("loginButtonWrapper");
         buttonWrapper.getChildren().add(loginButton);
         return buttonWrapper;
+    }
+
+    public void showError(String msg) {
+        this.setBottom(Component.createLoginError(msg));
     }
 
     public Button getLoginButton() { return loginButton; }

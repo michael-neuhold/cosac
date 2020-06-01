@@ -28,7 +28,7 @@ public class AddUserView extends BorderPane {
     }
 
     private VBox createInputFiles() {
-        VBox inputFieldWrapper = new VBox();
+        VBox inputFieldWrapper = new VBox(10);
         inputFieldWrapper.setAlignment(Pos.CENTER);
         inputFieldWrapper.getChildren().addAll(
             Component.createLabeledInput("id", studentsIdField),

@@ -15,6 +15,8 @@ import javafx.event.EventHandler;
 import javafx.scene.control.TableColumn;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import logger.Logger;
+
 
 public class AUserController implements EventHandler {
 
@@ -102,6 +104,8 @@ public class AUserController implements EventHandler {
             if(user != null) {
                 user.setLocked(true);
                 adminUserView.getUserTable().refresh();
+            } else {
+                Logger.error("id does not exist");
             }
 
             closePopup();
@@ -112,19 +116,28 @@ public class AUserController implements EventHandler {
 
     private void handleAddUserPopup(Object source) {
         if (source.equals(popupViewAddUser.getAddButton())) {
-            DataContainer.getInstance().addUser(
+            UserData newUser = new UserData(
                 popupViewAddUser.getStudentsIdField().getText(),
                 popupViewAddUser.getFirstnameField().getText(),
                 popupViewAddUser.getLastnameField().getText(),
                 popupViewAddUser.getEmailField().getText(),
                 popupViewAddUser.getPasswordField().getText(),
-                Role.STUDENT
+                Role.STUDENT,
+                false
             );
-
-            closePopup();
+            if(isValidUserInput(newUser.getStudentID(),newUser.getEmail())) {
+                DataContainer.getInstance().addUser(newUser);
+                closePopup();
+            } else {
+                Logger.error("wrong userinput");
+            }
         } else if (source.equals(popupViewAddUser.getCancelButton())) {
             closePopup();
         }
+    }
+
+    private boolean isValidUserInput(String userId, String email) {
+        return  UserData.isValidId(userId) && UserData.isValidEmail(email);
     }
 
 }

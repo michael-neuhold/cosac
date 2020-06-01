@@ -3,6 +3,8 @@ package cosac.controller.admin;
 import cosac.client.ClientSocket;
 import cosac.client.DataContainer;
 import cosac.communication.Protocol;
+import cosac.model.FoodData;
+import cosac.model.SectionData;
 import cosac.views.admin.AMenuView;
 import cosac.SceneController;
 import javafx.event.ActionEvent;
@@ -45,11 +47,12 @@ public class AMenuController implements EventHandler<ActionEvent> {
     }
 
     private void handleAddFood() {
-        DataContainer.getInstance().addFood(
-            adminMenuView.getAddFoodIdField().getText(),
-            adminMenuView.getAddFoodSectionField().getText(),
+        FoodData newFood = new FoodData(
+            Integer.parseInt(adminMenuView.getAddFoodIdField().getText()),
+            Integer.parseInt(adminMenuView.getAddFoodSectionField().getText()),
             adminMenuView.getAddFoodNameField().getText()
         );
+        DataContainer.getInstance().addFood(newFood);
     }
 
     private void handleRemoveFood() {
@@ -57,10 +60,11 @@ public class AMenuController implements EventHandler<ActionEvent> {
     }
 
     private void handleAddSection() {
-        DataContainer.getInstance().addSection(
-            adminMenuView.getAddSectionIdField().getText(),
+        SectionData newSection = new SectionData(
+            Integer.parseInt(adminMenuView.getAddSectionIdField().getText()),
             adminMenuView.getAddSectionNameField().getText()
         );
+        DataContainer.getInstance().addSection(newSection);
     }
 
     private void handleRemoveSection() {

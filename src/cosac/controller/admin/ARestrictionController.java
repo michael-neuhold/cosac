@@ -12,6 +12,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.TableColumn;
 import javafx.stage.Stage;
+import logger.Logger;
 
 
 public class ARestrictionController implements EventHandler {
@@ -83,16 +84,28 @@ public class ARestrictionController implements EventHandler {
 
     private void handleAddRestrictionPopup(Object source) {
         if(source.equals(popupView.getAddButton())) {
-            closePopup();
-            String startTime = popupView.getStartTimeField().getText();
-            String endTime = popupView.getEndTimeField().getText();
-            String visitorLimit = popupView.getVisitorLimitField().getText();
 
-            DataContainer.getInstance().addRestriction(startTime, endTime, Integer.parseInt(visitorLimit));
+            RestrictionData newRestriction = new RestrictionData(
+                1,
+                popupView.getStartTimeField().getText(),
+                popupView.getEndTimeField().getText(),
+                Integer.parseInt(popupView.getVisitorLimitField().getText())
+            );
+            if(isValidUserInput(newRestriction.getStartTime(), newRestriction.getEndTime())) {
+                DataContainer.getInstance().addRestriction(newRestriction);
+                closePopup();
+            } else {
+                Logger.error("wrong userinput");
+            }
         }
 
         if(source.equals(popupView.getCancelButton()))
             closePopup();
+    }
+
+    private boolean isValidUserInput(String startTime, String endTime) {
+        return  RestrictionData.isValidTime(startTime) &&
+                RestrictionData.isValidTime(endTime);
     }
 
 }

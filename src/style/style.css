@@ -204,3 +204,15 @@
 .subHeader {
     -fx-font-size: 20px;
 }
+
+#loginErrorWrapper {
+    -fx-padding: 20px;
+    -fx-alignment: center;
+    -fx-border-radius: 5px;
+    -fx-min-width: 200px;
+}
+
+#loginError {
+    -fx-background-color: #ff7f72;
+    -fx-padding: 10px 30px 10px 30px;
+}

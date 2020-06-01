@@ -3,6 +3,7 @@ package cosac.client;
 import cosac.communication.Protocol;
 import cosac.model.*;
 import javafx.collections.FXCollections;
+import logger.Logger;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -49,52 +50,62 @@ public class ClientSocket {
     }
 
     private static void handleGetFoodDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        Logger.clientSocket("client receives FoodDataSets ");
         DataContainer.getInstance().setFoodDataSet(
             FXCollections.observableArrayList((ArrayList<FoodData>)ois.readObject())
         );
     }
 
     private static void handleGetUserDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        Logger.clientSocket("client receives UserDataSets ");
         DataContainer.getInstance().setUserDataSet(
             FXCollections.observableArrayList((ArrayList<UserData>)ois.readObject())
         );
     }
 
     private static void handleGetRestrictionDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        Logger.clientSocket("client receives RestrictionDataSets ");
         DataContainer.getInstance().setRestrictionDataSet(
             FXCollections.observableArrayList((ArrayList<RestrictionData>)ois.readObject())
         );
     }
 
     private static void handleGetSectionDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        Logger.clientSocket("client receives SectionDataSets ");
         DataContainer.getInstance().setSectionDataSet(
             FXCollections.observableArrayList((ArrayList<SectionData>)ois.readObject())
         );
     }
 
     private static void handleGetOrderDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        Logger.clientSocket("client receives OrderDataSets ");
         DataContainer.getInstance().setOrderDataSets(
             FXCollections.observableArrayList((ArrayList<OrderData>)ois.readObject())
         );
     }
 
     private static void handleSetFoodDataSets(ObjectOutputStream oos) throws IOException {
+        Logger.clientSocket("client sends FoodDataSets ");
         oos.writeObject(new ArrayList<>(DataContainer.getInstance().getFoodDataSets()));
     }
 
     private static void handleSetUserDataSets(ObjectOutputStream oos) throws IOException {
+        Logger.clientSocket("client sends UserDataSets ");
         oos.writeObject(new ArrayList<>(DataContainer.getInstance().getUserDataSets()));
     }
 
     private static void handleSetRestrictionDataSets(ObjectOutputStream oos) throws IOException {
+        Logger.clientSocket("client sends RestrictionDataSets ");
         oos.writeObject(new ArrayList<>(DataContainer.getInstance().getRestrictionDataSets()));
     }
 
     private static void handleSetSectionDataSets(ObjectOutputStream oos) throws IOException {
+        Logger.clientSocket("client sends SectionDataSets ");
         oos.writeObject(new ArrayList<>(DataContainer.getInstance().getSectionDataSets()));
     }
 
     private static void handleSetOrderDataSets(ObjectOutputStream oos) throws IOException {
+        Logger.clientSocket("client sends OrderDataSets ");
         oos.writeObject(new ArrayList<>(DataContainer.getInstance().getOrderDataSets()));
     }
 

@@ -77,4 +77,14 @@ public class Component {
         return label;
     }
 
+    public static HBox createLoginError(String errorMsg) {
+        HBox alertWrapper = new HBox(10);
+        alertWrapper.setId("loginErrorWrapper");
+        VBox alert = new VBox();
+        alert.setId("loginError");
+        alert.getChildren().add(new Text(errorMsg));
+        alertWrapper.getChildren().add(alert);
+        return alertWrapper;
+    }
+
 }

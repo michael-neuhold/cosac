@@ -48,7 +48,7 @@ public class UserData implements Serializable {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        if(isValidEmail(email)) this.email = email;
     }
 
     public String getStudentID() {
@@ -56,10 +56,7 @@ public class UserData implements Serializable {
     }
 
     public void setStudentID(String studentID) {
-        if(studentID.toLowerCase().contains("s"))
-            this.studentID = studentID;
-        else
-            System.out.println("no valid studentID");
+        if(isValidId(studentID)) this.studentID = studentID;
     }
 
     public Role getRole() {
@@ -84,6 +81,14 @@ public class UserData implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public static boolean isValidId(String id) {
+        return id.matches("S[0-9]{10}|P[0-9]{4}");
+    }
+
+    public static boolean isValidEmail(String email) {
+        return email.matches("[A-z0-9]*@students.fh-hagenberg.at");
     }
 
     @Override
