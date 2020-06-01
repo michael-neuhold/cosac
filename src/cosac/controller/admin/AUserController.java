@@ -15,7 +15,10 @@ import javafx.event.EventHandler;
 import javafx.scene.control.TableColumn;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import util.Crypt;
 import util.Logger;
+
+import java.security.NoSuchAlgorithmException;
 
 
 public class AUserController implements EventHandler {
@@ -116,20 +119,25 @@ public class AUserController implements EventHandler {
 
     private void handleAddUserPopup(Object source) {
         if (source.equals(popupViewAddUser.getAddButton())) {
-            UserData newUser = new UserData(
-                popupViewAddUser.getStudentsIdField().getText(),
-                popupViewAddUser.getFirstnameField().getText(),
-                popupViewAddUser.getLastnameField().getText(),
-                popupViewAddUser.getEmailField().getText(),
-                popupViewAddUser.getPasswordField().getText(),
-                Role.STUDENT,
-                false
-            );
-            if(fieldsAreFilled() && isValidUserInput(newUser.getStudentID(),newUser.getEmail())) {
-                DataContainer.getInstance().addUser(newUser);
-                closePopup();
-            } else {
-                Logger.error("wrong userinput");
+            try {
+                Crypt crypt = new Crypt();
+                UserData newUser = new UserData(
+                    popupViewAddUser.getStudentsIdField().getText(),
+                    popupViewAddUser.getFirstnameField().getText(),
+                    popupViewAddUser.getLastnameField().getText(),
+                    popupViewAddUser.getEmailField().getText(),
+                    crypt.getHash(popupViewAddUser.getPasswordField().getText()),
+                    Role.STUDENT,
+                    false
+                );
+                if(fieldsAreFilled() && isValidUserInput(newUser.getStudentID(),newUser.getEmail())) {
+                    DataContainer.getInstance().addUser(newUser);
+                    closePopup();
+                } else {
+                    Logger.error("wrong userinput");
+                }
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
             }
         } else if (source.equals(popupViewAddUser.getCancelButton())) {
             closePopup();
