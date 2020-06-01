@@ -15,7 +15,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.TableColumn;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import logger.Logger;
+import util.Logger;
 
 
 public class AUserController implements EventHandler {

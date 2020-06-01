@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import cosac.communication.Protocol;
 import cosac.model.*;
-import logger.Logger;
+import util.Logger;
 
 public class ClientHandler extends Thread {
 

@@ -12,7 +12,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.TableColumn;
 import javafx.stage.Stage;
-import logger.Logger;
+import util.Logger;
 
 
 public class ARestrictionController implements EventHandler {

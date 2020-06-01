@@ -1,11 +1,16 @@
 package cosac.controller.login;
 
+import cosac.client.DataContainer;
+import cosac.model.UserData;
 import cosac.views.login.LoginView;
 import cosac.SceneController;
 import cosac.SceneType;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
+import util.Crypt;
+
+import java.security.NoSuchAlgorithmException;
 
 public class LoginController implements EventHandler<ActionEvent> {
 
@@ -26,12 +31,19 @@ public class LoginController implements EventHandler<ActionEvent> {
 
         if(source.equals(loginView.getLoginButton())) {
             String username = loginView.getUsernameField().getText();
-            String password = loginView.getPasswordField().getText();
-            System.out.println("username: " + username + ", password: " + password);
 
-            if(username.equals("admin")) sceneController.mountNewScene(SceneType.ADMIN_VIEW);
-            else {
-                loginView.showError("you can only login with username: admin password: ...");
+            try {
+                Crypt crypt = new Crypt();
+                UserData user = DataContainer.getInstance().getUserSetById(username);
+                if(user != null && user.getPassword().equals(crypt.getHash(loginView.getPasswordField().getText()))) {
+                    // forwarding to correct students views or admin views
+                    // at the moment only campina admin views available
+                    sceneController.mountNewScene(SceneType.ADMIN_VIEW);
+                } else {
+                    loginView.showError("wrong user id or password");
+                }
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
             }
         }
     }

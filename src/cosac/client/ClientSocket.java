@@ -3,7 +3,7 @@ package cosac.client;
 import cosac.communication.Protocol;
 import cosac.model.*;
 import javafx.collections.FXCollections;
-import logger.Logger;
+import util.Logger;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

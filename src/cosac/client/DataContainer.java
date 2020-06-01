@@ -3,7 +3,7 @@ package cosac.client;
 import cosac.communication.Protocol;
 import cosac.model.*;
 import javafx.collections.ObservableList;
-import logger.Logger;
+import util.Logger;
 
 
 public class DataContainer {

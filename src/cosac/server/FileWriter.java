@@ -1,7 +1,7 @@
 package cosac.server;
 
 import cosac.model.*;
-import logger.Logger;
+import util.Logger;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -23,8 +23,8 @@ public class FileWriter<T> {
      */
     public static void main(String[] args) {
 
-        UserData user1 = new UserData("P0000", "Michael", "Neuhold","michi.neuhold@gmail.com", "password#", Role.STUDENT, false);
-        UserData user2 = new UserData("S10307094", "Julian", "Jany","julian.jany@gmail.com", "password#", Role.STUDENT, false);
+        UserData user1 = new UserData("P0000", "Michael", "Neuhold","michi.neuhold@gmail.com", "8c6976e5b541415bde98bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918", Role.STUDENT, false);
+        UserData user2 = new UserData("S1810307094", "Julian", "Jany","julian.jany@gmail.com", "e08edb748f1289934cb8a223048aa09a5197b9ebcbe84fbebed833070b0a", Role.STUDENT, false);
 
         FoodData food1 = new FoodData(1,1,"Pizza");
         FoodData food2 = new FoodData(2,2,"Schnitzel");

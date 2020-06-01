@@ -4,7 +4,7 @@ import cosac.model.FoodData;
 import cosac.model.RestrictionData;
 import cosac.model.SectionData;
 import cosac.model.UserData;
-import logger.Logger;
+import util.Logger;
 
 import java.io.*;
 import java.util.ArrayList;
