@@ -48,7 +48,6 @@ public class UserDataDaoJdbc implements UserDataDao {
 
     @Override
     public void store(UserData user) throws DataAccessException {
-        //if(person.getId() != -1) throw new DataAccessException("objects cant be inserted twice");
         try(Statement statement = getConnection().createStatement()) {
             statement.executeUpdate(
                     String.format("INSERT INTO User (userID, firstname, lastname, email, password, role, locked)" +
