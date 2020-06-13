@@ -1,0 +1,16 @@
+package cosac.rmi.service.user;
+
+import cosac.model.UserData;
+
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+
+public interface UserServiceable extends Remote {
+
+    ArrayList<UserData> getAllUsers() throws RemoteException;
+    UserData updateUser(UserData user) throws RemoteException;
+    void deleteUser(String userID) throws RemoteException;
+    void insertUser(UserData user) throws RemoteException;
+
+}

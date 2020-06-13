@@ -36,11 +36,16 @@ public class CosacApplication {
     private static Map<String, Function> createCommands() {
         Map<String, Function> tmpCommands = new HashMap<>();
         tmpCommands.put("insert", CosacApplication::insert);
-        //tmpCommands.put("list", CosacApplication::list);
-        //tmpCommands.put("update", CosacApplication::update);
-        //tmpCommands.put("delete", CosacApplication::delete);
+        tmpCommands.put("list", CosacApplication::list);
+        tmpCommands.put("update", CosacApplication::update);
+        tmpCommands.put("delete", CosacApplication::delete);
         //tmpCommands.put("quite", (dao) -> { /* never called */ });
         return tmpCommands;
+    }
+
+    private static void list(UserDataDao dao) throws DataAccessException {
+        for(UserData user : dao.getAll())
+            out.println(user);
     }
 
     private static void insert(UserDataDao dao) throws DataAccessException {
@@ -57,8 +62,30 @@ public class CosacApplication {
         out.printf("inserted new person %s%n", user);
     }
 
+    private static void update(UserDataDao dao) throws DataAccessException {
+        UserData user = new UserData(
+                promptFor("  user id "),
+                promptFor("  first name "),
+                promptFor("  last name "),
+                promptFor("  email "),
+                promptFor("  password "),
+                Role.STUDENT,
+                false
+        );
+        dao.update(user);
+        out.printf("updated user %s%n", user);
+    }
+
+    private static void delete(UserDataDao dao) throws DataAccessException {
+        dao.delete(promptFor("  user id "));
+        out.printf("deleted user by id");
+    }
+
     public static void main(String args[]) {
         try(UserDataDao userDataDao = new UserDataDaoJdbc(CONNECTION_STRING, USERNAME, PASSWORD)) {
+
+            out.println("user by id: " + userDataDao.getById("S1810307094"));
+
             out.printf("%ncurrently %d entries in phone book %n", userDataDao.getCount());
             out.printf("%ncommands: %s%n%n", commands.keySet());
             for(String cmd = promptFor(""); !cmd.equals("quit"); cmd = promptFor("")) {
