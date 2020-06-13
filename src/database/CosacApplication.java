@@ -1,7 +1,9 @@
-package db;
+package database;
 
 import cosac.model.Role;
 import cosac.model.UserData;
+import database.dao.user.UserDataDao;
+import database.dao.user.UserDataDaoJdbc;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

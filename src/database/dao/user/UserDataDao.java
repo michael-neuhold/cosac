@@ -1,9 +1,11 @@
-package db;
+package database.dao.user;
 
 import cosac.model.UserData;
+import database.DataAccessException;
+
 import java.util.Collection;
 
-public interface UserDataDao  extends AutoCloseable{
+public interface UserDataDao  extends AutoCloseable {
     int getCount() throws DataAccessException;
     UserData getById(String userId) throws DataAccessException;
     Collection<UserData> getAll() throws DataAccessException;

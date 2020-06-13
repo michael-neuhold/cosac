@@ -1,7 +1,8 @@
-package db;
+package database.dao.user;
 
 import cosac.model.Role;
 import cosac.model.UserData;
+import database.DataAccessException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class UserDataDaoJdbc implements UserDataDao {
         this.password = password;
     }
 
-    public Connection getConnection() throws DataAccessException{
+    public Connection getConnection() throws DataAccessException {
         if(connection == null) {
             try { connection = DriverManager.getConnection(connectionString,username,password); }
             catch (SQLException exc) {
@@ -28,6 +29,29 @@ public class UserDataDaoJdbc implements UserDataDao {
             };
         }
         return connection;
+    }
+
+    private ArrayList<UserData> getWhere(String query, Object... args) throws DataAccessException {
+        try(PreparedStatement statement = getConnection().prepareStatement("SELECT * FROM User " + query + ";")) {
+            //for(int i = 0; i < args.length;) statement.setObject(i + 1, args[i]);
+            ArrayList<UserData> result = new ArrayList<>();
+            try(ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    result.add(
+                            new UserData(
+                                    resultSet.getString("userID"),
+                                    resultSet.getString("firstname"),
+                                    resultSet.getString("lastname"),
+                                    resultSet.getString("email"),
+                                    resultSet.getString("password"),
+                                    resultSet.getString("role") == "student" ? Role.STUDENT : Role.ADMIN,
+                                    resultSet.getInt("locked") == 1 ? true : false
+                            )
+                    );
+                }
+            }
+            return result;
+        } catch(SQLException exc) { throw new DataAccessException("SQLException: " + exc.getMessage()); }
     }
 
     @Override
@@ -43,31 +67,6 @@ public class UserDataDaoJdbc implements UserDataDao {
         ArrayList<UserData> result = getWhere("WHERE userID ='" + userId + "'");
         return result.isEmpty() ? null : result.get(0);
     }
-
-    private ArrayList<UserData> getWhere(String query, Object... args) throws DataAccessException {
-
-        try(PreparedStatement statement = getConnection().prepareStatement("SELECT * FROM User " + query + ";")) {
-            //for(int i = 0; i < args.length;) statement.setObject(i + 1, args[i]);
-            ArrayList<UserData> result = new ArrayList<>();
-            try(ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    result.add(
-                        new UserData(
-                            resultSet.getString("userID"),
-                            resultSet.getString("firstname"),
-                            resultSet.getString("lastname"),
-                            resultSet.getString("email"),
-                            resultSet.getString("password"),
-                            resultSet.getString("role") == "student" ? Role.STUDENT : Role.ADMIN,
-                            resultSet.getInt("locked") == 1 ? true : false
-                        )
-                    );
-                }
-            }
-            return result;
-        } catch(SQLException exc) { throw new DataAccessException("SQLException: " + exc.getMessage()); }
-    }
-
 
     @Override
     public Collection<UserData> getAll() throws DataAccessException {

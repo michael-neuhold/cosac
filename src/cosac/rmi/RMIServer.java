@@ -1,5 +1,8 @@
 package cosac.rmi;
 
+import cosac.rmi.service.food.FoodService;
+import cosac.rmi.service.restriction.RestrictionService;
+import cosac.rmi.service.section.SectionService;
 import cosac.rmi.service.user.UserService;
 
 import java.net.MalformedURLException;
@@ -12,6 +15,7 @@ public class RMIServer {
 
     private static final String SERVER = "localhost";
     private static final int RMI_PORT = 1099;
+
     private static final String CONNECTION_STRING = "rmi://" + SERVER + ":" + RMI_PORT;
     private static final String CONNECTION_USER_SERVICE = CONNECTION_STRING + "/UserService";
     private static final String CONNECTION_FOOD_SERVICE = CONNECTION_STRING + "/FoodService";
@@ -25,8 +29,14 @@ public class RMIServer {
             LocateRegistry.createRegistry(RMI_PORT);
 
             UserService userService = new UserService();
+            SectionService sectionService = new SectionService();
+            FoodService foodService = new FoodService();
+            RestrictionService restrictionService = new RestrictionService();
 
             Naming.rebind(CONNECTION_USER_SERVICE, UnicastRemoteObject.exportObject(userService, 0));
+            Naming.rebind(CONNECTION_SECTION_SERVICE, UnicastRemoteObject.exportObject(sectionService, 0));
+            Naming.rebind(CONNECTION_FOOD_SERVICE, UnicastRemoteObject.exportObject(foodService, 0));
+            Naming.rebind(CONNECTION_RESTRICTION_SERVICE, UnicastRemoteObject.exportObject(restrictionService, 0));
 
         } catch (RemoteException | MalformedURLException exc) {
             exc.printStackTrace();

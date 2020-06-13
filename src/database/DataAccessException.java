@@ -1,4 +1,4 @@
-package db;
+package database;
 
 @SuppressWarnings("serial")
 public class DataAccessException extends Exception {

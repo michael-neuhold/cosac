@@ -1,8 +1,8 @@
 package cosac.rmi.service.user;
 
 import cosac.model.UserData;
-import db.UserDataDao;
-import db.UserDataDaoJdbc;
+import database.dao.user.UserDataDao;
+import database.dao.user.UserDataDaoJdbc;
 
 import java.util.ArrayList;
 
