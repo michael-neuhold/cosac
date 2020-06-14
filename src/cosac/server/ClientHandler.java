@@ -1,14 +1,14 @@
 package cosac.server;
 
+import cosac.communication.Protocol;
+import cosac.model.*;
+import util.Logger;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
-
-import cosac.communication.Protocol;
-import cosac.model.*;
-import util.Logger;
 
 public class ClientHandler extends Thread {
 
@@ -55,37 +55,37 @@ public class ClientHandler extends Thread {
     }
 
     private void handleGetFoodDataSets(ObjectOutputStream oos) throws IOException {
-        Logger.serverSocket("server sends FoodDataSets ");
+        Logger.serverDB("server sends FoodDataSets ");
         FileReader<FoodData> fileReader = new FileReader<>();
         oos.writeObject(fileReader.readFrom("foodDataSet.ser"));
     }
 
     private void handleGetUserDataSets(ObjectOutputStream oos) throws IOException {
-        Logger.serverSocket("server sends UserDataSets ");
+        Logger.serverDB("server sends UserDataSets ");
         FileReader<UserData> fileReader = new FileReader<>();
         oos.writeObject(fileReader.readFrom("userDataSet.ser"));
     }
 
     private void handleGetSectionDataSets(ObjectOutputStream oos) throws IOException {
-        Logger.serverSocket("server sends SectionDataSets ");
+        Logger.serverDB("server sends SectionDataSets ");
         FileReader<SectionData> fileReader = new FileReader<>();
         oos.writeObject(fileReader.readFrom("sectionDataSet.ser"));
     }
 
     private void handleGetRestrictionDataSets(ObjectOutputStream oos) throws IOException {
-        Logger.serverSocket("server sends RestrictionDataSets ");
+        Logger.serverDB("server sends RestrictionDataSets ");
         FileReader<RestrictionData> fileReader = new FileReader<>();
         oos.writeObject(fileReader.readFrom("restrictionDataSet.ser"));
     }
 
     private void handleGetOrderDataSets(ObjectOutputStream oos) throws IOException {
-        Logger.serverSocket("server sends OrderDataSets ");
+        Logger.serverDB("server sends OrderDataSets ");
         FileReader<OrderData> fileReader = new FileReader<>();
         oos.writeObject(fileReader.readFrom("orderDataSet.ser"));
     }
 
     private void handleSetFoodDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
-        Logger.serverSocket("server receives FoodDataSets ");
+        Logger.serverDB("server receives FoodDataSets ");
         FileWriter<FoodData> fileWriter = new FileWriter<>();
         fileWriter.writeIntoFile(
             (ArrayList<FoodData>)ois.readObject(),
@@ -94,7 +94,7 @@ public class ClientHandler extends Thread {
     }
 
     private void handleSetUserDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
-        Logger.serverSocket("server receives UserDataSets ");
+        Logger.serverDB("server receives UserDataSets ");
         FileWriter<UserData> fileWriter = new FileWriter<>();
         fileWriter.writeIntoFile(
             (ArrayList<UserData>)ois.readObject(),
@@ -103,7 +103,7 @@ public class ClientHandler extends Thread {
     }
 
     private void handleSetSectionDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
-        Logger.serverSocket("server receives SectionDataSets ");
+        Logger.serverDB("server receives SectionDataSets ");
         FileWriter<SectionData> fileWriter = new FileWriter<>();
         fileWriter.writeIntoFile(
             (ArrayList<SectionData>)ois.readObject(),
@@ -112,7 +112,7 @@ public class ClientHandler extends Thread {
     }
 
     private void handleSetRestrictionDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
-        Logger.serverSocket("server receives RestrictionDataSets ");
+        Logger.serverDB("server receives RestrictionDataSets ");
         FileWriter<RestrictionData> fileWriter = new FileWriter<>();
         fileWriter.writeIntoFile(
             (ArrayList<RestrictionData>)ois.readObject(),
@@ -121,7 +121,7 @@ public class ClientHandler extends Thread {
     }
 
     private void handleSetOrderDataSets(ObjectInputStream ois) throws IOException, ClassNotFoundException {
-        Logger.serverSocket("server receives OrderDataSets ");
+        Logger.serverDB("server receives OrderDataSets ");
         FileWriter<OrderData> fileWriter = new FileWriter<>();
         fileWriter.writeIntoFile(
             (ArrayList<OrderData>)ois.readObject(),

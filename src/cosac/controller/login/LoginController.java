@@ -1,10 +1,8 @@
 package cosac.controller.login;
 
-import cosac.client.DataContainer;
-import cosac.model.UserData;
-import cosac.views.login.LoginView;
 import cosac.SceneController;
 import cosac.SceneType;
+import cosac.views.login.LoginView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
@@ -34,7 +32,7 @@ public class LoginController implements EventHandler<ActionEvent> {
 
             try {
                 Crypt crypt = new Crypt();
-                UserData user = DataContainer.getInstance().getUserSetById(username);
+                //UserData user = DataContainer.getInstance().getUserSetById(username);
                 //if(user != null && user.getPassword().equals(crypt.getHash(loginView.getPasswordField().getText()))) {
                     // forwarding to correct students views or admin views
                     // at the moment only campina admin views available

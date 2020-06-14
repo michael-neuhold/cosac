@@ -15,11 +15,19 @@ public class Logger {
     }
 
     public static void serverFileIO(Collection collection) {
-        //for(var item : collection) System.out.println("\t| " + ANSI_BLUE + item + ANSI_RESET);
+        for(Object item : collection) System.out.println("\t| " + ANSI_BLUE + item + ANSI_RESET);
     }
 
-    public static void serverSocket(String msg) {
+    public static void serverDB(String msg) {
         System.out.println(ANSI_GREEN + msg + ANSI_RESET);
+    }
+
+    public static void dataTransfer(Collection collection) {
+        for(Object item : collection) System.out.println("\t| " + ANSI_BLUE + item + ANSI_RESET);
+    }
+
+    public static void dataTransfer(Object object) {
+        System.out.println("\t| " + ANSI_BLUE + object + ANSI_RESET);
     }
 
     public static void clientSocket(String msg) {
@@ -29,6 +37,8 @@ public class Logger {
     public static void clientStatus(String msg) {
         System.out.println(ANSI_GREEN + msg + ANSI_RESET);
     }
+
+
 
     public static void error(String msg) {
         System.out.println(ANSI_RED + msg + ANSI_RESET);

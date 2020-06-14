@@ -1,14 +1,16 @@
 package cosac.controller.admin;
 
-import cosac.client.ClientSocket;
+import cosac.SceneController;
 import cosac.client.DataContainer;
-import cosac.communication.Protocol;
 import cosac.model.Role;
 import cosac.model.UserData;
+import cosac.rmi.Protocol;
+import cosac.rmi.RMIClient;
 import cosac.views.admin.AUserView;
-import cosac.SceneController;
 import cosac.views.admin.popup.AddUserView;
 import cosac.views.admin.popup.LockUserView;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -33,7 +35,12 @@ public class AUserController implements EventHandler {
 
     public AUserController(Stage primaryStage) {
         this.sceneController = new SceneController(primaryStage);
-        this.adminUserView.getUserTable().setItems(DataContainer.getInstance().getUserDataSets());
+        new Thread( () -> {
+            Platform.runLater(() ->
+                adminUserView.getUserTable().setItems(
+                    FXCollections.observableArrayList(RMIClient.getUserDataFromDB())
+                ));
+        }).start();
     }
 
     public AUserView getView() {
@@ -68,9 +75,6 @@ public class AUserController implements EventHandler {
         } else if (source.equals(adminUserView.getLockUserButton())) {
             popupLockUser = new LockUserView(this);
             showPopUp(popupLockUser);
-        } else if (source.equals(adminUserView.getSaveButton())) {
-            Thread thread = new Thread( () -> ClientSocket.connect(Protocol.SET_USER_DATA_SETS));
-            thread.start();
         }
 
         if (popupViewAddUser != null) handleAddUserPopup(source);
@@ -97,6 +101,14 @@ public class AUserController implements EventHandler {
             case 3: dataRow.setEmail((String) source.getNewValue()); break;
             case 4: dataRow.setLocked((Boolean) source.getNewValue()); break;
         }
+
+        new Thread( () -> {
+            RMIClient.connect(Protocol.UPDATE_USER_DATA_SET, dataRow);
+            Platform.runLater(() -> adminUserView.getUserTable().setItems(
+                FXCollections.observableArrayList(RMIClient.getUserDataFromDB())
+            ));
+        }).start();
+
     }
 
     private void handleLockUserPopup(Object source) {
@@ -131,8 +143,14 @@ public class AUserController implements EventHandler {
                     false
                 );
                 if(fieldsAreFilled() && isValidUserInput(newUser.getStudentID(),newUser.getEmail())) {
-                    DataContainer.getInstance().addUser(newUser);
                     closePopup();
+
+                    new Thread( () -> {
+                        RMIClient.connect(Protocol.INSERT_USER_DATA_SET, newUser);
+                        Platform.runLater(() -> adminUserView.getUserTable().setItems(FXCollections.observableArrayList(
+                            RMIClient.getUserDataFromDB())));
+                    }).start();
+
                 } else {
                     Logger.error("wrong userinput");
                 }

@@ -18,7 +18,6 @@ public class AUserView extends BorderPane {
     private Button backButton = new Button("back");
     private Button addUserButton = new Button("add");
     private Button lockUserButton = new Button("lock");
-    private Button saveButton = new Button("save");
 
     private TableColumn studentIDCol = new TableColumn("ID");
     private TableColumn firstnameCol = new TableColumn("Vorname");
@@ -34,7 +33,7 @@ public class AUserView extends BorderPane {
         this.setCenter(createTableView());
         this.setRight(createUserControls());
         this.getRight().setId("right");
-        this.setBottom(Component.createBackSaveButton(backButton, saveButton));
+        this.setBottom(Component.createBackButton(backButton));
         this.setEventForwarding(controller);
     }
 
@@ -78,7 +77,6 @@ public class AUserView extends BorderPane {
         backButton.setOnAction(controller);
         addUserButton.setOnAction(controller);
         lockUserButton.setOnAction(controller);
-        saveButton.setOnAction(controller);
 
         studentIDCol.setOnEditCommit(controller);
         firstnameCol.setOnEditCommit(controller);
@@ -90,7 +88,6 @@ public class AUserView extends BorderPane {
     public Button getBackButton() { return backButton; }
     public Button getAddUserButton() { return addUserButton; }
     public Button getLockUserButton() { return lockUserButton; }
-    public Button getSaveButton() { return saveButton; }
 
     public TableView getUserTable() { return userTable; }
 
