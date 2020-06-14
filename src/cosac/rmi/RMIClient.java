@@ -1,9 +1,6 @@
 package cosac.rmi;
 
-import cosac.model.FoodData;
-import cosac.model.RestrictionData;
-import cosac.model.SectionData;
-import cosac.model.UserData;
+import cosac.model.*;
 import cosac.rmi.service.food.FoodServiceable;
 import cosac.rmi.service.restriction.RestrictionServiceable;
 import cosac.rmi.service.section.SectionServiceable;
@@ -34,13 +31,8 @@ public class RMIClient {
             for(UserData userData : users) {
                 System.out.println("client -> " + userData);
             }
-
-            // section test
-            SectionServiceable sectionService = (SectionServiceable) Naming.lookup(CONNECTION_SECTION_SERVICE);
-            ArrayList<SectionData> sections = sectionService.getAllSection();
-            for(SectionData section : sections) {
-                System.out.println("client -> " + section);
-            }
+            userService.updateUser(new UserData("S1810307095","JJ","JJ","JJ@JJ","pw", Role.STUDENT,false));
+            userService.insertUser(new UserData("test","test", "test", "test", "test", Role.STUDENT, false));
 
             // food test
             FoodServiceable foodService = (FoodServiceable) Naming.lookup(CONNECTION_FOOD_SERVICE);
@@ -48,6 +40,17 @@ public class RMIClient {
             for(FoodData f : food) {
                 System.out.println("client -> " + f);
             }
+            foodService.deleteFood(1);
+            foodService.insertFood(new FoodData(5, 1, "test"));
+
+            // section test
+            SectionServiceable sectionService = (SectionServiceable) Naming.lookup(CONNECTION_SECTION_SERVICE);
+            ArrayList<SectionData> sections = sectionService.getAllSection();
+            for(SectionData section : sections) {
+                System.out.println("client -> " + section);
+            }
+            sectionService.deleteSection(2);
+            sectionService.insertSection(new SectionData(5,"section5"));
 
             // restriction test
             RestrictionServiceable restrictionServic = (RestrictionServiceable) Naming.lookup(CONNECTION_RESTRICTION_SERVICE);
@@ -55,6 +58,8 @@ public class RMIClient {
             for(RestrictionData restriction : restrictions) {
                 System.out.println("client -> " + restriction);
             }
+            restrictionServic.updateRestriction(new RestrictionData(2, "00:00", "0:00", 20));
+            restrictionServic.insertRestriction(new RestrictionData(6, "00:00", "0:00", 20));
 
 
         } catch (MalformedURLException | RemoteException | NotBoundException exc) {

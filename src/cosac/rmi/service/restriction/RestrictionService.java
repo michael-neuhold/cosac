@@ -1,6 +1,7 @@
 package cosac.rmi.service.restriction;
 
 import cosac.model.RestrictionData;
+import cosac.rmi.config.RMIConfig;
 import database.dao.restriction.RestrictionDataDao;
 import database.dao.restriction.RestrictionDataDaoJdbc;
 
@@ -9,28 +10,33 @@ import java.util.ArrayList;
 
 public class RestrictionService implements RestrictionServiceable {
 
-    private static final String SERVER = "localhost";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = null;
-    private static final String CONNECTION_STRING = "jdbc:mysql://" + SERVER + "/CosacDB?autoReconnect=true&useSSL=false";
-
     @Override
     public ArrayList<RestrictionData> getAllRestrictions() throws RemoteException {
         ArrayList<RestrictionData> results = new ArrayList<>();
-        try(RestrictionDataDao restrictionDataDao = new RestrictionDataDaoJdbc(CONNECTION_STRING, USERNAME, PASSWORD)) {
+        try(RestrictionDataDao restrictionDataDao = new RestrictionDataDaoJdbc(
+            RMIConfig.CONNECTION_STRING, RMIConfig.USERNAME, RMIConfig.PASSWORD))
+        {
             results = (ArrayList<RestrictionData>)restrictionDataDao.getAll();
         } catch(Exception exc) { exc.printStackTrace(); }
         return results;
     }
 
     @Override
-    public RestrictionData updateRestriction(RestrictionData restriction) throws RemoteException {
-        return null;
+    public void updateRestriction(RestrictionData restriction) throws RemoteException {
+        try(RestrictionDataDao restrictionDataDao = new RestrictionDataDaoJdbc(
+            RMIConfig.CONNECTION_STRING, RMIConfig.USERNAME, RMIConfig.PASSWORD))
+        {
+            restrictionDataDao.update(restriction);
+        } catch(Exception exc) { exc.printStackTrace(); }
     }
 
     @Override
     public void insertRestriction(RestrictionData restriction) throws RemoteException {
-
+        try(RestrictionDataDao restrictionDataDao = new RestrictionDataDaoJdbc(
+            RMIConfig.CONNECTION_STRING, RMIConfig.USERNAME, RMIConfig.PASSWORD))
+        {
+            restrictionDataDao.store(restriction);
+        } catch(Exception exc) { exc.printStackTrace(); }
     }
 
 }

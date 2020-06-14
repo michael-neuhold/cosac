@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public interface RestrictionServiceable extends Remote {
 
     ArrayList<RestrictionData> getAllRestrictions() throws RemoteException;
-    RestrictionData updateRestriction(RestrictionData restriction) throws RemoteException;
+    void updateRestriction(RestrictionData restriction) throws RemoteException;
     void insertRestriction(RestrictionData restriction) throws RemoteException;
 
 }

@@ -22,10 +22,10 @@ $insertStatements=@'
     INSERT INTO Restriction (restrictionID, startTime, endTime, visitorLimit) VALUES (3, '14:00', '15:00', 50);
     INSERT INTO Restriction (restrictionID, startTime, endTime, visitorLimit) VALUES (4, '15:00', '16:00', 30);
 
-    INSERT INTO Order_ (orderID, Restriction_restrictionID, Food_foodID, User_userID) VALUES (1, 1, 1, 'S1810307094');
+    INSERT INTO Order_ (orderID, Restriction_restrictionID, Food_foodID, User_userID) VALUES (1, 1, 2, 'S1810307094');
     INSERT INTO Order_ (orderID, Restriction_restrictionID, Food_foodID, User_userID) VALUES (2, 2, 3, 'S1810307095');
-    INSERT INTO Order_ (orderID, Restriction_restrictionID, Food_foodID, User_userID) VALUES (3, 1, 1, 'S1810307094');
-    INSERT INTO Order_ (orderID, Restriction_restrictionID, Food_foodID, User_userID) VALUES (4, 1, 1, 'S1810307096');
+    INSERT INTO Order_ (orderID, Restriction_restrictionID, Food_foodID, User_userID) VALUES (3, 1, 2, 'S1810307094');
+    INSERT INTO Order_ (orderID, Restriction_restrictionID, Food_foodID, User_userID) VALUES (4, 1, 2, 'S1810307096');
 '@
 
 echo $insertStatements | docker exec -i mysql mysql
