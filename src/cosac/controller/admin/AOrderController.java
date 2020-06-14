@@ -1,11 +1,14 @@
 package cosac.controller.admin;
 
+import cosac.SceneController;
 import cosac.client.DataContainer;
 import cosac.views.admin.AOrderView;
-import cosac.SceneController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 public class AOrderController implements EventHandler<ActionEvent> {
 
@@ -14,8 +17,8 @@ public class AOrderController implements EventHandler<ActionEvent> {
 
     public AOrderController(Stage primaryStage) {
         this.sceneController = new SceneController(primaryStage);
-        var tables = this.adminOrderView.gettabelViews();
-        for(var tabel : tables) tabel.setItems(DataContainer.getInstance().getOrderDataSets());
+         ArrayList<TableView> tables = this.adminOrderView.gettabelViews();
+        for(TableView tabel : tables) tabel.setItems(DataContainer.getInstance().getOrderDataSets());
     }
 
     public AOrderView getView() {

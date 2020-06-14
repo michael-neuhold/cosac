@@ -15,7 +15,7 @@ public class Logger {
     }
 
     public static void serverFileIO(Collection collection) {
-        for(var item : collection) System.out.println("\t| " + ANSI_BLUE + item + ANSI_RESET);
+        //for(var item : collection) System.out.println("\t| " + ANSI_BLUE + item + ANSI_RESET);
     }
 
     public static void serverSocket(String msg) {

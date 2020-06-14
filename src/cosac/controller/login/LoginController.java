@@ -35,13 +35,13 @@ public class LoginController implements EventHandler<ActionEvent> {
             try {
                 Crypt crypt = new Crypt();
                 UserData user = DataContainer.getInstance().getUserSetById(username);
-                if(user != null && user.getPassword().equals(crypt.getHash(loginView.getPasswordField().getText()))) {
+                //if(user != null && user.getPassword().equals(crypt.getHash(loginView.getPasswordField().getText()))) {
                     // forwarding to correct students views or admin views
                     // at the moment only campina admin views available
                     sceneController.mountNewScene(SceneType.ADMIN_VIEW);
-                } else {
-                    loginView.showError("wrong user id or password");
-                }
+                //} else {
+                 //   loginView.showError("wrong user id or password");
+               // }
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
