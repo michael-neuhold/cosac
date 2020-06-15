@@ -75,7 +75,7 @@ public class RestrictionDataDaoJdbc implements RestrictionDataDao {
             statement.executeUpdate(
                     String.format("INSERT INTO Restriction (restrictionID, startTime, endTime, visitorLimit)" +
                                     "VALUES ('%d','%s','%s','%d');",
-                            restriction.getTimeslotId(),
+                            restriction.getRestrictionId(),
                             restriction.getStartTime(),
                             restriction.getEndTime(),
                             restriction.getVisitorLimit()),
@@ -97,12 +97,12 @@ public class RestrictionDataDaoJdbc implements RestrictionDataDao {
     @Override
     public void update(RestrictionData restriction) throws DataAccessException {
         try(PreparedStatement preparedStatement = getConnection().prepareStatement(
-                "UPDATE Restriction SET startTime=?, endTime=?, visitorLimit=? WHERE restrictionID=?;"
+            "UPDATE Restriction SET startTime=?, endTime=?, visitorLimit=? WHERE restrictionID = ?"
         )) {
             preparedStatement.setString(1, restriction.getStartTime());
-            preparedStatement.setString(2, restriction.getStartTime());
+            preparedStatement.setString(2, restriction.getEndTime());
             preparedStatement.setInt(3, restriction.getVisitorLimit());
-            preparedStatement.setInt(4, restriction.getTimeslotId());
+            preparedStatement.setInt(4, restriction.getRestrictionId());
             preparedStatement.executeUpdate();
         } catch (SQLException exc) {
             exc.printStackTrace();

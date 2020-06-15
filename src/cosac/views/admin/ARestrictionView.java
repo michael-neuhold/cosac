@@ -3,10 +3,10 @@ package cosac.views.admin;
 import cosac.component.Component;
 import cosac.controller.admin.ARestrictionController;
 import cosac.model.RestrictionData;
-import cosac.model.UserData;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
@@ -20,6 +20,7 @@ public class ARestrictionView extends BorderPane {
     private Button backButton = new Button("back");
     private Button addRestrictionButton = new Button("new restriction");
 
+    private TableColumn idCol = new TableColumn("id");
     private TableColumn startTimeCol = new TableColumn("start");
     private TableColumn endTimeCol = new TableColumn("end");
     private TableColumn visitorLimitCol = new TableColumn("visitor limit");
@@ -55,12 +56,13 @@ public class ARestrictionView extends BorderPane {
         restrictionTable.setId("restrictionTable");
         restrictionTable.setEditable(true);
 
-        startTimeCol.setCellValueFactory(new PropertyValueFactory<UserData, String>("startTime"));
-        endTimeCol.setCellValueFactory(new PropertyValueFactory<UserData, String>("endTime"));
-        visitorLimitCol.setCellValueFactory(new PropertyValueFactory<UserData, String>("visitorLimit"));
+        idCol.setCellValueFactory(new PropertyValueFactory<RestrictionData, String>("restrictionId"));
+        startTimeCol.setCellValueFactory(new PropertyValueFactory<RestrictionData, String>("startTime"));
+        endTimeCol.setCellValueFactory(new PropertyValueFactory<RestrictionData, String>("endTime"));
+        visitorLimitCol.setCellValueFactory(new PropertyValueFactory<RestrictionData, String>("visitorLimit"));
 
         setColumnsEditable();
-        restrictionTable.getColumns().addAll(startTimeCol, endTimeCol, visitorLimitCol);
+        restrictionTable.getColumns().addAll(idCol, startTimeCol, endTimeCol, visitorLimitCol);
 
         tableWrapper.getChildren().add(restrictionTable);
         return tableWrapper;

@@ -77,16 +77,16 @@ public class UserDataDaoJdbc implements UserDataDao {
     public void store(UserData user) throws DataAccessException {
         try(Statement statement = getConnection().createStatement()) {
             statement.executeUpdate(
-                    String.format("INSERT INTO User (userID, firstname, lastname, email, password, role, locked)" +
-                                    "VALUES ('%s','%s','%s','%s','%s','%s','%d');",
-                            user.getStudentID(),
-                            user.getFirstname(),
-                            user.getLastname(),
-                            user.getEmail(),
-                            user.getPassword(),
-                            user.getRole() == Role.STUDENT ? "student" : "admin",
-                            user.isLocked() ? 1 : 0),
-                    Statement.RETURN_GENERATED_KEYS
+                String.format("INSERT INTO User (userID, firstname, lastname, email, password, role, locked)" +
+                                "VALUES ('%s','%s','%s','%s','%s','%s','%d');",
+                    user.getStudentID(),
+                    user.getFirstname(),
+                    user.getLastname(),
+                    user.getEmail(),
+                    user.getPassword(),
+                    user.getRole() == Role.STUDENT ? "student" : "admin",
+                    user.isLocked() ? 1 : 0),
+                Statement.RETURN_GENERATED_KEYS
             );
         } catch (SQLException exc) { throw new DataAccessException("SQLException: " + exc.getMessage()); }
     }

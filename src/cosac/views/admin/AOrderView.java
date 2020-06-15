@@ -2,15 +2,11 @@ package cosac.views.admin;
 
 import cosac.component.Component;
 import cosac.controller.admin.AOrderController;
-import cosac.client.DataContainer;
-import cosac.model.OrderData;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
@@ -36,7 +32,7 @@ public class AOrderView extends BorderPane {
     private VBox createOrderTables(int timeSlots) {
         VBox tableWrapper = new VBox(10);
         tableWrapper.setId("orderTableWrapper");
-        for(int i = 0; i < DataContainer.getInstance().getRestrictionDataSets().size(); i++) {
+      /*  for(int i = 0; i < DataContainer.getInstance().getRestrictionDataSets().size(); i++) {
             TableView table = new TableView();
 
             userIdCol.setCellValueFactory(new PropertyValueFactory<OrderData, String>("userId"));
@@ -51,7 +47,7 @@ public class AOrderView extends BorderPane {
             Text listHeader = new Text(timeslot);
             listHeader.getStyleClass().add("timeslot");
             tableWrapper.getChildren().addAll(listHeader, table);
-        }
+        }*/
         return tableWrapper;
     }
 

@@ -3,7 +3,8 @@ package cosac.views.admin.popup;
 import cosac.component.Component;
 import cosac.controller.admin.ARestrictionController;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 

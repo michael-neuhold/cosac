@@ -39,7 +39,7 @@ $schema=@'
     );
 
     CREATE TABLE Restriction (
-        restrictionID INT NOT NULL,
+        restrictionID INT NOT NULL AUTO_INCREMENT,
         startTime VARCHAR(45) NULL,
         endTime VARCHAR(45) NULL,
         visitorLimit INT NULL,

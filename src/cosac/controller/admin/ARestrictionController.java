@@ -26,13 +26,7 @@ public class ARestrictionController implements EventHandler {
 
     public ARestrictionController(Stage primaryStage) {
         this.sceneController = new SceneController(primaryStage);
-
-        new Thread( () -> {
-            Platform.runLater( () -> {
-                adminRestictionView.getRestrictionTable().setItems(
-                    FXCollections.observableArrayList(RMIClient.getRestrictionDataFromDB()));
-            });
-        }).start();
+        new Thread( () -> updateRestrictionTable() ).start();
     }
 
     public ARestrictionView getView() {
@@ -78,33 +72,34 @@ public class ARestrictionController implements EventHandler {
 
         // update edited column
         switch(posCol) {
-            case 0: dataRow.setStartTime((String)source.getNewValue()); break;
-            case 1: dataRow.setEndTime((String)source.getNewValue()); break;
-            case 2: dataRow.setVisitorLimit((Integer)source.getNewValue()); break;
+            // col 0 is locked (id should not be edited ;)
+            case 1: dataRow.setStartTime((String)source.getNewValue()); break;
+            case 2: dataRow.setEndTime((String)source.getNewValue()); break;
+            case 3: dataRow.setVisitorLimit((Integer)source.getNewValue()); break;
         }
 
         new Thread( () -> {
             RMIClient.updateRestrictionAtDB(dataRow);
-            Platform.runLater( () -> {
-                adminRestictionView.getRestrictionTable().setItems(
-                    FXCollections.observableArrayList(RMIClient.getRestrictionDataFromDB())
-                );
-                adminRestictionView.getRestrictionTable().refresh();
-            });
+            updateRestrictionTable();
         }).start();
 
     }
 
     private void handleAddRestrictionPopup(Object source) {
         if(source.equals(popupView.getAddButton())) {
+
             RestrictionData newRestriction = new RestrictionData(
-                1,
+                0,
                 popupView.getStartTimeField().getText(),
                 popupView.getEndTimeField().getText(),
                 Integer.parseInt(popupView.getVisitorLimitField().getText())
             );
+
             if(isValidUserInput(newRestriction.getStartTime(), newRestriction.getEndTime()) && fieldsAreFilled()) {
-                RMIClient.insertRestrictionAtDB(newRestriction);
+                new Thread( () -> {
+                    RMIClient.insertRestrictionAtDB(newRestriction);
+                    updateRestrictionTable();
+                }).start();
                 closePopup();
             } else {
                 Logger.error("wrong userinput");
@@ -125,6 +120,15 @@ public class ARestrictionController implements EventHandler {
     private boolean isValidUserInput(String startTime, String endTime) {
         return  RestrictionData.isValidTime(startTime) &&
                 RestrictionData.isValidTime(endTime);
+    }
+
+    private void updateRestrictionTable() {
+        Platform.runLater( () -> {
+            adminRestictionView.getRestrictionTable().setItems(
+                    FXCollections.observableArrayList(RMIClient.getRestrictionDataFromDB())
+            );
+            adminRestictionView.getRestrictionTable().refresh();
+        });
     }
 
 }

@@ -5,13 +5,13 @@ import java.util.Objects;
 
 public class RestrictionData implements Serializable {
 
-    private int timeslotId;
+    private int restrictionId;
     private String startTime;
     private String endTime;
     private int visitorLimit;
 
-    public RestrictionData(int timeslotId, String startTime, String endTime, int visitorLimit) {
-        this.timeslotId = timeslotId;
+    public RestrictionData(int restrictionId, String startTime, String endTime, int visitorLimit) {
+        this.restrictionId = restrictionId;
         this.startTime = startTime;
         this.endTime = endTime;
         this.visitorLimit = visitorLimit;
@@ -41,12 +41,12 @@ public class RestrictionData implements Serializable {
         this.visitorLimit = visitorLimit;
     }
 
-    public int getTimeslotId() {
-        return timeslotId;
+    public int getRestrictionId() {
+        return restrictionId;
     }
 
-    public void setTimeslotId(int timeslotId) {
-        this.timeslotId = timeslotId;
+    public void setRestrictionId(int restrictionId) {
+        this.restrictionId = restrictionId;
     }
 
     public String getTimeSlot() {
@@ -64,7 +64,7 @@ public class RestrictionData implements Serializable {
     @Override
     public String toString() {
         return "RestrictionData{" +
-                "timeslotId=" + timeslotId +
+                "timeslotId=" + restrictionId +
                 ", startTime='" + startTime + '\'' +
                 ", endTime='" + endTime + '\'' +
                 ", visitorLimit=" + visitorLimit +
@@ -77,7 +77,7 @@ public class RestrictionData implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         RestrictionData that = (RestrictionData) o;
         return visitorLimit == that.visitorLimit &&
-                timeslotId == that.timeslotId &&
+                restrictionId == that.restrictionId &&
                 Objects.equals(startTime, that.startTime) &&
                 Objects.equals(endTime, that.endTime);
     }
