@@ -32,7 +32,6 @@ public class AdminController implements EventHandler<ActionEvent> {
         else if(source.equals(adminView.getUserButton())) type = SceneType.ADMIN_USER_VIEW;
 
         if(type != null) sceneController.mountNewScene(type);
-
     }
 
 }

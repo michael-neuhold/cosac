@@ -34,12 +34,7 @@ public class AUserController implements EventHandler {
 
     public AUserController(Stage primaryStage) {
         this.sceneController = new SceneController(primaryStage);
-        new Thread( () -> {
-            Platform.runLater(() ->
-                adminUserView.getUserTable().setItems(
-                    FXCollections.observableArrayList(RMIClient.getUserData())
-                ));
-        }).start();
+        new Thread( () -> updateTable() ).start();
     }
 
     public AUserView getView() {
@@ -158,19 +153,12 @@ public class AUserController implements EventHandler {
 
     private void insertUserData(UserData user) {
         RMIClient.insertUser(user);
-        Platform.runLater(() -> {
-            adminUserView.getUserTable().setItems(
-                FXCollections.observableArrayList(RMIClient.getUserData()));
-        });
+        updateTable();
     }
 
     private void updateUserData(UserData user) {
         RMIClient.updateUser(user);
-        Platform.runLater(() -> {
-            adminUserView.getUserTable().setItems(
-                FXCollections.observableArrayList(RMIClient.getUserData()));
-            adminUserView.getUserTable().refresh();
-        });
+        updateTable();
     }
 
     private boolean fieldsAreFilled() {
@@ -184,6 +172,14 @@ public class AUserController implements EventHandler {
 
     private boolean isValidUserInput(String userId, String email) {
         return  UserData.isValidId(userId) && UserData.isValidEmail(email);
+    }
+
+    private void updateTable() {
+        Platform.runLater(() -> {
+            adminUserView.getUserTable().setItems(
+                    FXCollections.observableArrayList(RMIClient.getUserData()));
+            adminUserView.getUserTable().refresh();
+        });
     }
 
 }

@@ -10,10 +10,6 @@ public class Logger {
     public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_BLUE = "\u001B[34m";
 
-    public static void serverDB(String msg) {
-        System.out.println(ANSI_GREEN + msg + ANSI_RESET);
-    }
-
     public static void dataTransfer(Collection collection) {
         for(Object item : collection) System.out.println("\t| " + ANSI_BLUE + item + ANSI_RESET);
     }
@@ -29,8 +25,6 @@ public class Logger {
     public static void clientStatus(String msg) {
         System.out.println(ANSI_GREEN + msg + ANSI_RESET);
     }
-
-
 
     public static void error(String msg) {
         System.out.println(ANSI_RED + msg + ANSI_RESET);

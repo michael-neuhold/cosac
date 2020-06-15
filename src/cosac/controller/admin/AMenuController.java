@@ -14,20 +14,13 @@ import javafx.stage.Stage;
 public class AMenuController implements EventHandler<ActionEvent> {
 
     private static final int PLACEHOLDER_ID = 0;
-    private Stage popupStage = null;
 
     private AMenuView adminMenuView = new AMenuView(this);
     private SceneController sceneController = null;
 
     public AMenuController(Stage primaryStage) {
         this.sceneController = new SceneController(primaryStage);
-
-        new Thread( () -> {
-            Platform.runLater( () -> {
-                adminMenuView.getFoodTable().setItems(FXCollections.observableArrayList(RMIClient.getFoodData()));
-                adminMenuView.getSectionTable().setItems(FXCollections.observableArrayList(RMIClient.getSectionData()));
-            });
-        }).start();
+        new Thread( () -> updateTables() ).start();
     }
 
     public AMenuView getView() {
@@ -70,6 +63,7 @@ public class AMenuController implements EventHandler<ActionEvent> {
             PLACEHOLDER_ID,
             adminMenuView.getAddSectionNameField().getText()
         );
+
         new Thread( () -> {
             RMIClient.insertSection(newSection);
             updateSectionTable();
@@ -81,6 +75,11 @@ public class AMenuController implements EventHandler<ActionEvent> {
             RMIClient.deleteSection(Integer.parseInt(adminMenuView.getRemoveSectionIdField().getText()));
             updateSectionTable();
         }).start();
+    }
+
+    private void updateTables() {
+        updateFoodTable();
+        updateSectionTable();
     }
 
     private void updateFoodTable() {

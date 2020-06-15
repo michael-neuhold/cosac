@@ -9,6 +9,5 @@ import java.util.ArrayList;
 public interface OrderService extends Remote {
 
     ArrayList<OrderData> getAllOrders() throws RemoteException;
-    ArrayList<OrderData> getOrdersByRestrictionId(int restrictionId) throws RemoteException;
 
 }

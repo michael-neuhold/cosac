@@ -30,9 +30,8 @@ public class FoodDataDaoJdbc implements FoodDataDao {
         return connection;
     }
 
-    private ArrayList<FoodData> getWhere(String query, Object... args) throws DataAccessException {
+    private ArrayList<FoodData> getWhere(String query) throws DataAccessException {
         try(PreparedStatement statement = getConnection().prepareStatement("SELECT * FROM Food " + query + ";")) {
-            //for(int i = 0; i < args.length;) statement.setObject(i + 1, args[i]);
             ArrayList<FoodData> result = new ArrayList<>();
             try(ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
@@ -90,7 +89,6 @@ public class FoodDataDaoJdbc implements FoodDataDao {
             throw new DataAccessException("SQLException: " + exc.getMessage());
         }
     }
-    
 
     @Override
     public void close() throws Exception {

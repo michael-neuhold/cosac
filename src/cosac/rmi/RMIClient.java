@@ -89,20 +89,6 @@ public class RMIClient {
         return orderData;
     }
 
-    public static ArrayList<OrderData> getOrderDataByRestrictionId(int restrictionID) {
-        ArrayList<OrderData> orderData = new ArrayList<>();
-        try {
-            OrderService orderService = (OrderService) Naming.lookup(RMIConfig.CONNECTION_ORDER_SERVICE);
-            orderData = orderService.getOrdersByRestrictionId(restrictionID);
-        } catch (RemoteException | MalformedURLException | NotBoundException exc) {
-            exc.printStackTrace();
-        }
-
-        Logger.clientRMI("getOrderDataByRestrictionId id = " + restrictionID);
-        Logger.dataTransfer(orderData);
-        return orderData;
-    }
-
     // POST REQUESTS
 
     public static void updateUser(UserData user) {

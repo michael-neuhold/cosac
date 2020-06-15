@@ -125,7 +125,7 @@ public class ARestrictionController implements EventHandler {
     private void updateRestrictionTable() {
         Platform.runLater( () -> {
             adminRestictionView.getRestrictionTable().setItems(
-                    FXCollections.observableArrayList(RMIClient.getRestrictionData())
+                FXCollections.observableArrayList(RMIClient.getRestrictionData())
             );
             adminRestictionView.getRestrictionTable().refresh();
         });
