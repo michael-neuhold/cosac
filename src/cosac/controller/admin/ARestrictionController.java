@@ -1,12 +1,12 @@
 package cosac.controller.admin;
 
-import cosac.client.ClientSocket;
-import cosac.client.DataContainer;
-import cosac.communication.Protocol;
-import cosac.model.RestrictionData;
-import cosac.views.admin.ARestrictionView;
 import cosac.SceneController;
+import cosac.model.RestrictionData;
+import cosac.rmi.RMIClient;
+import cosac.views.admin.ARestrictionView;
 import cosac.views.admin.popup.AddRestrictionView;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -26,7 +26,13 @@ public class ARestrictionController implements EventHandler {
 
     public ARestrictionController(Stage primaryStage) {
         this.sceneController = new SceneController(primaryStage);
-        adminRestictionView.getRestrictionTable().setItems(DataContainer.getInstance().getRestrictionDataSets());
+
+        new Thread( () -> {
+            Platform.runLater( () -> {
+                adminRestictionView.getRestrictionTable().setItems(
+                    FXCollections.observableArrayList(RMIClient.getRestrictionDataFromDB()));
+            });
+        }).start();
     }
 
     public ARestrictionView getView() {
@@ -57,9 +63,6 @@ public class ARestrictionController implements EventHandler {
         else if (source.equals(adminRestictionView.getAddRestrictionButton())) {
             popupView = new AddRestrictionView(this);
             showPopUp();
-        } else if (source.equals(adminRestictionView.getSaveButton())) {
-            Thread thread = new Thread(() -> ClientSocket.connect(Protocol.SET_RESTRICTION_DATA_SETS));
-            thread.start();
         }
 
         if (popupView != null) handleAddRestrictionPopup(source);
@@ -79,6 +82,17 @@ public class ARestrictionController implements EventHandler {
             case 1: dataRow.setEndTime((String)source.getNewValue()); break;
             case 2: dataRow.setVisitorLimit((Integer)source.getNewValue()); break;
         }
+
+        new Thread( () -> {
+            RMIClient.updateRestrictionAtDB(dataRow);
+            Platform.runLater( () -> {
+                adminRestictionView.getRestrictionTable().setItems(
+                    FXCollections.observableArrayList(RMIClient.getRestrictionDataFromDB())
+                );
+                adminRestictionView.getRestrictionTable().refresh();
+            });
+        }).start();
+
     }
 
     private void handleAddRestrictionPopup(Object source) {
@@ -90,7 +104,7 @@ public class ARestrictionController implements EventHandler {
                 Integer.parseInt(popupView.getVisitorLimitField().getText())
             );
             if(isValidUserInput(newRestriction.getStartTime(), newRestriction.getEndTime()) && fieldsAreFilled()) {
-                DataContainer.getInstance().addRestriction(newRestriction);
+                RMIClient.insertRestrictionAtDB(newRestriction);
                 closePopup();
             } else {
                 Logger.error("wrong userinput");

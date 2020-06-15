@@ -3,8 +3,6 @@ package cosac.controller.admin;
 import cosac.SceneController;
 import cosac.model.Role;
 import cosac.model.UserData;
-import cosac.rmi.Get;
-import cosac.rmi.Post;
 import cosac.rmi.RMIClient;
 import cosac.views.admin.AUserView;
 import cosac.views.admin.popup.AddUserView;
@@ -39,7 +37,7 @@ public class AUserController implements EventHandler {
         new Thread( () -> {
             Platform.runLater(() ->
                 adminUserView.getUserTable().setItems(
-                    FXCollections.observableArrayList(RMIClient.connect(Get.GET_USER_DATA_SETS))
+                    FXCollections.observableArrayList(RMIClient.getUserDataFromDB())
                 ));
         }).start();
     }
@@ -159,19 +157,18 @@ public class AUserController implements EventHandler {
     }
 
     private void insertUserData(UserData user) {
-        RMIClient.connect(Post.INSERT_USER_DATA_SET, user);
+        RMIClient.insertUserAtDB(user);
         Platform.runLater(() -> {
             adminUserView.getUserTable().setItems(
-                FXCollections.observableArrayList(RMIClient.connect(Get.GET_USER_DATA_SETS)));
+                FXCollections.observableArrayList(RMIClient.getUserDataFromDB()));
         });
     }
 
     private void updateUserData(UserData user) {
-        RMIClient.connect(Post.UPDATE_USER_DATA_SET, user);
+        RMIClient.updateUserAtDB(user);
         Platform.runLater(() -> {
             adminUserView.getUserTable().setItems(
-                FXCollections.observableArrayList(RMIClient.connect(Get.GET_USER_DATA_SETS))
-            );
+                FXCollections.observableArrayList(RMIClient.getUserDataFromDB()));
             adminUserView.getUserTable().refresh();
         });
     }

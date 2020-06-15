@@ -16,88 +16,137 @@ import java.util.ArrayList;
 
 public class RMIClient {
 
-    public static ArrayList<?> connect(Get protocol) {
-        ArrayList<?> data = null;
-        try {
-            switch (protocol) {
-                case GET_FOOD_DATA_SETS:        data = getFoodDataFromDB();
-                case GET_ORDER_DATA_SETS:       data = getOrderDataFromDB();
-                case GET_RESTRICTION_DATA_SETS: data = getRestrictionDataFromDB();
-                case GET_SECTION_DATA_SETS:     data = getSectionDataFromDB();
-                case GET_USER_DATA_SETS:        data = getUserDataFromDB();
-            }
-        } catch (RemoteException | NotBoundException | MalformedURLException exc) {
-            exc.printStackTrace();
-        }
-        return data;
-    }
-
-    public static void connect(Post protocol, Object data) {
-        try {
-            switch (protocol) {
-                case UPDATE_USER_DATA_SET: updateUserDataAtDB((UserData) data); break;
-                case INSERT_USER_DATA_SET: insertUserDataAtDB((UserData) data); break;
-                case INSERT_RESTRICTION_DATA_SET:  break;
-                case INSERT_FOOD_DATA_SET:  break;
-                case INSERT_SECTION_DATA_SET:  break;
-                case UPDATE_RESTRICTION_DATA_SET:  break;
-            }
-        } catch (RemoteException | NotBoundException | MalformedURLException exc) {
-            exc.printStackTrace();
-        }
-    }
-
     // GET REQUESTS
 
-    public static ArrayList<UserData> getUserDataFromDB()
-        throws RemoteException, MalformedURLException, NotBoundException
-    {
-        UserService userService = (UserService) Naming.lookup(RMIConfig.CONNECTION_USER_SERVICE);
-        return userService.getAllUsers();
+    public static ArrayList<UserData> getUserDataFromDB() {
+        ArrayList<UserData> userData = new ArrayList<>();
+        try {
+            UserService userService = (UserService) Naming.lookup(RMIConfig.CONNECTION_USER_SERVICE);
+            userData = userService.getAllUsers();
+        } catch (RemoteException | MalformedURLException | NotBoundException exc) {
+            exc.printStackTrace();
+        }
+        return userData;
     }
 
-    public static ArrayList<FoodData> getFoodDataFromDB()
-        throws RemoteException, NotBoundException, MalformedURLException
-    {
-        FoodService foodService = (FoodService) Naming.lookup(RMIConfig.CONNECTION_FOOD_SERVICE);
-        return foodService.getAllFood();
+    public static ArrayList<FoodData> getFoodDataFromDB() {
+        ArrayList<FoodData> foodData = new ArrayList<>();
+        try {
+            FoodService foodService = (FoodService) Naming.lookup(RMIConfig.CONNECTION_FOOD_SERVICE);
+            foodData = foodService.getAllFood();
+        } catch (RemoteException | MalformedURLException | NotBoundException exc) {
+            exc.printStackTrace();
+        }
+        return foodData;
     }
 
-    public static ArrayList<RestrictionData> getRestrictionDataFromDB()
-        throws RemoteException, NotBoundException, MalformedURLException
-    {
-        RestrictionService restrictionService = (RestrictionService) Naming.lookup(RMIConfig.CONNECTION_RESTRICTION_SERVICE);
-        return restrictionService.getAllRestrictions();
+    public static ArrayList<RestrictionData> getRestrictionDataFromDB() {
+        ArrayList<RestrictionData> restrictionData = new ArrayList<>();
+        try {
+            RestrictionService restrictionService = (RestrictionService) Naming.lookup(RMIConfig.CONNECTION_RESTRICTION_SERVICE);
+            restrictionData = restrictionService.getAllRestrictions();
+        } catch (RemoteException | MalformedURLException | NotBoundException exc) {
+            exc.printStackTrace();
+        }
+        return restrictionData;
     }
 
-    public static ArrayList<SectionData> getSectionDataFromDB()
-        throws RemoteException, NotBoundException, MalformedURLException
-    {
-        SectionService sectionService = (SectionService) Naming.lookup(RMIConfig.CONNECTION_SECTION_SERVICE);
-        return sectionService.getAllSection();
+    public static ArrayList<SectionData> getSectionDataFromDB() {
+        ArrayList<SectionData> sectionData = new ArrayList<>();
+        try {
+            SectionService sectionService = (SectionService) Naming.lookup(RMIConfig.CONNECTION_SECTION_SERVICE);
+            sectionData = sectionService.getAllSection();
+        } catch (RemoteException | MalformedURLException | NotBoundException exc) {
+            exc.printStackTrace();
+        }
+        return sectionData;
     }
 
-    public static ArrayList<OrderData> getOrderDataFromDB()
-        throws RemoteException, NotBoundException, MalformedURLException
-    {
+    public static ArrayList<OrderData> getOrderDataFromDB() {
+        ArrayList<OrderData> orderData = new ArrayList<>();
+        try {
         OrderService orderService = (OrderService) Naming.lookup(RMIConfig.CONNECTION_ORDER_SERVICE);
-        return orderService.getAllOrders();
+        orderData = orderService.getAllOrders();
+        } catch (RemoteException | MalformedURLException | NotBoundException exc) {
+            exc.printStackTrace();
+        }
+        return orderData;
     }
 
     // POST REQUESTS
 
-    public static void updateUserDataAtDB(UserData user)
-            throws RemoteException, NotBoundException, MalformedURLException
-    {
-        UserService userService = (UserService) Naming.lookup(RMIConfig.CONNECTION_USER_SERVICE);
-        userService.updateUser(user);
+    public static void updateUserAtDB(UserData user) {
+        try {
+            UserService userService = (UserService) Naming.lookup(RMIConfig.CONNECTION_USER_SERVICE);
+            userService.updateUser(user);
+        } catch (RemoteException | NotBoundException | MalformedURLException exc) {
+            exc.printStackTrace();
+        }
     }
 
-    public static void insertUserDataAtDB(UserData user)
-        throws RemoteException, MalformedURLException, NotBoundException
-    {
-        UserService userService = (UserService) Naming.lookup(RMIConfig.CONNECTION_USER_SERVICE);
-        userService.insertUser(user);
+    public static void updateRestrictionAtDB(RestrictionData restriction) {
+        try {
+            RestrictionService restrictionService = (RestrictionService) Naming.lookup(RMIConfig.CONNECTION_RESTRICTION_SERVICE);
+            restrictionService.updateRestriction(restriction);
+        } catch (RemoteException | NotBoundException | MalformedURLException exc) {
+            exc.printStackTrace();
+        }
+    }
+
+
+    public static void insertUserAtDB(UserData user) {
+        try {
+            UserService userService = (UserService) Naming.lookup(RMIConfig.CONNECTION_USER_SERVICE);
+            userService.insertUser(user);
+        } catch (RemoteException | NotBoundException | MalformedURLException exc) {
+            exc.printStackTrace();
+        }
+    }
+
+    public static void insertRestrictionAtDB(RestrictionData restriction) {
+        try {
+            RestrictionService restrictionService = (RestrictionService) Naming.lookup(RMIConfig.CONNECTION_RESTRICTION_SERVICE);
+            restrictionService.insertRestriction(restriction);
+        } catch (RemoteException | NotBoundException | MalformedURLException exc) {
+            exc.printStackTrace();
+        }
+    }
+
+    public static void insertFoodAtDB(FoodData food) {
+        try {
+            FoodService foodService = (FoodService) Naming.lookup(RMIConfig.CONNECTION_FOOD_SERVICE);
+            foodService.insertFood(food);
+        } catch (RemoteException | NotBoundException | MalformedURLException exc) {
+            exc.printStackTrace();
+        }
+    }
+
+    public static void insertSectionAtDB(SectionData section) {
+        try {
+            SectionService sectionService = (SectionService) Naming.lookup(RMIConfig.CONNECTION_SECTION_SERVICE);
+            sectionService.insertSection(section);
+        } catch (RemoteException | NotBoundException | MalformedURLException exc) {
+            exc.printStackTrace();
+        }
+    }
+
+
+    public static void deleteFoodAtDB(int foodID) {
+        try {
+            FoodService foodService = (FoodService) Naming.lookup(RMIConfig.CONNECTION_FOOD_SERVICE);
+            foodService.deleteFood(foodID);
+        } catch (RemoteException | NotBoundException | MalformedURLException exc) {
+            exc.printStackTrace();
+        }
+    }
+
+    public static void deleteSectionAtDB(int sectionID) {
+        try {
+            SectionService sectionService = (SectionService) Naming.lookup(RMIConfig.CONNECTION_SECTION_SERVICE);
+            sectionService.deleteSection(sectionID);
+        } catch (RemoteException | NotBoundException | MalformedURLException exc) {
+            exc.printStackTrace();
+        }
     }
 
 }

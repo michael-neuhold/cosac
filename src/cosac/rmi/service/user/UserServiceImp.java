@@ -38,18 +38,6 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void deleteUser(String userID) {
-        Logger.serverDB(" |-> deleteUser with id: " + userID);
-        Logger.dataTransfer(userID);
-
-        try(UserDataDao userDataDao = new UserDataDaoJdbc(
-            RMIConfig.CONNECTION_STRING, RMIConfig.USERNAME, RMIConfig.PASSWORD))
-        {
-            userDataDao.delete(userID);
-        } catch(Exception exc) { exc.printStackTrace(); }
-    }
-
-    @Override
     public void insertUser(UserData user) {
         Logger.serverDB(" |-> insertUser with id: " + user.getStudentID());
         Logger.dataTransfer(user);

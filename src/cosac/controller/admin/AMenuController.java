@@ -1,12 +1,12 @@
 package cosac.controller.admin;
 
-import cosac.client.ClientSocket;
-import cosac.client.DataContainer;
-import cosac.communication.Protocol;
+import cosac.SceneController;
 import cosac.model.FoodData;
 import cosac.model.SectionData;
+import cosac.rmi.RMIClient;
 import cosac.views.admin.AMenuView;
-import cosac.SceneController;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
@@ -20,8 +20,13 @@ public class AMenuController implements EventHandler<ActionEvent> {
 
     public AMenuController(Stage primaryStage) {
         this.sceneController = new SceneController(primaryStage);
-        adminMenuView.getSectionTable().setItems(DataContainer.getInstance().getSectionDataSets());
-        adminMenuView.getFoodTable().setItems(DataContainer.getInstance().getFoodDataSets());
+
+        new Thread( () -> {
+            Platform.runLater( () -> {
+                adminMenuView.getFoodTable().setItems(FXCollections.observableArrayList(RMIClient.getFoodDataFromDB()));
+                adminMenuView.getSectionTable().setItems(FXCollections.observableArrayList(RMIClient.getSectionDataFromDB()));
+            });
+        }).start();
     }
 
     public AMenuView getView() {
@@ -36,13 +41,6 @@ public class AMenuController implements EventHandler<ActionEvent> {
         else if(source.equals(adminMenuView.getRemoveFoodButton())) handleRemoveFood();
         else if(source.equals(adminMenuView.getAddSectionButton())) handleAddSection();
         else if(source.equals(adminMenuView.getRemoveSectionButton())) handleRemoveSection();
-        else if(source.equals(adminMenuView.getSaveButton())) {
-            Thread thread = new Thread(() -> {
-                ClientSocket.connect(Protocol.SET_FOOD_DATA_SETS);
-                ClientSocket.connect(Protocol.SET_SECTION_DATA_SETS);
-            });
-            thread.start();
-        }
         adminMenuView.resetTextFields();
     }
 
@@ -52,11 +50,18 @@ public class AMenuController implements EventHandler<ActionEvent> {
             Integer.parseInt(adminMenuView.getAddFoodSectionField().getText()),
             adminMenuView.getAddFoodNameField().getText()
         );
-        DataContainer.getInstance().addFood(newFood);
+
+        new Thread( () -> {
+            RMIClient.insertFoodAtDB(newFood);
+            updateFoodTable();
+        }).start();
     }
 
     private void handleRemoveFood() {
-        DataContainer.getInstance().removeFood(adminMenuView.getRemoveFoodIdField().getText());
+        new Thread( () -> {
+            RMIClient.deleteFoodAtDB(Integer.parseInt(adminMenuView.getRemoveFoodIdField().getText()));
+            updateFoodTable();
+        }).start();
     }
 
     private void handleAddSection() {
@@ -64,11 +69,31 @@ public class AMenuController implements EventHandler<ActionEvent> {
             Integer.parseInt(adminMenuView.getAddSectionIdField().getText()),
             adminMenuView.getAddSectionNameField().getText()
         );
-        DataContainer.getInstance().addSection(newSection);
+        new Thread( () -> {
+            RMIClient.insertSectionAtDB(newSection);
+            updateSectionTable();
+        }).start();
     }
 
     private void handleRemoveSection() {
-        DataContainer.getInstance().removeSection(adminMenuView.getRemoveSectionIdField().getText());
+        new Thread( () -> {
+            RMIClient.deleteSectionAtDB(Integer.parseInt(adminMenuView.getRemoveSectionIdField().getText()));
+            updateSectionTable();
+        }).start();
+    }
+
+    private void updateFoodTable() {
+        Platform.runLater( () -> {
+            adminMenuView.getFoodTable().setItems(FXCollections.observableArrayList(RMIClient.getFoodDataFromDB()));
+            adminMenuView.getFoodTable().refresh();
+        });
+    }
+
+    private void updateSectionTable() {
+        Platform.runLater( () -> {
+            adminMenuView.getSectionTable().setItems(FXCollections.observableArrayList(RMIClient.getSectionDataFromDB()));
+            adminMenuView.getFoodTable().refresh();
+        });
     }
 
 }

@@ -10,7 +10,6 @@ public interface UserService extends Remote {
 
     ArrayList<UserData> getAllUsers() throws RemoteException;
     void updateUser(UserData user) throws RemoteException;
-    void deleteUser(String userID) throws RemoteException;
     void insertUser(UserData user) throws RemoteException;
 
 }
