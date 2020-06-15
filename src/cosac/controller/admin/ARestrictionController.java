@@ -79,7 +79,7 @@ public class ARestrictionController implements EventHandler {
         }
 
         new Thread( () -> {
-            RMIClient.updateRestrictionAtDB(dataRow);
+            RMIClient.updateRestriction(dataRow);
             updateRestrictionTable();
         }).start();
 
@@ -97,7 +97,7 @@ public class ARestrictionController implements EventHandler {
 
             if(isValidUserInput(newRestriction.getStartTime(), newRestriction.getEndTime()) && fieldsAreFilled()) {
                 new Thread( () -> {
-                    RMIClient.insertRestrictionAtDB(newRestriction);
+                    RMIClient.insertRestriction(newRestriction);
                     updateRestrictionTable();
                 }).start();
                 closePopup();
@@ -125,7 +125,7 @@ public class ARestrictionController implements EventHandler {
     private void updateRestrictionTable() {
         Platform.runLater( () -> {
             adminRestictionView.getRestrictionTable().setItems(
-                    FXCollections.observableArrayList(RMIClient.getRestrictionDataFromDB())
+                    FXCollections.observableArrayList(RMIClient.getRestrictionData())
             );
             adminRestictionView.getRestrictionTable().refresh();
         });

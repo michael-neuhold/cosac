@@ -37,7 +37,7 @@ public class AUserController implements EventHandler {
         new Thread( () -> {
             Platform.runLater(() ->
                 adminUserView.getUserTable().setItems(
-                    FXCollections.observableArrayList(RMIClient.getUserDataFromDB())
+                    FXCollections.observableArrayList(RMIClient.getUserData())
                 ));
         }).start();
     }
@@ -157,18 +157,18 @@ public class AUserController implements EventHandler {
     }
 
     private void insertUserData(UserData user) {
-        RMIClient.insertUserAtDB(user);
+        RMIClient.insertUser(user);
         Platform.runLater(() -> {
             adminUserView.getUserTable().setItems(
-                FXCollections.observableArrayList(RMIClient.getUserDataFromDB()));
+                FXCollections.observableArrayList(RMIClient.getUserData()));
         });
     }
 
     private void updateUserData(UserData user) {
-        RMIClient.updateUserAtDB(user);
+        RMIClient.updateUser(user);
         Platform.runLater(() -> {
             adminUserView.getUserTable().setItems(
-                FXCollections.observableArrayList(RMIClient.getUserDataFromDB()));
+                FXCollections.observableArrayList(RMIClient.getUserData()));
             adminUserView.getUserTable().refresh();
         });
     }

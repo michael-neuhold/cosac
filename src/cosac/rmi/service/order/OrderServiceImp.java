@@ -21,4 +21,15 @@ public class OrderServiceImp implements OrderService {
         return results;
     }
 
+    @Override
+    public ArrayList<OrderData> getOrdersByRestrictionId(int restrictionId) throws RemoteException {
+        ArrayList<OrderData> results = new ArrayList<>();
+        try(OrderDataDao orderDataDao = new OrderDataDaoJdbc(
+            RMIConfig.CONNECTION_STRING, RMIConfig.USERNAME, RMIConfig.PASSWORD))
+        {
+            results = (ArrayList<OrderData>)orderDataDao.getByRestrictionId(restrictionId);
+        } catch(Exception exc) { exc.printStackTrace(); }
+        return results;
+    }
+
 }

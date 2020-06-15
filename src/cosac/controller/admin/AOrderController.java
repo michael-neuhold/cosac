@@ -13,6 +13,7 @@ public class AOrderController implements EventHandler<ActionEvent> {
 
     public AOrderController(Stage primaryStage) {
         this.sceneController = new SceneController(primaryStage);
+        
         //ArrayList<TableView> tables = this.adminOrderView.gettabelViews();
         //for(TableView tabel : tables) tabel.setItems(DataContainer.getInstance().getOrderDataSets());
     }

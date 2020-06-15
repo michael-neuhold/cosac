@@ -4,46 +4,40 @@ import java.io.Serializable;
 
 public class OrderData implements Serializable {
 
+    private int orderId;
     private String userId;
+    private String userFirstname;
+    private String userLastname;
     private String food;
-    private int timeSlotId;
 
-    public OrderData(String userId, String food, int timeSlotId) {
+    public OrderData(int orderId, String userId, String userFirstname, String userLastname, String food) {
+        this.orderId = orderId;
         this.userId = userId;
+        this.userFirstname = userFirstname;
+        this.userLastname = userLastname;
         this.food = food;
-        this.timeSlotId = timeSlotId;
+    }
+
+    public int getOrderId() {
+        return orderId;
     }
 
     public String getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
     public String getFood() {
         return food;
-    }
-
-    public void setFood(String food) {
-        this.food = food;
-    }
-
-    public int getTimeSlotId() {
-        return timeSlotId;
-    }
-
-    public void setTimeSlotId(int timeSlotId) {
-        this.timeSlotId = timeSlotId;
     }
 
     @Override
     public String toString() {
         return "OrderData{" +
-                "userId='" + userId + '\'' +
+                "orderId=" + orderId +
+                ", userId='" + userId + '\'' +
+                ", userFirstname='" + userFirstname + '\'' +
+                ", userLastname='" + userLastname + '\'' +
                 ", food='" + food + '\'' +
-                ", timeSlotId=" + timeSlotId +
                 '}';
     }
 }

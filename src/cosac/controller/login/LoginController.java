@@ -36,7 +36,7 @@ public class LoginController implements EventHandler<ActionEvent> {
                 Crypt crypt = new Crypt();
 
                 // username equals id
-                UserData user = RMIClient.getUserDataFromDB().stream()
+                UserData user = RMIClient.getUserData().stream()
                     .filter(u -> u.getStudentID().equals(username))
                     .findFirst()
                     .orElse(null);

@@ -24,8 +24,8 @@ public class AMenuController implements EventHandler<ActionEvent> {
 
         new Thread( () -> {
             Platform.runLater( () -> {
-                adminMenuView.getFoodTable().setItems(FXCollections.observableArrayList(RMIClient.getFoodDataFromDB()));
-                adminMenuView.getSectionTable().setItems(FXCollections.observableArrayList(RMIClient.getSectionDataFromDB()));
+                adminMenuView.getFoodTable().setItems(FXCollections.observableArrayList(RMIClient.getFoodData()));
+                adminMenuView.getSectionTable().setItems(FXCollections.observableArrayList(RMIClient.getSectionData()));
             });
         }).start();
     }
@@ -53,14 +53,14 @@ public class AMenuController implements EventHandler<ActionEvent> {
         );
 
         new Thread( () -> {
-            RMIClient.insertFoodAtDB(newFood);
+            RMIClient.insertFood(newFood);
             updateFoodTable();
         }).start();
     }
 
     private void handleRemoveFood() {
         new Thread( () -> {
-            RMIClient.deleteFoodAtDB(Integer.parseInt(adminMenuView.getRemoveFoodIdField().getText()));
+            RMIClient.deleteFood(Integer.parseInt(adminMenuView.getRemoveFoodIdField().getText()));
             updateFoodTable();
         }).start();
     }
@@ -71,28 +71,28 @@ public class AMenuController implements EventHandler<ActionEvent> {
             adminMenuView.getAddSectionNameField().getText()
         );
         new Thread( () -> {
-            RMIClient.insertSectionAtDB(newSection);
+            RMIClient.insertSection(newSection);
             updateSectionTable();
         }).start();
     }
 
     private void handleRemoveSection() {
         new Thread( () -> {
-            RMIClient.deleteSectionAtDB(Integer.parseInt(adminMenuView.getRemoveSectionIdField().getText()));
+            RMIClient.deleteSection(Integer.parseInt(adminMenuView.getRemoveSectionIdField().getText()));
             updateSectionTable();
         }).start();
     }
 
     private void updateFoodTable() {
         Platform.runLater( () -> {
-            adminMenuView.getFoodTable().setItems(FXCollections.observableArrayList(RMIClient.getFoodDataFromDB()));
+            adminMenuView.getFoodTable().setItems(FXCollections.observableArrayList(RMIClient.getFoodData()));
             adminMenuView.getFoodTable().refresh();
         });
     }
 
     private void updateSectionTable() {
         Platform.runLater( () -> {
-            adminMenuView.getSectionTable().setItems(FXCollections.observableArrayList(RMIClient.getSectionDataFromDB()));
+            adminMenuView.getSectionTable().setItems(FXCollections.observableArrayList(RMIClient.getSectionData()));
             adminMenuView.getFoodTable().refresh();
         });
     }

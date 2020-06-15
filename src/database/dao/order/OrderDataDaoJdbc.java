@@ -2,10 +2,10 @@ package database.dao.order;
 
 import cosac.model.OrderData;
 import database.DataAccessException;
+import util.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class OrderDataDaoJdbc implements OrderDataDao{
 
@@ -31,21 +31,29 @@ public class OrderDataDaoJdbc implements OrderDataDao{
     }
 
     private ArrayList<OrderData> getWhere(String query, Object... args) throws DataAccessException {
-        try(PreparedStatement statement = getConnection().prepareStatement("SELECT * FROM Order_ " + query + ";")) {
+        try(PreparedStatement statement = getConnection().prepareStatement(
+            "SELECT orderID, User_userID, User.firstname, User.lastname, Food.name FROM Order_ " +
+            "INNER JOIN Food on Food.foodID = Food_foodID " +
+            "INNER JOIN User on User.userID = User_userID " +
+            "INNER JOIN Restriction on Restriction.restrictionID = Restriction_restrictionID " +
+            query + ";")) {
             //for(int i = 0; i < args.length;) statement.setObject(i + 1, args[i]);
             ArrayList<OrderData> result = new ArrayList<>();
             try(ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                   /* result.add(
-                            new OrderData(
-                                    resultSet.getInt("orderID"),
-                                    resultSet.getInt("Restriction_restrictionID"),
-                                    resultSet.getInt("Food_foodID"),
-                                    resultSet.getString("User_userID")
-                            )
-                   ); */
+                    result.add(
+                        new OrderData(
+                            resultSet.getInt("orderID"),
+                            resultSet.getString("User_userID"),
+                            resultSet.getString("User.firstname"),
+                            resultSet.getString("User.lastname"),
+                            resultSet.getString("Food.name")
+                        )
+                   );
                 }
             }
+            System.out.println("## order: \n");
+            Logger.dataTransfer(result);
             return result;
         } catch(SQLException exc) { throw new DataAccessException("SQLException: " + exc.getMessage()); }
     }
@@ -60,12 +68,17 @@ public class OrderDataDaoJdbc implements OrderDataDao{
 
     @Override
     public OrderData getById(int orderID) throws DataAccessException {
-        ArrayList<OrderData> result = getWhere("WHERE orderID ='" + orderID + "'");
+        ArrayList<OrderData> result = getWhere("WHERE orderID = " + orderID);
         return result.isEmpty() ? null : result.get(0);
     }
 
     @Override
-    public Collection<OrderData> getAll() throws DataAccessException {
+    public ArrayList<OrderData> getByRestrictionId(int restrictionId) throws DataAccessException {
+        return getWhere("WHERE Restriction_restrictionID = " + restrictionId);
+    }
+
+    @Override
+    public ArrayList<OrderData> getAll() throws DataAccessException {
         return getWhere("");
     }
 
