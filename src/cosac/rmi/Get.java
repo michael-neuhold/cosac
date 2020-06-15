@@ -1,0 +1,11 @@
+package cosac.rmi;
+
+public enum Get {
+
+    GET_USER_DATA_SETS,
+    GET_FOOD_DATA_SETS,
+    GET_RESTRICTION_DATA_SETS,
+    GET_SECTION_DATA_SETS,
+    GET_ORDER_DATA_SETS,
+
+}

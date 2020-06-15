@@ -1,10 +1,10 @@
 package cosac.controller.admin;
 
 import cosac.SceneController;
-import cosac.client.DataContainer;
 import cosac.model.Role;
 import cosac.model.UserData;
-import cosac.rmi.Protocol;
+import cosac.rmi.Get;
+import cosac.rmi.Post;
 import cosac.rmi.RMIClient;
 import cosac.views.admin.AUserView;
 import cosac.views.admin.popup.AddUserView;
@@ -21,6 +21,7 @@ import util.Crypt;
 import util.Logger;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 
 
 public class AUserController implements EventHandler {
@@ -38,7 +39,7 @@ public class AUserController implements EventHandler {
         new Thread( () -> {
             Platform.runLater(() ->
                 adminUserView.getUserTable().setItems(
-                    FXCollections.observableArrayList(RMIClient.getUserDataFromDB())
+                    FXCollections.observableArrayList(RMIClient.connect(Get.GET_USER_DATA_SETS))
                 ));
         }).start();
     }
@@ -102,28 +103,29 @@ public class AUserController implements EventHandler {
             case 4: dataRow.setLocked((Boolean) source.getNewValue()); break;
         }
 
-        new Thread( () -> {
-            RMIClient.connect(Protocol.UPDATE_USER_DATA_SET, dataRow);
-            Platform.runLater(() -> adminUserView.getUserTable().setItems(
-                FXCollections.observableArrayList(RMIClient.getUserDataFromDB())
-            ));
-        }).start();
-
+        new Thread( () -> updateUserData(dataRow)).start();
     }
 
     private void handleLockUserPopup(Object source) {
         if (source.equals(popupLockUser.getLockButton())) {
-
+            closePopup();
+            ArrayList<UserData> users = new ArrayList<>();
+            users.addAll(adminUserView.getUserTable().getItems());
             String id = popupLockUser.getStudentIdToLock().getText();
-            UserData user = DataContainer.getInstance().getUserSetById(id);
+
+            UserData user = null;
+            for(UserData u : users) {
+                if(u.hasID(id)) user = u;
+            }
+
             if(user != null) {
                 user.setLocked(true);
-                adminUserView.getUserTable().refresh();
+                UserData finalUser = user;
+                new Thread( () -> updateUserData(finalUser)).start();
             } else {
                 Logger.error("id does not exist");
             }
 
-            closePopup();
         } else if (source.equals(popupLockUser.getCancelButton())) {
             closePopup();
         }
@@ -144,13 +146,7 @@ public class AUserController implements EventHandler {
                 );
                 if(fieldsAreFilled() && isValidUserInput(newUser.getStudentID(),newUser.getEmail())) {
                     closePopup();
-
-                    new Thread( () -> {
-                        RMIClient.connect(Protocol.INSERT_USER_DATA_SET, newUser);
-                        Platform.runLater(() -> adminUserView.getUserTable().setItems(FXCollections.observableArrayList(
-                            RMIClient.getUserDataFromDB())));
-                    }).start();
-
+                    new Thread( () -> insertUserData(newUser)).start();
                 } else {
                     Logger.error("wrong userinput");
                 }
@@ -160,6 +156,24 @@ public class AUserController implements EventHandler {
         } else if (source.equals(popupViewAddUser.getCancelButton())) {
             closePopup();
         }
+    }
+
+    private void insertUserData(UserData user) {
+        RMIClient.connect(Post.INSERT_USER_DATA_SET, user);
+        Platform.runLater(() -> {
+            adminUserView.getUserTable().setItems(
+                FXCollections.observableArrayList(RMIClient.connect(Get.GET_USER_DATA_SETS)));
+        });
+    }
+
+    private void updateUserData(UserData user) {
+        RMIClient.connect(Post.UPDATE_USER_DATA_SET, user);
+        Platform.runLater(() -> {
+            adminUserView.getUserTable().setItems(
+                FXCollections.observableArrayList(RMIClient.connect(Get.GET_USER_DATA_SETS))
+            );
+            adminUserView.getUserTable().refresh();
+        });
     }
 
     private boolean fieldsAreFilled() {

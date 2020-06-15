@@ -91,6 +91,10 @@ public class UserData implements Serializable {
         return email.matches("[A-z0-9]*@students.fh-hagenberg.at");
     }
 
+    public boolean hasID(String id) {
+        return studentID.equals(id);
+    }
+
     @Override
     public String toString() {
         return "UserData{" +

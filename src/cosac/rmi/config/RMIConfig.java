@@ -20,10 +20,11 @@ public class RMIConfig {
     public static final String ENDPOINT_SECTION_SERVICE = ENDPOINT + "/SectionService";
 
     // CLIENT SERVICE CONNECTION
-    private static final String CONNECTION_TO_SERVICE = "rmi://" + SERVER;
-    private static final String CONNECTION_USER_SERVICE = CONNECTION_TO_SERVICE + "/UserService";
-    private static final String CONNECTION_SECTION_SERVICE = CONNECTION_TO_SERVICE + "/SectionService";
-    private static final String CONNECTION_FOOD_SERVICE = CONNECTION_TO_SERVICE + "/FoodService";
-    private static final String CONNECTION_RESTRICTION_SERVICE = CONNECTION_TO_SERVICE + "/RestrictionService";
+    public static final String CONNECTION_TO_SERVICE = "rmi://" + SERVER;
+    public static final String CONNECTION_USER_SERVICE = CONNECTION_TO_SERVICE + "/UserService";
+    public static final String CONNECTION_SECTION_SERVICE = CONNECTION_TO_SERVICE + "/SectionService";
+    public static final String CONNECTION_FOOD_SERVICE = CONNECTION_TO_SERVICE + "/FoodService";
+    public static final String CONNECTION_RESTRICTION_SERVICE = CONNECTION_TO_SERVICE + "/RestrictionService";
+    public static final String CONNECTION_ORDER_SERVICE = CONNECTION_TO_SERVICE + "/OrderService";
 
 }
