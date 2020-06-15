@@ -6,7 +6,7 @@ import database.DataAccessException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public interface OrderDataDao extends AutoCloseable{
+public interface OrderDataDao extends AutoCloseable {
 
     int getCount() throws DataAccessException;
     OrderData getById(int orderID) throws DataAccessException;

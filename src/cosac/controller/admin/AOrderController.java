@@ -1,7 +1,10 @@
 package cosac.controller.admin;
 
 import cosac.SceneController;
+import cosac.rmi.RMIClient;
 import cosac.views.admin.AOrderView;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
@@ -13,9 +16,7 @@ public class AOrderController implements EventHandler<ActionEvent> {
 
     public AOrderController(Stage primaryStage) {
         this.sceneController = new SceneController(primaryStage);
-        
-        //ArrayList<TableView> tables = this.adminOrderView.gettabelViews();
-        //for(TableView tabel : tables) tabel.setItems(DataContainer.getInstance().getOrderDataSets());
+        new Thread( () -> updateTable() ).start();
     }
 
     public AOrderView getView() {
@@ -27,6 +28,17 @@ public class AOrderController implements EventHandler<ActionEvent> {
         Object source = actionEvent.getSource();
         if(source.equals(adminOrderView.getBackButton()))
             sceneController.mountPreviousScene();
+    }
+
+    private void updateTable() {
+        Platform.runLater( () -> {
+            this.adminOrderView.getOrderTable().setItems(
+                    FXCollections.observableArrayList(
+                            RMIClient.getOrderData()
+                    )
+            );
+            this.adminOrderView.sortTable();
+        });
     }
 
 }

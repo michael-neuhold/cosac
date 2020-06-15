@@ -32,11 +32,11 @@ public class OrderDataDaoJdbc implements OrderDataDao{
 
     private ArrayList<OrderData> getWhere(String query, Object... args) throws DataAccessException {
         try(PreparedStatement statement = getConnection().prepareStatement(
-            "SELECT orderID, User_userID, User.firstname, User.lastname, Food.name FROM Order_ " +
-            "INNER JOIN Food on Food.foodID = Food_foodID " +
-            "INNER JOIN User on User.userID = User_userID " +
+            "SELECT orderID, User_userID, User.firstname, User.lastname, Food.name, Restriction.startTime, Restriction.endTime FROM Order_ " +
             "INNER JOIN Restriction on Restriction.restrictionID = Restriction_restrictionID " +
-            query + ";")) {
+            "INNER JOIN Food on Food.foodID = Food_foodID " +
+            "INNER JOIN User on User.userID = User_userID "
+        )) {
             //for(int i = 0; i < args.length;) statement.setObject(i + 1, args[i]);
             ArrayList<OrderData> result = new ArrayList<>();
             try(ResultSet resultSet = statement.executeQuery()) {
@@ -44,6 +44,7 @@ public class OrderDataDaoJdbc implements OrderDataDao{
                     result.add(
                         new OrderData(
                             resultSet.getInt("orderID"),
+                            resultSet.getString("Restriction.startTime") + " - " + resultSet.getString("Restriction.endTime"),
                             resultSet.getString("User_userID"),
                             resultSet.getString("User.firstname"),
                             resultSet.getString("User.lastname"),
