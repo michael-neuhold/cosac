@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 public class AMenuController implements EventHandler<ActionEvent> {
 
+    private static final int PLACEHOLDER_ID = 0;
     private Stage popupStage = null;
 
     private AMenuView adminMenuView = new AMenuView(this);
@@ -46,7 +47,7 @@ public class AMenuController implements EventHandler<ActionEvent> {
 
     private void handleAddFood() {
         FoodData newFood = new FoodData(
-            Integer.parseInt(adminMenuView.getAddFoodIdField().getText()),
+            PLACEHOLDER_ID,
             Integer.parseInt(adminMenuView.getAddFoodSectionField().getText()),
             adminMenuView.getAddFoodNameField().getText()
         );
@@ -66,7 +67,7 @@ public class AMenuController implements EventHandler<ActionEvent> {
 
     private void handleAddSection() {
         SectionData newSection = new SectionData(
-            Integer.parseInt(adminMenuView.getAddSectionIdField().getText()),
+            PLACEHOLDER_ID,
             adminMenuView.getAddSectionNameField().getText()
         );
         new Thread( () -> {

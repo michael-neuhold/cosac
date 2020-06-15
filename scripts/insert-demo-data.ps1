@@ -7,15 +7,15 @@ $insertStatements=@'
     INSERT INTO User (userID, firstname, lastname, email, password, role, locked) VALUES ('S1810307097','Claudia','Wimmeder','claudia.wimmeder@gmail.com', '5e884898da2847151d0e56f8dc6292773603dd6aabbdd62a11ef721d1542d8', 'student', 1);
     INSERT INTO User (userID, firstname, lastname, email, password, role, locked) VALUES ('S1810307098','Pia','Schaenzle','pia.schaenzle@gmail.com', '5e884898da2847151d0e56f8dc6292773603dd6aabbdd62a11ef721d1542d8', 'student', 1);
 
-    INSERT INTO Section (sectionID, name) VALUES (1, 'section 1');
-    INSERT INTO Section (sectionID, name) VALUES (2, 'section 2');
-    INSERT INTO Section (sectionID, name) VALUES (3, 'section 3');
-    INSERT INTO Section (sectionID, name) VALUES (4, 'section 4');
+    INSERT INTO Section (name) VALUES ('section 1');
+    INSERT INTO Section (name) VALUES ('section 2');
+    INSERT INTO Section (name) VALUES ('section 3');
+    INSERT INTO Section (name) VALUES ('section 4');
 
-    INSERT INTO Food (foodID, name, Section_sectionID) VALUES (1, 'Schnitzel', 2);
-    INSERT INTO Food (foodID, name, Section_sectionID) VALUES (2, 'Nudeln', 3);
-    INSERT INTO Food (foodID, name, Section_sectionID) VALUES (3, 'Gulasch', 1);
-    INSERT INTO Food (foodID, name, Section_sectionID) VALUES (4, 'Pizza', 4);
+    INSERT INTO Food (name, Section_sectionID) VALUES ('Schnitzel', 2);
+    INSERT INTO Food (name, Section_sectionID) VALUES ('Nudeln', 3);
+    INSERT INTO Food (name, Section_sectionID) VALUES ('Gulasch', 1);
+    INSERT INTO Food (name, Section_sectionID) VALUES ('Pizza', 4);
 
     INSERT INTO Restriction (startTime, endTime, visitorLimit) VALUES ('12:00', '13:00', 20);
     INSERT INTO Restriction (startTime, endTime, visitorLimit) VALUES ('13:00', '14:00', 10);

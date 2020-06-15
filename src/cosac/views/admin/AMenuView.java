@@ -18,11 +18,9 @@ public class AMenuView extends BorderPane {
     private Button addFoodButton = new Button("add food");
     private Button removeFoodButton = new Button("delete food");
 
-    private TextField addSectionIdField = new TextField();
     private TextField addSectionNameField = new TextField();
     private TextField removeSectionIdField = new TextField();
 
-    private TextField addFoodIdField = new TextField();
     private TextField addFoodSectionField = new TextField();
     private TextField addFoodNameField = new TextField();
     private TextField removeFoodIdField = new TextField();
@@ -82,10 +80,10 @@ public class AMenuView extends BorderPane {
         VBox buttonWrapper = new VBox(10);
         setStyleClassForButtons();
         setInputFieldProps();
-        buttonWrapper.getChildren().addAll(addFoodIdField, addFoodSectionField);
+        buttonWrapper.getChildren().add(addFoodSectionField);
         buttonWrapper.getChildren().addAll(addFoodNameField, addFoodButton, new Separator());
         buttonWrapper.getChildren().addAll(removeFoodIdField,removeFoodButton, new Separator());
-        buttonWrapper.getChildren().addAll(addSectionIdField, addSectionNameField);
+        buttonWrapper.getChildren().add(addSectionNameField);
         buttonWrapper.getChildren().addAll(addSectionButton, new Separator());
         buttonWrapper.getChildren().addAll(removeSectionIdField, removeSectionButton);
         return buttonWrapper;
@@ -99,8 +97,6 @@ public class AMenuView extends BorderPane {
     }
 
     private void setInputFieldProps() {
-        addFoodIdField.getStyleClass().add("smallInputField");
-        addFoodIdField.setPromptText("food id");
 
         addFoodSectionField.getStyleClass().add("smallInputField");
         addFoodSectionField.setPromptText("food section id");
@@ -110,9 +106,6 @@ public class AMenuView extends BorderPane {
 
         removeFoodIdField.getStyleClass().add("smallInputField");
         removeFoodIdField.setPromptText("food id");
-
-        addSectionIdField.getStyleClass().add("smallInputField");
-        addSectionIdField.setPromptText("section id");
 
         addSectionNameField.getStyleClass().add("smallInputField");
         addSectionNameField.setPromptText("section name");
@@ -130,10 +123,8 @@ public class AMenuView extends BorderPane {
     }
 
     public void resetTextFields() {
-        addSectionIdField.clear();
         addSectionNameField.clear();
         removeSectionIdField.clear();
-        addFoodIdField.clear();
         addFoodSectionField.clear();
         addFoodNameField.clear();
         removeFoodIdField.clear();
@@ -157,20 +148,12 @@ public class AMenuView extends BorderPane {
         return removeFoodButton;
     }
 
-    public TextField getAddSectionIdField() {
-        return addSectionIdField;
-    }
-
     public TextField getAddSectionNameField() {
         return addSectionNameField;
     }
 
     public TextField getRemoveSectionIdField() {
         return removeSectionIdField;
-    }
-
-    public TextField getAddFoodIdField() {
-        return addFoodIdField;
     }
 
     public TextField getAddFoodNameField() {

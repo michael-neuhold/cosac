@@ -72,12 +72,11 @@ public class FoodDataDaoJdbc implements FoodDataDao {
     public void store(FoodData food) throws DataAccessException {
         try(Statement statement = getConnection().createStatement()) {
             statement.executeUpdate(
-                    String.format("INSERT INTO Food (foodID, name, Section_sectionID)" +
-                                    "VALUES ('%d','%s','%d');",
-                            food.getId(),
-                            food.getName(),
-                            food.getSectionId()),
-                    Statement.RETURN_GENERATED_KEYS
+                String.format("INSERT INTO Food (name, Section_sectionID)" +
+                                "VALUES ('%s','%d');",
+                    food.getName(),
+                    food.getSectionId()),
+                Statement.RETURN_GENERATED_KEYS
             );
         } catch (SQLException exc) { throw new DataAccessException("SQLException: " + exc.getMessage()); }
     }

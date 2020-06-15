@@ -21,13 +21,13 @@ $schema=@'
     );
 
     CREATE TABLE Section (
-        sectionID INT NOT NULL,
+        sectionID INT NOT NULL AUTO_INCREMENT,
         name VARCHAR(45) NULL,
         PRIMARY KEY (sectionID)
     );
 
     CREATE TABLE Food (
-        foodID INT NOT NULL,
+        foodID INT NOT NULL AUTO_INCREMENT,
         name VARCHAR(45) NULL,
         Section_sectionID INT NOT NULL,
         PRIMARY KEY (foodID),
@@ -47,7 +47,7 @@ $schema=@'
     );
 
     CREATE TABLE Order_ (
-        orderID INT NOT NULL,
+        orderID INT NOT NULL AUTO_INCREMENT,
         Restriction_restrictionID INT NOT NULL,
         Food_foodID INT NOT NULL,
         User_userID VARCHAR(11) NOT NULL,

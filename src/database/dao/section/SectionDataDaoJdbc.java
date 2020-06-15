@@ -71,11 +71,9 @@ public class SectionDataDaoJdbc implements SectionDataDao {
     public void store(SectionData section) throws DataAccessException {
         try(Statement statement = getConnection().createStatement()) {
             statement.executeUpdate(
-                    String.format("INSERT INTO Section (sectionID, name)" +
-                                    "VALUES ('%d','%s');",
-                            section.getId(),
-                            section.getName()),
-                    Statement.RETURN_GENERATED_KEYS
+                String.format("INSERT INTO Section (name) VALUES ('%s');",
+                    section.getName()),
+                Statement.RETURN_GENERATED_KEYS
             );
         } catch (SQLException exc) { throw new DataAccessException("SQLException: " + exc.getMessage()); }
     }

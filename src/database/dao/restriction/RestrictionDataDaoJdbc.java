@@ -73,9 +73,8 @@ public class RestrictionDataDaoJdbc implements RestrictionDataDao {
     public void store(RestrictionData restriction) throws DataAccessException {
         try(Statement statement = getConnection().createStatement()) {
             statement.executeUpdate(
-                    String.format("INSERT INTO Restriction (restrictionID, startTime, endTime, visitorLimit)" +
-                                    "VALUES ('%d','%s','%s','%d');",
-                            restriction.getRestrictionId(),
+                    String.format("INSERT INTO Restriction (startTime, endTime, visitorLimit)" +
+                                    "VALUES ('%s','%s','%d');",
                             restriction.getStartTime(),
                             restriction.getEndTime(),
                             restriction.getVisitorLimit()),
