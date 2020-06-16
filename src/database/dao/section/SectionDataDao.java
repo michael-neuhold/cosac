@@ -8,7 +8,6 @@ import java.util.Collection;
 public interface SectionDataDao extends AutoCloseable {
 
     int getCount() throws DataAccessException;
-    SectionData getById(int sectionID) throws DataAccessException;
     Collection<SectionData> getAll() throws DataAccessException;
     void store(SectionData section) throws DataAccessException;
     void delete(int sectionID) throws DataAccessException;

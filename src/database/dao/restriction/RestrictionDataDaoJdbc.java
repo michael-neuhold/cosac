@@ -5,7 +5,6 @@ import database.DataAccessException;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class RestrictionDataDaoJdbc implements RestrictionDataDao {
 
@@ -30,9 +29,10 @@ public class RestrictionDataDaoJdbc implements RestrictionDataDao {
         return connection;
     }
 
-    private ArrayList<RestrictionData> getWhere(String query, Object... args) throws DataAccessException {
-        try(PreparedStatement statement = getConnection().prepareStatement("SELECT * FROM Restriction " + query + ";")) {
-            //for(int i = 0; i < args.length;) statement.setObject(i + 1, args[i]);
+    public ArrayList<RestrictionData> getAll() throws DataAccessException {
+        try(PreparedStatement statement = getConnection()
+            .prepareStatement("SELECT * FROM Restriction;"))
+        {
             ArrayList<RestrictionData> result = new ArrayList<>();
             try(ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
@@ -53,39 +53,29 @@ public class RestrictionDataDaoJdbc implements RestrictionDataDao {
     @Override
     public int getCount() throws DataAccessException {
         try(Statement statement = getConnection().createStatement();
-            ResultSet resultSet = statement.executeQuery("Select COUNT(restrictionID) AS count FROM Restriction;")) {
+            ResultSet resultSet = statement
+                .executeQuery("Select COUNT(restrictionID) AS count FROM Restriction;")) {
             return resultSet.next() ? resultSet.getInt(1) : 0;
         } catch(SQLException exc) { throw new DataAccessException("SQLException: " + exc.getMessage()); }
     }
 
     @Override
-    public RestrictionData getById(int restrictionID) throws DataAccessException {
-        ArrayList<RestrictionData> result = getWhere("WHERE restrictionID ='" + restrictionID + "'");
-        return result.isEmpty() ? null : result.get(0);
-    }
-
-    @Override
-    public Collection<RestrictionData> getAll() throws DataAccessException {
-        return getWhere("");
-    }
-
-    @Override
     public void store(RestrictionData restriction) throws DataAccessException {
-        try(Statement statement = getConnection().createStatement()) {
-            statement.executeUpdate(
-                    String.format("INSERT INTO Restriction (startTime, endTime, visitorLimit)" +
-                                    "VALUES ('%s','%s','%d');",
-                            restriction.getStartTime(),
-                            restriction.getEndTime(),
-                            restriction.getVisitorLimit()),
-                    Statement.RETURN_GENERATED_KEYS
-            );
+        try(PreparedStatement preparedStatement = getConnection()
+            .prepareStatement("INSERT INTO Restriction (startTime,endTime,visitorLimit) VALUES (?,?,?)"))
+        {
+            preparedStatement.setString(1, restriction.getStartTime());
+            preparedStatement.setString(2, restriction.getEndTime());
+            preparedStatement.setInt(3, restriction.getVisitorLimit());
+            preparedStatement.executeUpdate();
         } catch (SQLException exc) { throw new DataAccessException("SQLException: " + exc.getMessage()); }
     }
 
     @Override
     public void delete(int restrictionID) throws DataAccessException {
-        try(PreparedStatement preparedStatement = getConnection().prepareStatement("DELETE FROM Restriction Where restrictionID = ?")) {
+        try(PreparedStatement preparedStatement = getConnection()
+            .prepareStatement("DELETE FROM Restriction Where restrictionID = ?"))
+        {
             preparedStatement.setInt(1, restrictionID);
             preparedStatement.executeUpdate();
         } catch (SQLException exc) {
@@ -95,9 +85,10 @@ public class RestrictionDataDaoJdbc implements RestrictionDataDao {
 
     @Override
     public void update(RestrictionData restriction) throws DataAccessException {
-        try(PreparedStatement preparedStatement = getConnection().prepareStatement(
-            "UPDATE Restriction SET startTime=?, endTime=?, visitorLimit=? WHERE restrictionID = ?"
-        )) {
+        try(PreparedStatement preparedStatement = getConnection()
+            .prepareStatement(
+            "UPDATE Restriction SET startTime=?, endTime=?, visitorLimit=? WHERE restrictionID = ?"))
+        {
             preparedStatement.setString(1, restriction.getStartTime());
             preparedStatement.setString(2, restriction.getEndTime());
             preparedStatement.setInt(3, restriction.getVisitorLimit());

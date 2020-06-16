@@ -1,6 +1,7 @@
 package database.dao.order;
 
 import cosac.model.OrderData;
+import cosac.model.OrderDataInsert;
 import database.DataAccessException;
 
 import java.sql.*;
@@ -29,8 +30,9 @@ public class OrderDataDaoJdbc implements OrderDataDao{
         return connection;
     }
 
-    private ArrayList<OrderData> getWhere(String query, Object... args) throws DataAccessException {
-        try(PreparedStatement statement = getConnection().prepareStatement(
+    public ArrayList<OrderData> getAll() throws DataAccessException {
+        try(PreparedStatement statement = getConnection()
+            .prepareStatement(
             "SELECT orderID, User_userID, User.firstname, User.lastname, Food.name, " +
                 "Restriction.startTime, Restriction.endTime FROM Order_ " +
             "INNER JOIN Restriction on Restriction.restrictionID = Restriction_restrictionID " +
@@ -66,33 +68,16 @@ public class OrderDataDaoJdbc implements OrderDataDao{
     }
 
     @Override
-    public OrderData getById(int orderID) throws DataAccessException {
-        ArrayList<OrderData> result = getWhere("WHERE orderID = " + orderID);
-        return result.isEmpty() ? null : result.get(0);
-    }
-
-    @Override
-    public ArrayList<OrderData> getByRestrictionId(int restrictionId) throws DataAccessException {
-        return getWhere("WHERE Restriction_restrictionID = " + restrictionId);
-    }
-
-    @Override
-    public ArrayList<OrderData> getAll() throws DataAccessException {
-        return getWhere("");
-    }
-
-    @Override
-    public void store(OrderData order) throws DataAccessException {
+    public void store(OrderDataInsert order) throws DataAccessException {
         try(Statement statement = getConnection().createStatement()) {
-           /* statement.executeUpdate(
-                    String.format("INSERT INTO User (restrictionID, startTime, endTime, visitorLimit)" +
-                                    "VALUES ('%d','%s','%s','%d');",
-                            order.getTimeslotId(),
-                            order.getStartTime(),
-                            order.getEndTime(),
-                            order.getVisitorLimit()),
-                    Statement.RETURN_GENERATED_KEYS
-            );*/
+            statement.executeUpdate(
+                String.format("INSERT INTO Order_ (Restriction_restrictionID, User_userID, Food_foodID)" +
+                            "VALUES ('%d','%d','%d');",
+                    order.getRestrictionId(),
+                    order.getUserId(),
+                    order.getFoodId(),
+                Statement.RETURN_GENERATED_KEYS)
+            );
         } catch (SQLException exc) { throw new DataAccessException("SQLException: " + exc.getMessage()); }
     }
 
@@ -100,6 +85,5 @@ public class OrderDataDaoJdbc implements OrderDataDao{
     public void close() throws Exception {
 
     }
-
 
 }

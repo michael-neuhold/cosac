@@ -85,9 +85,6 @@ public class CosacApplication {
 
     public static void main(String args[]) {
         try(UserDataDao userDataDao = new UserDataDaoJdbc(CONNECTION_STRING, USERNAME, PASSWORD)) {
-
-            out.println("user by id: " + userDataDao.getById("S1810307094"));
-
             out.printf("%ncurrently %d entries in phone book %n", userDataDao.getCount());
             out.printf("%ncommands: %s%n%n", commands.keySet());
             for(String cmd = promptFor(""); !cmd.equals("quit"); cmd = promptFor("")) {

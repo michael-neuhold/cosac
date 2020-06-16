@@ -69,20 +69,20 @@ public class FoodDataDaoJdbc implements FoodDataDao {
 
     @Override
     public void store(FoodData food) throws DataAccessException {
-        try(Statement statement = getConnection().createStatement()) {
-            statement.executeUpdate(
-                String.format("INSERT INTO Food (name, Section_sectionID)" +
-                                "VALUES ('%s','%d');",
-                    food.getName(),
-                    food.getSectionId()),
-                Statement.RETURN_GENERATED_KEYS
-            );
+        try(PreparedStatement preparedStatement = getConnection()
+            .prepareStatement("INSERT INTO Food (name, Section_sectionID) VALUES (?,?);"))
+        {
+            preparedStatement.setString(1, food.getName());
+            preparedStatement.setInt(2, food.getSectionId());
+            preparedStatement.executeUpdate();
         } catch (SQLException exc) { throw new DataAccessException("SQLException: " + exc.getMessage()); }
     }
 
     @Override
     public void delete(int foodID) throws DataAccessException {
-        try(PreparedStatement preparedStatement = getConnection().prepareStatement("DELETE FROM Food Where foodID = ?")) {
+        try(PreparedStatement preparedStatement = getConnection()
+            .prepareStatement("DELETE FROM Food Where foodID = ?"))
+        {
             preparedStatement.setInt(1, foodID);
             preparedStatement.executeUpdate();
         } catch (SQLException exc) {

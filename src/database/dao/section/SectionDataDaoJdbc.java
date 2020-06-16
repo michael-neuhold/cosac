@@ -5,7 +5,6 @@ import database.DataAccessException;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class SectionDataDaoJdbc implements SectionDataDao {
 
@@ -30,9 +29,10 @@ public class SectionDataDaoJdbc implements SectionDataDao {
         return connection;
     }
 
-    private ArrayList<SectionData> getWhere(String query, Object... args) throws DataAccessException {
-        try(PreparedStatement statement = getConnection().prepareStatement("SELECT * FROM Section " + query + ";")) {
-            //for(int i = 0; i < args.length;) statement.setObject(i + 1, args[i]);
+    public ArrayList<SectionData> getAll() throws DataAccessException {
+        try(PreparedStatement statement = getConnection()
+            .prepareStatement("SELECT * FROM Section;"))
+        {
             ArrayList<SectionData> result = new ArrayList<>();
             try(ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
@@ -51,36 +51,26 @@ public class SectionDataDaoJdbc implements SectionDataDao {
     @Override
     public int getCount() throws DataAccessException {
         try(Statement statement = getConnection().createStatement();
-            ResultSet resultSet = statement.executeQuery("Select COUNT(sectionID) AS count FROM Section;")) {
+            ResultSet resultSet = statement.executeQuery("SELECT COUNT(sectionID) AS count FROM Section;")) {
             return resultSet.next() ? resultSet.getInt(1) : 0;
         } catch(SQLException exc) { throw new DataAccessException("SQLException: " + exc.getMessage()); }
     }
 
     @Override
-    public SectionData getById(int sectionID) throws DataAccessException {
-        ArrayList<SectionData> result = getWhere("WHERE sectionID ='" + sectionID + "'");
-        return result.isEmpty() ? null : result.get(0);
-    }
-
-    @Override
-    public Collection<SectionData> getAll() throws DataAccessException {
-        return getWhere("");
-    }
-
-    @Override
     public void store(SectionData section) throws DataAccessException {
-        try(Statement statement = getConnection().createStatement()) {
-            statement.executeUpdate(
-                String.format("INSERT INTO Section (name) VALUES ('%s');",
-                    section.getName()),
-                Statement.RETURN_GENERATED_KEYS
-            );
+        try(PreparedStatement preparedStatement = getConnection()
+            .prepareStatement("INSERT INTO Section (name) VALUES (?);"))
+        {
+           preparedStatement.setString(1, section.getName());
+           preparedStatement.executeUpdate();
         } catch (SQLException exc) { throw new DataAccessException("SQLException: " + exc.getMessage()); }
     }
 
     @Override
     public void delete(int sectionID) throws DataAccessException {
-        try(PreparedStatement preparedStatement = getConnection().prepareStatement("DELETE FROM Section Where sectionID = ?")) {
+        try(PreparedStatement preparedStatement = getConnection()
+            .prepareStatement("DELETE FROM Section Where sectionID = ?"))
+        {
             preparedStatement.setInt(1, sectionID);
             preparedStatement.executeUpdate();
         } catch (SQLException exc) {
