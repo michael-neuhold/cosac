@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 public class AOrderView extends BorderPane {
 
     private Button backButton = new Button("back");
+    private Button updateButton = new Button("update");
 
     private TableView<OrderData> table = new TableView();
 
@@ -28,8 +29,9 @@ public class AOrderView extends BorderPane {
         this.getStyleClass().add("window");
         this.setTop(Component.createHeader("orders"));
         this.setCenter(createOrderTables(timeSlots));
-        this.setBottom(Component.createBackButton(backButton));
+        this.setBottom(Component.createBackUpdateButton(backButton, updateButton));
         backButton.setOnAction(controller);
+        updateButton.setOnAction(controller);
     }
 
     private VBox createOrderTables(int timeSlots) {
@@ -58,6 +60,7 @@ public class AOrderView extends BorderPane {
         table.getSortOrder().add(timeslotCol);
     }
 
+    public Button getUpdateButton() { return updateButton; }
     public Button getBackButton() { return backButton; }
     public TableView getOrderTable() { return table; }
 

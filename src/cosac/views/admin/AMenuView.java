@@ -17,6 +17,7 @@ public class AMenuView extends BorderPane {
     private Button removeSectionButton = new Button("delete section");
     private Button addFoodButton = new Button("add food");
     private Button removeFoodButton = new Button("delete food");
+    private Button updateButton = new Button("update");
 
     private TextField addSectionNameField = new TextField();
     private TextField removeSectionIdField = new TextField();
@@ -41,7 +42,7 @@ public class AMenuView extends BorderPane {
         this.setCenter(createTableViews());
         this.setRight(createUserControls());
         this.getRight().setId("right");
-        this.setBottom(Component.createBackButton(backButton));
+        this.setBottom(Component.createBackUpdateButton(backButton, updateButton));
         setEventForwarding(controller);
     }
 
@@ -120,6 +121,7 @@ public class AMenuView extends BorderPane {
         removeSectionButton.setOnAction(controller);
         addFoodButton.setOnAction(controller);
         removeFoodButton.setOnAction(controller);
+        updateButton.setOnAction(controller);
     }
 
     public void resetTextFields() {
@@ -148,6 +150,8 @@ public class AMenuView extends BorderPane {
         return removeFoodButton;
     }
 
+    public Button getUpdateButton() { return updateButton; }
+
     public TextField getAddSectionNameField() {
         return addSectionNameField;
     }
@@ -175,4 +179,5 @@ public class AMenuView extends BorderPane {
     public TableView<SectionData> getSectionTable() {
         return sectionTable;
     }
+
 }

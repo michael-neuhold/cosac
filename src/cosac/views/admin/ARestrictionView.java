@@ -19,6 +19,7 @@ public class ARestrictionView extends BorderPane {
 
     private Button backButton = new Button("back");
     private Button addRestrictionButton = new Button("new restriction");
+    private Button updateButton = new Button("update");
 
     private TableColumn idCol = new TableColumn("id");
     private TableColumn startTimeCol = new TableColumn("start");
@@ -31,7 +32,7 @@ public class ARestrictionView extends BorderPane {
         this.getStyleClass().add("window");
         this.setTop(Component.createHeader("restrictions"));
         this.setCenter(createContent());
-        this.setBottom(Component.createBackButton(backButton));
+        this.setBottom(Component.createBackUpdateButton(backButton, updateButton));
         setEventForwarding(controller);
     }
 
@@ -80,8 +81,10 @@ public class ARestrictionView extends BorderPane {
         visitorLimitCol.setOnEditCommit(controller);
         backButton.setOnAction(controller);
         addRestrictionButton.setOnAction(controller);
+        updateButton.setOnAction(controller);
     }
 
+    public Button getUpdateButton() { return updateButton; }
     public Button getBackButton() { return backButton; }
     public Button getAddRestrictionButton() { return addRestrictionButton; }
     public TableView getRestrictionTable() { return restrictionTable; }

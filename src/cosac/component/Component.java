@@ -20,6 +20,16 @@ public class Component {
         return buttonWrapper;
     }
 
+    public static HBox createBackUpdateButton(Button backButton, Button updateButton) {
+        HBox buttonWrapper = new HBox(10);
+        buttonWrapper.getStyleClass().add("backButtonWrapper");
+        backButton.getStyleClass().add("backButton");
+        updateButton.getStyleClass().add("backButton");
+        buttonWrapper.getChildren().addAll(updateButton, backButton);
+        buttonWrapper.setAlignment(Pos.CENTER_RIGHT);
+        return buttonWrapper;
+    }
+
     public static HBox createUpdateButton(Button updateButton) {
         HBox buttonWrapper = new HBox();
         buttonWrapper.getStyleClass().add("backButtonWrapper");

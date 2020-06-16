@@ -57,6 +57,8 @@ public class ARestrictionController implements EventHandler {
         else if (source.equals(adminRestictionView.getAddRestrictionButton())) {
             popupView = new AddRestrictionView(this);
             showPopUp();
+        } else if (source.equals(adminRestictionView.getUpdateButton())) {
+            new Thread( () -> updateRestrictionTable() ).start();
         }
 
         if (popupView != null) handleAddRestrictionPopup(source);

@@ -28,6 +28,8 @@ public class AOrderController implements EventHandler<ActionEvent> {
         Object source = actionEvent.getSource();
         if(source.equals(adminOrderView.getBackButton()))
             sceneController.mountPreviousScene();
+        else
+            new Thread( () -> updateTable() ).start();
     }
 
     private void updateTable() {

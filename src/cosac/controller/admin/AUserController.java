@@ -69,6 +69,8 @@ public class AUserController implements EventHandler {
         } else if (source.equals(adminUserView.getLockUserButton())) {
             popupLockUser = new LockUserView(this);
             showPopUp(popupLockUser);
+        } else if (source.equals(adminUserView.getUpdateButton())) {
+            new Thread( () -> updateTable() ).start();
         }
 
         if (popupViewAddUser != null) handleAddUserPopup(source);

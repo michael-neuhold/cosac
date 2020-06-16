@@ -35,6 +35,7 @@ public class AMenuController implements EventHandler<ActionEvent> {
         else if(source.equals(adminMenuView.getRemoveFoodButton())) handleRemoveFood();
         else if(source.equals(adminMenuView.getAddSectionButton())) handleAddSection();
         else if(source.equals(adminMenuView.getRemoveSectionButton())) handleRemoveSection();
+        else if(source.equals(adminMenuView.getUpdateButton())) new Thread( () -> updateTables() ).start();
         adminMenuView.resetTextFields();
     }
 
