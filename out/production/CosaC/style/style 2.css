@@ -1,0 +1,218 @@
+/*==================*/
+
+.header {
+    -fx-background-color: rgb(137,188,65);
+    -fx-font-size: 20px;
+    -fx-padding: 10px;
+    -fx-alignment: center;
+    -fx-text-fill: white;
+}
+
+.backButton {
+    -fx-background-color: rgb(137,188,65);
+    -fx-text-fill: white;
+    -fx-padding: 10px 30px 10px 30px;
+    -fx-font-size: 20px;
+}
+
+.backButton:hover {
+    -fx-background-color: rgb(147,198,75);
+}
+
+.backButtonWrapper {
+    -fx-padding: 10px;
+}
+
+.window {
+    -fx-background-color: white;
+}
+
+.button {
+    -fx-background-color: rgb(137,188,65);
+    -fx-text-fill: white;
+    -fx-padding: 10px 30px 10px 30px;
+    -fx-font-size: 20px;
+}
+
+/*==================*/
+
+#login {
+    -fx-alignment: center;
+    -fx-background-color: white;
+}
+
+#loginPane {
+    -fx-alignment: center;
+}
+
+#loginBtn {
+    -fx-padding: 10px;
+}
+
+/*==================*/
+
+.inputWrapper {
+    -fx-padding: 10px;
+}
+
+.inputFieldLabel {
+    -fx-font-size: 20px;
+}
+
+.inputField {
+    -fx-border-color: black;
+    -fx-spacing: 10px;
+    -fx-padding: 10px;
+    -fx-min-width: 300px;
+}
+
+.inputField:focused {
+    -fx-focus-color: rgb(147,198,75);
+}
+
+#loginHeaderWrapper {
+    -fx-padding: 10px;
+    -fx-alignment: center;
+}
+
+#loginHeader {
+    -fx-font-size: 40px;
+}
+
+#loginButtonWrapper {
+    -fx-alignment: center;
+    -fx-padding: 10px;
+}
+
+#loginButton {
+    -fx-background-color: rgb(137,188,65);
+    -fx-text-fill: white;
+    -fx-padding: 10px 30px 10px 30px;
+    -fx-font-size: 20px;
+}
+
+#loginButton:hover {
+    -fx-background-color: rgb(147,198,75);
+}
+
+/*==================*/
+
+/* AdminOverview */
+
+.adminButtonWrapper {
+    -fx-alignment: center;
+}
+
+.adminMenuButton {
+    -fx-background-color: rgb(137,188,65);
+    -fx-text-fill: white;
+    -fx-padding: 10px 30px 10px 30px;
+    -fx-font-size: 20px;
+    -fx-min-width: 200px;
+}
+
+.adminMenuButton:hover {
+    -fx-background-color: rgb(147,198,75);
+}
+
+/*==================*/
+
+/* UserSettings */
+
+#UserListHeaderWrapper {
+    -fx-font-size: 40px;
+    -fx-padding: 10px;
+}
+
+#userTable {
+    -fx-tab-min-width: 50px;
+    -fx-border-color: white;
+}
+
+#restrictionTable {
+    -fx-tab-min-width: 50px;
+}
+
+
+.userMenuButton {
+    -fx-background-color: rgb(137,188,65);
+    -fx-text-fill: white;
+    -fx-padding: 10px 30px 10px 30px;
+    -fx-font-size: 20px;
+    -fx-min-width: 200px;
+}
+
+.userMenuButton:hover {
+    -fx-background-color: rgb(147,198,75);
+}
+
+#right {
+    -fx-padding: 20px;
+}
+
+#createUserBottom {
+    -fx-padding: 20px;
+}
+
+.popupControls {
+    -fx-padding: 20px;
+    -fx-alignment: center;
+}
+
+.popupButton {
+    -fx-background-color: rgb(137,188,65);
+    -fx-text-fill: white;
+    -fx-padding: 10px 30px 10px 30px;
+    -fx-font-size: 20px;
+    -fx-min-width: 200px;
+}
+
+.popupButton:hover {
+    -fx-background-color: rgb(147,198,75);
+}
+
+.timeslot {
+    -fx-font-size: 20px;
+}
+
+.ordertable {
+    -fx-padding: 10px;
+}
+
+#orderTableWrapper {
+    -fx-padding: 10px;
+}
+
+/* add restriction */
+
+#addRestrictionButtonWrapper {
+    -fx-alignment: center;
+    -fx-padding: 20px;
+}
+
+.smallInputField {
+    -fx-border-color: black;
+    -fx-spacing: 10px;
+    -fx-padding: 10px;
+    -fx-min-width: 50px;
+}
+
+#menuTableWrapper {
+    -fx-padding: 10px;
+}
+
+.subHeader {
+    -fx-font-size: 20px;
+}
+
+#loginErrorWrapper {
+    -fx-padding: 20px;
+    -fx-alignment: center;
+    -fx-border-radius: 5px;
+    -fx-min-width: 200px;
+}
+
+#loginError {
+    -fx-background-color: #ff7f72;
+    -fx-padding: 10px 30px 10px 30px;
+}

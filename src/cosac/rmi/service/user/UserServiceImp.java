@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class UserServiceImp implements UserService {
 
     @Override
-    public ArrayList<UserData> getAllUsers() {
+    public synchronized ArrayList<UserData> getAllUsers() {
         ArrayList<UserData> results = new ArrayList<>();
         try(UserDataDao userDataDao = new UserDataDaoJdbc(
             RMIConfig.CONNECTION_STRING, RMIConfig.USERNAME, RMIConfig.PASSWORD))
@@ -21,7 +21,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void updateUser(UserData user) {
+    public synchronized void updateUser(UserData user) {
         try(UserDataDao userDataDao = new UserDataDaoJdbc(
             RMIConfig.CONNECTION_STRING, RMIConfig.USERNAME, RMIConfig.PASSWORD))
         {
@@ -30,7 +30,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void insertUser(UserData user) {
+    public synchronized void insertUser(UserData user) {
         try(UserDataDao userDataDao = new UserDataDaoJdbc(
             RMIConfig.CONNECTION_STRING, RMIConfig.USERNAME, RMIConfig.PASSWORD))
         {

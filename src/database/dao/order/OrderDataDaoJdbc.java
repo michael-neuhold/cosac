@@ -72,7 +72,7 @@ public class OrderDataDaoJdbc implements OrderDataDao{
         try(Statement statement = getConnection().createStatement()) {
             statement.executeUpdate(
                 String.format("INSERT INTO Order_ (Restriction_restrictionID, User_userID, Food_foodID)" +
-                            "VALUES ('%d','%d','%d');",
+                            "VALUES ('%d','%s','%d');",
                     order.getRestrictionId(),
                     order.getUserId(),
                     order.getFoodId(),

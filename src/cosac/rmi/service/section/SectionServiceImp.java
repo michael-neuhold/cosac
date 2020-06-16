@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class SectionServiceImp implements SectionService {
 
     @Override
-    public ArrayList<SectionData> getAllSection() throws RemoteException {
+    public synchronized ArrayList<SectionData> getAllSection() throws RemoteException {
         ArrayList<SectionData> results = new ArrayList<>();
         try(SectionDataDao sectionDataDao = new SectionDataDaoJdbc(
             RMIConfig.CONNECTION_STRING, RMIConfig.USERNAME, RMIConfig.PASSWORD))
@@ -22,7 +22,7 @@ public class SectionServiceImp implements SectionService {
     }
 
     @Override
-    public void deleteSection(int sectionID) throws RemoteException {
+    public synchronized void deleteSection(int sectionID) throws RemoteException {
         try(SectionDataDao sectionDataDao = new SectionDataDaoJdbc(
             RMIConfig.CONNECTION_STRING, RMIConfig.USERNAME, RMIConfig.PASSWORD))
         {
@@ -31,7 +31,7 @@ public class SectionServiceImp implements SectionService {
     }
 
     @Override
-    public void insertSection(SectionData section) throws RemoteException {
+    public synchronized void insertSection(SectionData section) throws RemoteException {
         try(SectionDataDao sectionDataDao = new SectionDataDaoJdbc(
             RMIConfig.CONNECTION_STRING, RMIConfig.USERNAME, RMIConfig.PASSWORD))
         {

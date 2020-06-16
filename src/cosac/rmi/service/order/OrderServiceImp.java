@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class OrderServiceImp implements OrderService {
 
     @Override
-    public ArrayList<OrderData> getAllOrders() throws RemoteException {
+    public synchronized ArrayList<OrderData> getAllOrders() throws RemoteException {
         ArrayList<OrderData> results = new ArrayList<>();
         try (OrderDataDao orderDataDao = new OrderDataDaoJdbc(
                 RMIConfig.CONNECTION_STRING, RMIConfig.USERNAME, RMIConfig.PASSWORD)) {

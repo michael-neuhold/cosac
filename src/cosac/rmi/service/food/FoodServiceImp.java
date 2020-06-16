@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class FoodServiceImp implements FoodService {
 
     @Override
-    public ArrayList<FoodData> getAllFood() throws RemoteException {
+    public synchronized ArrayList<FoodData> getAllFood() throws RemoteException {
         ArrayList<FoodData> results = new ArrayList<>();
         try(FoodDataDao foodDataDao = new FoodDataDaoJdbc(
             RMIConfig.CONNECTION_STRING, RMIConfig.USERNAME, RMIConfig.PASSWORD))
@@ -22,7 +22,7 @@ public class FoodServiceImp implements FoodService {
     }
 
     @Override
-    public void deleteFood(int foodID) throws RemoteException {
+    public synchronized void deleteFood(int foodID) throws RemoteException {
         try(FoodDataDao foodDataDao = new FoodDataDaoJdbc(
             RMIConfig.CONNECTION_STRING, RMIConfig.USERNAME, RMIConfig.PASSWORD))
         {
@@ -31,7 +31,7 @@ public class FoodServiceImp implements FoodService {
     }
 
     @Override
-    public void insertFood(FoodData food) throws RemoteException {
+    public synchronized void insertFood(FoodData food) throws RemoteException {
         try(FoodDataDao foodDataDao = new FoodDataDaoJdbc(
             RMIConfig.CONNECTION_STRING, RMIConfig.USERNAME, RMIConfig.PASSWORD))
         {

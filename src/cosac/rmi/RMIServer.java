@@ -17,6 +17,7 @@ public class RMIServer {
 
     public static void main(String[] args) {
         try {
+
             LocateRegistry.createRegistry(RMIConfig.RMI_PORT);
 
             Naming.rebind(

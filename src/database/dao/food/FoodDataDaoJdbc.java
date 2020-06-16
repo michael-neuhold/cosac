@@ -70,7 +70,7 @@ public class FoodDataDaoJdbc implements FoodDataDao {
     @Override
     public void store(FoodData food) throws DataAccessException {
         try(PreparedStatement preparedStatement = getConnection()
-            .prepareStatement("INSERT INTO Food (name, Section_sectionID) VALUES (?,?);"))
+            .prepareStatement("INSERT INTO Food (name,Section_sectionID) VALUES (?,?)"))
         {
             preparedStatement.setString(1, food.getName());
             preparedStatement.setInt(2, food.getSectionId());

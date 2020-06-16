@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class RestrictionServiceImp implements RestrictionService {
 
     @Override
-    public ArrayList<RestrictionData> getAllRestrictions() throws RemoteException {
+    public synchronized ArrayList<RestrictionData> getAllRestrictions() throws RemoteException {
         ArrayList<RestrictionData> results = new ArrayList<>();
         try(RestrictionDataDao restrictionDataDao = new RestrictionDataDaoJdbc(
             RMIConfig.CONNECTION_STRING, RMIConfig.USERNAME, RMIConfig.PASSWORD))
@@ -22,7 +22,7 @@ public class RestrictionServiceImp implements RestrictionService {
     }
 
     @Override
-    public void updateRestriction(RestrictionData restriction) throws RemoteException {
+    public synchronized void updateRestriction(RestrictionData restriction) throws RemoteException {
         try(RestrictionDataDao restrictionDataDao = new RestrictionDataDaoJdbc(
             RMIConfig.CONNECTION_STRING, RMIConfig.USERNAME, RMIConfig.PASSWORD))
         {
@@ -31,7 +31,7 @@ public class RestrictionServiceImp implements RestrictionService {
     }
 
     @Override
-    public void insertRestriction(RestrictionData restriction) throws RemoteException {
+    public synchronized void insertRestriction(RestrictionData restriction) throws RemoteException {
         try(RestrictionDataDao restrictionDataDao = new RestrictionDataDaoJdbc(
             RMIConfig.CONNECTION_STRING, RMIConfig.USERNAME, RMIConfig.PASSWORD))
         {

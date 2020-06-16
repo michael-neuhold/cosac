@@ -3,10 +3,10 @@ package cosac.model;
 public class OrderDataInsert {
 
     private int restrictionId;
-    private int userId;
+    private String userId;
     private int foodId;
 
-    public OrderDataInsert(int restrictionId, int userId, int foodId) {
+    public OrderDataInsert(int restrictionId, String userId, int foodId) {
         this.restrictionId = restrictionId;
         this.userId = userId;
         this.foodId = foodId;
@@ -20,11 +20,11 @@ public class OrderDataInsert {
         this.restrictionId = restrictionId;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
